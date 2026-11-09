@@ -2674,7 +2674,8 @@ html.mx-light .mx-gmn{background-image:linear-gradient(90deg,#9a6f0e,#6e4f08 50%
 .fm-side > .fm-ptbrow{margin-top:auto;}
 .fm-tags{display:flex; flex-direction:column; align-items:center; gap:4px; width:100%; min-width:0;}
 .fm-tags .mx-tftag{margin-top:0; font-size:13px;}
-.fm-tags .mx-st-off{display:none;}
+.fm-tags .mx-st-off{display:inline-block; opacity:.32; filter:grayscale(.7);}   /* MOD v12.35: en la batalla se ven los dos estilos: el que usa, resaltado, y el otro, opaco */
+.fm-tags .mx-st2 .style-tag.mx-st-on{box-shadow:0 0 0 2px currentColor inset, 0 0 12px currentColor; transform:scale(1.06);}
 .fm-tags .style-tag{margin-top:0;}
 .fm-tags .tag-mini{margin:0;}
 .fm-tags .tag-mini.mx-stk{font-size:11px; padding:1px 7px; margin-top:0; white-space:normal; max-width:100%; text-align:center; line-height:1.25;}
@@ -2711,6 +2712,8 @@ html.mx-light .mx-gmn{background-image:linear-gradient(90deg,#9a6f0e,#6e4f08 50%
 /* MOD v12.18: mezclar plantillas */
 .mx-mix-list{display:flex; flex-direction:column; gap:8px; max-height:min(52vh,420px); overflow:auto; padding-right:2px;}
 .mx-mix-r{background:var(--bg-alt); border:1px solid var(--line); border-radius:10px; padding:7px 10px;}
+.mx-trfwarn{color:#ffd36b; font-weight:600;} .mx-trflist{margin:6px 0 4px 18px; padding:0; display:flex; flex-direction:column; gap:6px; font-size:14px;}
+.mx-mixlk{display:flex; flex-wrap:wrap; gap:5px; margin-top:6px;} .mx-lk{font:inherit; font-size:13px; padding:3px 9px; border-radius:999px; border:1px solid var(--line); background:var(--card); color:var(--white); cursor:pointer;} .mx-lk.on{border-color:var(--gold, #d4af37); background:rgba(212,175,55,.16);} .mx-lk:disabled{opacity:.75; cursor:default;} .mx-lk small{color:var(--gray);}   /* MOD v12.34: candados de la mezcla */
 .mx-mix-h{display:flex; align-items:center; gap:6px; font-family:var(--font-cond); font-size:15px;} .mx-mix-h small{color:var(--gray); margin-left:auto;}
 .mx-mix-l{font-size:13.5px; margin-top:3px; line-height:1.35;} .mx-mix-l small{color:var(--gray);} .mx-mix-l.in{color:#9ff0c4;} .mx-mix-l.out{color:#ffb4a8;}
 
@@ -2736,6 +2739,17 @@ html.mx-light .mx-gmn{background-image:linear-gradient(90deg,#9a6f0e,#6e4f08 50%
 
 /* MOD v12.18: cartel de la jornada más ancho, como los resultados (para que quepan los nombres) */
 .fm-lineup{max-width:min(1100px, 100%);}
+/* MOD v12.33: cruces que se pueden tocar para leer la explicación larga */
+.ctr-tap{cursor:pointer; border-radius:6px;} .ctr-tap:hover, .wsg-x:hover{background:rgba(255,255,255,.07);}
+.ctr-i{font-style:normal; font-size:.85em; opacity:.65; margin-left:4px;}
+.wsg-x{cursor:pointer; border-radius:6px; padding:1px 3px;}
+#ctrX{position:fixed; inset:0; z-index:99998;} #ctrX .ctrx-bg{position:absolute; inset:0; background:rgba(0,0,0,.7); display:flex; align-items:center; justify-content:center; padding:12px; overflow:auto;}
+#ctrX .ctrx-box{max-width:560px; width:100%; max-height:96vh; overflow:auto; padding:16px 18px; border-radius:16px; background:var(--card); border:1px solid var(--line); box-shadow:0 20px 60px rgba(0,0,0,.6); color:var(--white);}
+#ctrX .ctrx-h{display:flex; align-items:center; flex-wrap:wrap; gap:8px; font-family:var(--font-cond); font-size:17px;} #ctrX .ctrx-h b{color:#4bd18f; text-transform:uppercase; letter-spacing:.04em;}
+#ctrX .ctrx-s{margin:10px 0 6px; font-style:italic; color:var(--gold, #d4af37); font-size:16px;}
+#ctrX .ctrx-l{margin:0 0 10px; font-size:15.5px; line-height:1.5;}
+#ctrX .ctrx-n{margin:0 0 12px; font-size:13px; color:var(--gray); line-height:1.4;}
+#ctrX .ctrx-a{display:flex; justify-content:flex-end;}
 .mm-web{margin:-4px 0 12px; text-align:center; font-family:var(--font-cond); font-weight:700; letter-spacing:.04em; color:var(--gray);}
 
 /* Gazir contra Todos */
@@ -2778,9 +2792,33 @@ html.mx-light .gct-title{color:#141414 !important; -webkit-text-fill-color:#1414
 
 #gct .wgt-skiptb{border-style:dashed; opacity:.85;} #gct .wgt-skiptb em{opacity:.7;}
 #gct .wgt-pips i.ok.sk{background:rgba(255,255,255,.08); border:1px dashed rgba(255,255,255,.45); color:rgba(255,255,255,.75);}
+
+#wgtSty{position:fixed; inset:0; z-index:99995; overflow:auto; padding:12px 18px 20px; color:#f3eef6; font-size:15.5px; line-height:1.4;
+  background:radial-gradient(ellipse at 50% 0%, #3a1220 0%, #12070c 60%, #07040a 100%);}
+#wgtSty .wsg-top{display:flex; align-items:center; justify-content:space-between; gap:12px; position:sticky; top:-12px; z-index:2; margin:-12px -18px 0; padding:10px 18px 8px; background:rgba(18,7,12,.94); backdrop-filter:blur(6px);}
+#wgtSty .wsg-top .gct-x{flex:none; width:42px; height:42px; border-radius:50%; border:1px solid rgba(255,255,255,.2); background:rgba(255,255,255,.08); color:#fff; font-size:20px; line-height:1; cursor:pointer;}
+#wgtSty h2{margin:0; font-family:var(--font-display, var(--font-cond)); font-size:30px; letter-spacing:.02em; color:#ffd36b;}
+#wgtSty .wsg-intro{max-width:880px; margin:6px 0 12px; color:rgba(255,255,255,.82);}
+#wgtSty .wsg-sum{display:grid; grid-template-columns:minmax(220px,300px) 1fr; gap:6px 20px; align-items:start;}
+#wgtSty .wsg-wheel{grid-row:span 2; cursor:pointer;} #wgtSty .wsg-wheel svg{width:100%; height:auto; display:block;}
+#wgtSty .wsg-leg{margin:0; font-size:13.5px; color:rgba(255,255,255,.65);} #wgtSty .g{color:#4bd18f;} #wgtSty .r{color:#ff7b7b;}
+#wgtSty .wsg-t{width:100%; border-collapse:collapse; font-size:14px;} #wgtSty .wsg-t th{text-align:left; font-weight:700; color:#ffd36b; padding:4px 6px; border-bottom:1px solid rgba(255,255,255,.18);}
+#wgtSty .wsg-t td{padding:4px 6px; border-bottom:1px solid rgba(255,255,255,.07);} #wgtSty .wsg-t tr{cursor:pointer;} #wgtSty .wsg-t tr.sel td{background:rgba(255,211,107,.12);}
+#wgtSty .wsg-t .style-tag, #wgtSty .wsg-l .style-tag{margin:1px 2px 1px 0;}
+#wgtSty .wsg-h{margin:16px 0 8px; font-family:var(--font-cond); font-weight:800; letter-spacing:.04em; font-size:18px; color:#ffd36b; text-transform:uppercase;}
+#wgtSty .wsg-cards{display:grid; grid-template-columns:repeat(auto-fill, minmax(330px, 1fr)); gap:10px;}
+#wgtSty .wsg-card{padding:10px 12px; border-radius:12px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.12); scroll-margin-top:72px;}
+#wgtSty .wsg-card.sel{border-color:#ffd36b; box-shadow:0 0 0 1px #ffd36b inset;}
+#wgtSty .wsg-ch{display:flex; flex-direction:column; align-items:flex-start; gap:4px; margin-bottom:8px;} #wgtSty .wsg-ch small{font-size:13px; color:rgba(255,255,255,.62); line-height:1.35;}
+#wgtSty .wsg-l{margin-top:6px;} #wgtSty .wsg-l > b{display:block; font-size:13.5px; margin-bottom:3px;}
+#wgtSty .wsg-l > div{display:flex; align-items:baseline; gap:8px; margin:3px 0;} #wgtSty .wsg-l > div span:last-child{font-size:14px; color:rgba(255,255,255,.85);}
+#wgtSty .wsg-end{display:flex; justify-content:center; margin-top:16px;}
+#pmMg .wsg-mgbtn{margin:8px auto 0; display:block;}
+#gct .wsg-gl{margin:6px 0 0; opacity:1 !important;} #gct .wsg-gl a{color:#ffd36b;}
+@media (max-width:640px){ #wgtSty .wsg-sum{grid-template-columns:1fr;} #wgtSty .wsg-wheel{grid-row:auto; max-width:300px; margin:0 auto;} #wgtSty .wsg-cards{grid-template-columns:1fr;} }
 .mm-hero{display:block; width:min(560px, 92vw); max-height:42vh; object-fit:cover; border-radius:18px; margin:6px auto 4px; box-shadow:0 10px 40px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.08);}
 .gct-cred{margin:22px 0 8px; text-align:center; font-family:var(--font-cond); font-size:14px; color:var(--gray);}
-#verTag{display:none !important;}
+#verTag{display:none !important;} .gct-ver{margin-top:-4px; font-size:12px; opacity:.7;}
 </style>
 </head>
 <body>
@@ -2855,6 +2893,7 @@ MX_THEMES.forEach(t=>LEAGUES.push(t));
 /* MOD v12.13: FMS Disonantes ya no se puede crear; se queda solo para las partidas que ya la tenían */
 LEAGUES.push({key:'fms_t_dis', name:'FMS Disonantes', short:'DIS', countries:[], theme:'disonantes', badge:'#6A1B9A', fg:'#fff', ic:'🌀', legacy:true, d:'Los MCs más imprevisibles, los que no se parecen a nadie.'});
 /* MOD v12.13: FMS Monochrome: el estilo de la temporada se elige dentro de la liga (así la liga sigue y no pierde su hype) */
+function mxMonoAlt(f, st){ if(!f || typeof MX_EDITIONS==='undefined') return false; return Object.keys(MX_EDITIONS).some(n=>{ const e=MX_EDITIONS[n]; return e && e.base===f.name && !e.hidden && (mxEdStyles(n)||[]).includes(st); }); }
 function isMonoK(k){ return (LEAGUES.find(l=>l.key===k)||{}).theme==='mono'; }
 function mxMonoSt(k, s){ s=s||cur(); const L=s && s.leagues && s.leagues[k]; return (L && L.monoSt) || null; }
 function mxMonoAvail(s, k, st){ return state.freestylers.filter(f=>!f.custom && !f.plaza && !editionOf(f) && !MX_NO_COMP.has(f.name) && styleOf(f)===st && (!signedLeagueOf(s,f.id) || signedLeagueOf(s,f.id)===k) && !isJudgeId(s,f.id) && !isSpeakerId(s,f.id)).length; }
@@ -2863,7 +2902,7 @@ function mxMonoSet(k, st){ const s=cur(), L=s && s.leagues[k]; if(!L || s.phase!
   toast(`${ldef(k).name}: esta temporada todos son ${st}.${out.length?` Salen ${out.length} que no eran ${st}.`:''}`); render(); }
 function mxMonoBox(s, k){ const L=s.leagues[k]; if(!L || !isMonoK(k)) return ''; const cur_=L.monoSt; const pre=s.phase==='pre';
   if(!pre) return `<div class="mx-mono-box"><b>⚫ Estilo de la temporada:</b> ${cur_?styleTag({style:cur_,name:cur_}):'—'}</div>`;
-  return `<div class="mx-mono-box"><div class="mx-mono-h"><b>⚫ Elige el estilo de la temporada</b><small>${cur_?`Todos los MCs de ${esc(ldef(k).name)} serán ${cur_}. Si lo cambias, salen los fichados que no encajan.`:'Primero el estilo: después salen los MCs disponibles para fichar.'}</small></div>
+  return `<div class="mx-mono-box"><div class="mx-mono-h"><b>⚫ Elige el estilo de la temporada</b><small>${cur_?`Todos los MCs de ${esc(ldef(k).name)} serán ${cur_} (también entran los que lo tienen como segundo estilo de su carta especial, y aquí rapean con él). Si lo cambias, salen los fichados que no encajan.`:'Primero el estilo: después salen los MCs disponibles para fichar.'}</small></div>
     <div class="mx-mono-sts">${STYLE_NAMES.map(st=>{ const n=mxMonoAvail(s,k,st), few=n<lgSize(k,s); return `<button class="mx-mono-st ${st===cur_?'on':''}${few?' few':''}" onclick="mxMonoSet('${k}','${st}')" aria-pressed="${st===cur_}" title="${few?`Solo hay ${n}: no llegan para los ${lgSize(k,s)} de la liga`:''}">${styleTag({style:st,name:st})}<small>${n} libres${few?' · ⚠️ no llegan':''}</small></button>`; }).join('')}</div></div>`; }
 const MX_THEME_STARS=5;
 /* FMS What If: los que tienen carta What If salen con ella en TODAS las jornadas (gratis); el resto juega normal */
@@ -2885,7 +2924,7 @@ function mxLtOpen(){ const s=cur(); if(!s || s.phase!=='pre') return; if((state.
 function mxLtToggle(k, reopen){ const s=cur(); const was=s && s.activeKeys.includes(k); toggleLeague(k); if(s && !was && s.activeKeys.includes(k)) toast(isMonoK(k) ? `${ldef(k).name} creada: entra en su página, elige el estilo de la temporada y ficha a sus ${lgSize(k,s)} MCs.` : `${ldef(k).name} creada: ficha a sus ${lgSize(k,s)} MCs en su página.`); if(reopen) mxLtOpen(); }
 function isThemeK(k){ const d=k && LEAGUES.find(l=>l.key===k); return !!(d && d.theme); }
 function mxLtOk(k, f){ const d=LEAGUES.find(l=>l.key===k); if(!d || !d.theme || !f) return true; if(editionOf(f)){ const b=mxBaseOf(f); return !!b && mxLtOk(k, b); }   // una carta especial encaja si encaja su carta normal
-  switch(d.theme){ case 'mujeres': return isWoman(f.id); case 'disonantes': return MX_DISONANTES.has(f.name); case 'promesas': return MX_PROMESAS.has(f.name); case 'mono': { const st=mxMonoSt(k); return !!st && styleOf(f)===st; }
+  switch(d.theme){ case 'mujeres': return isWoman(f.id); case 'disonantes': return MX_DISONANTES.has(f.name); case 'promesas': return MX_PROMESAS.has(f.name); case 'mono': { const st=mxMonoSt(k); return !!st && (styleOf(f)===st || mxMonoAlt(f, st)); }   /* MOD v12.36: también el que tiene ese estilo como segundo estilo de su carta especial */
     case 'artistas': return catOf(f)==='cantante'; case 'leyendas': return catOf(f)==='leyenda'; default: return true; } }
 function mxLtWhy(k, f){ const d=LEAGUES.find(l=>l.key===k)||{}; if(d.theme==='mono'){ const st=mxMonoSt(k); return st ? `${f?f.name:'Ese MC'} no puede entrar en ${d.name}: esta temporada todos son ${st}.` : `Primero elige el estilo de la temporada de ${d.name}.`; } const t={mujeres:'solo pueden entrar freestyleras', disonantes:'solo pueden entrar Disonantes', promesas:'solo pueden entrar promesas', artistas:'solo pueden entrar artistas', leyendas:'solo pueden entrar históricos'}[d.theme]; return `${f?f.name:'Ese MC'} no puede entrar en ${d.name||'esta liga'}${t?': '+t:''}.`; }
 function mxLtPool(k){ return state.freestylers.filter(f=>!f.custom && !f.plaza && !editionOf(f) && !MX_NO_COMP.has(f.name) && mxLtOk(k, f)); }
@@ -3011,12 +3050,12 @@ const LEGEND_MULT = 1.5;  // las leyendas cobran un 50% más solo por serlo
 /* ---- estilos de freestyle ---- */
 // v: variabilidad entre rondas (1 = normal) · m: ventaja/desventaja por tipo de ronda (en puntos de nivel)
 const STYLES = {
-  'Punchline':  {v:0.6, m:{deluxe:4, min:-3},                         txt:'Cuadrado y constante. Destaca en el Deluxe, sufre en los minutos libres.'},
-  'Ingenio':    {v:0.6, m:{tema:5, min:-4},                           txt:'Cuadrado y constante. Destaca en Temáticas (y en el Random Mode cuando no hay Temáticas), baja en los minutos.'},
-  'Métrico':    {v:1.5, m:{min:4, easy:4, tema:-4, random:-4},        txt:'Muy irregular. Destaca en minutos y Easy Mode, baja en Temáticas y Random Mode.'},
-  'Flow':       {v:1.5, m:{easy:-4, hard:-4, min:4},                  txt:'Muy irregular. Sube en los minutos, baja en Easy y Hard Mode (y en el Deluxe cuando no los hay).'},
-  'Espectáculo':    {v:1,   m:{}, views:1.15,                             txt:'No destaca en ninguna ronda, pero sus batallas tienen más visitas.'},
-  'Completo':   {v:0.5, m:{},                                         txt:'Muy constante y completo: rinde igual en cualquier tipo de ronda, sin puntos débiles.'},
+  'Punchline':  {v:0.6, m:{deluxe:4, min:-3},                         txt:'Remates contundentes al final de cada cuarteto. Constante. Destaca en el Deluxe, sufre en los minutos libres.'},
+  'Ingenio':    {v:0.6, m:{tema:5, min:-4},                           txt:'Juegos de palabras, dobles sentidos y conceptos. Cuadrado y constante. Destaca en Temáticas (y en el Random Mode cuando no hay Temáticas), baja en los minutos.'},
+  'Métrico':    {v:1.5, m:{min:4, easy:4, tema:-4, random:-4},        txt:'Técnica, velocidad y métrica exacta: multisilábicas y doble tempo. Muy irregular. Destaca en minutos y Easy Mode, baja en Temáticas y Random Mode.'},
+  'Flow':       {v:1.5, m:{easy:-4, hard:-4, min:4},                  txt:'Ritmo y musicalidad: se pega al beat y lo hace sonar. Muy irregular. Sube en los minutos, baja en Easy y Hard Mode (y en el Deluxe cuando no los hay).'},
+  'Espectáculo':    {v:1,   m:{}, views:1.15,                             txt:'Puesta en escena, gestos y conexión con el público. No destaca en ninguna ronda, pero sus batallas tienen más visitas.'},
+  'Completo':   {v:0.5, m:{},                                         txt:'Muy constante y completo: rinde igual en cualquier tipo de ronda, sin una ronda floja.'},
   'Narrativo':  {v:0.6, m:{easy:3, hard:-3}, spike:true,            txt:'Cada cuarteto cuenta algo: barras que avanzan con sentido hasta un cierre, unas veces lógico y otras con un remate poético. Constante; destaca en Easy Mode, baja en Hard Mode y de vez en cuando se sale en una ronda.'},   /* MOD v12.14: Poético + Coherencia */
   /* MOD v12.13: dos estilos nuevos */
   'Rapper':     {v:0.8, m:{min:4, hard:4, tema:-4, random:-4},        txt:'Rapero de pura cepa: vive el rap, lo respeta y lo lleva en la sangre. Cada barra suena a rap de verdad, con oficio, actitud y sentimiento. Destaca en los minutos y en Hard Mode; baja en Temáticas y Random Mode, donde pesa más el concepto que el rap.'},
@@ -3466,14 +3505,14 @@ function webPmLeagueTf(L){ try{ const s=cur(); if(!s || !L || !state.company || 
   (L.competitors||[]).forEach(id=>{ const f=fby(id); if(!f || editionOf(f)) return; const eds=webEds(f.name); if(!eds.length || Math.random()>=WEB_PM_TF_P) return;
     L.tf=L.tf||{}; L.tfLeft=L.tfLeft||{}; if(L.tf[id]) return; L.tf[id]=pick(eds); L.tfLeft[id]=3; }); }catch(e){ console.error(e); } }
 /* Gazir contra Todos: rivales transformados al azar y Gazir transformado desde la victoria 190 */
-var GCT_TF_PB=0.60, GCT_TF_PN=0.06; const GCT_TF_WINS=190;   /* élite: 60% con su Special edition; el resto: 6% con su Great Moment o What If */
+var GCT_TF_PB=0.55, GCT_TF_PN=0.06; const GCT_TF_WINS=190;   /* élite: 55% con su Special edition; el resto: 6% con su Great Moment o What If */
 function webEdsGW(base){ return Object.entries(MX_EDITIONS).filter(([n,e])=>e && e.base===base && !e.hidden && !e.custom && (e.grm || e.wi)).map(([n])=>n); }
 function webGctMkTf(f, eds){ const n=pick(eds); const e=MX_EDITIONS[n];
   return Object.assign({}, f, {name:f.name+' '+(e.ic||'🏆'), base:f.name, ed:n, nivel:Math.round(e.nv||f.nivel), photo:(typeof mxEdFace==='function' && mxEdFace(n)) || (typeof FACES!=='undefined' && FACES[n]) || undefined}); }
 function webGctDrawTf(sched){ sched.forEach(x=>{ x.o=x.o.map(f=>{ const eds=x.boss ? webEds(f.name) : webEdsGW(f.name); return (eds.length && Math.random()<(x.boss ? GCT_TF_PB : GCT_TF_PN)) ? webGctMkTf(f, eds) : f; }); }); return sched; }
 function webGctTf(S, t){ if(S.tf) return; const eds=webEds('Gazir'); if(!eds.length) return; const n=pick(eds); S.tf=n; S.tfNv=Math.max(S.base, (MX_EDITIONS[n]||{}).nv||S.base); S.tfAt=t; S.ev.push({t, k:'tf', n}); }
 function webGctFace(n){ return (typeof mxEdFace==='function' && mxEdFace(n)) || (typeof FACES!=='undefined' && FACES[n]) || null; }
-function webGctFlash(list, ms, done){ const ov=document.getElementById('gct'); if(!ov){ done(); return; }
+function webGctFlash(list, ms, done){ const ov=document.getElementById('gct'); if(!ov){ done(); return; } mxCardSfx(mxCardKinds(list.map(x=>x.n)));   /* MOD v12.34 */
   const cards=list.map(({n, txt})=>{ const e=MX_EDITIONS[n]||{}; const [c,cl]=(typeof mxEdCol==='function') ? mxEdCol(n) : ['#d4af37','#fff3c4']; const ph=webGctFace(n);
     return `<div class="wgt-card" style="--c:${c}; --cl:${cl}">${ph?`<img src="${ph}" alt="">`:`<span class="wgt-ini">${gctEsc((e.base||'?')[0])}</span>`}<b>${gctEsc(txt)}</b><span class="wgt-tag">${e.ic||'🏆'} ${gctEsc(e.t||n)}</span><span class="wgt-nv">Media <em>${e.nv||''}</em></span></div>`; }).join('');
   const el=document.createElement('div'); el.className='wgt-flash'; el.style.setProperty('--T', ms+'ms'); el.innerHTML=`<div class="wgt-in">${cards}</div>`; ov.appendChild(el);
@@ -3481,7 +3520,32 @@ function webGctFlash(list, ms, done){ const ov=document.getElementById('gct'); i
 function webGctPre(X){ const x=X.sched[X.t]; if(!x) return false; X.tfSeen=X.tfSeen||{}; if(X.tfSeen[X.t]) return false; X.tfSeen[X.t]=true; const list=[];
   if(!X.R.tf && X.R.W>=GCT_TF_WINS){ webGctTf(X.R, X.t); if(X.R.tf) list.push({n:X.R.tf, txt:`¡${GCT_TF_WINS} victorias! ${mxTfPhrase(X.R.tf)}`}); }
   x.o.filter(f=>f.ed).forEach(f=>list.push({n:f.ed, txt:mxTfPhrase(f.ed)}));
-  if(!list.length) return false; X.wait=true; webGctFlash(list, X.sp===1 ? 3000 : 1100, ()=>{ X.wait=false; }); return true; }
+  if(!list.length) return false; X.wait=true; webGctFlash(list, X.sp===1 ? 3000 : 2000, ()=>{ X.wait=false; }); return true; }
+
+/* WEB: guía de estilos para los jugadores */
+function webStyId(x){ return 'wsg-'+x.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase(); }
+function webStyWheel(sel){ return ctrWheelSvg(sel).replace(/ onclick="[^"]*"/g, ''); }
+function webStyG(){ let ov=document.getElementById('wgtSty'); if(!ov){ ov=document.createElement('div'); ov.id='wgtSty'; document.body.appendChild(ov); }
+  const tag=x=>styleTag({style:x,name:x});
+  const rows=STYLE_WHEEL.map(s=>`<tr onclick="webStySel('${s}')"><td>${tag(s)}</td><td>${beatsList(s).map(tag).join(' ')}</td><td>${beatenBy(s).map(tag).join(' ')}</td></tr>`).join('');
+  const cards=STYLE_WHEEL.map(s=>`<section class="wsg-card" id="${webStyId(s)}"><div class="wsg-ch">${tag(s)}<small>${esc(STYLES[s].txt)}</small></div>
+      <div class="wsg-l"><b class="g">✓ Le gana a</b>${beatsList(s).map(x=>`<div class="wsg-x" onclick="ctrExplain('${s}','${x}')">${tag(x)}<span>${esc(CTR_WHY[s+'>'+x]||'')}<i class="ctr-i">ⓘ</i></span></div>`).join('')}</div>
+      <div class="wsg-l"><b class="r">✗ Pierde contra</b>${beatenBy(s).map(x=>`<div class="wsg-x" onclick="ctrExplain('${x}','${s}')">${tag(x)}<span>${esc(CTR_WHY[x+'>'+s]||'')}<i class="ctr-i">ⓘ</i></span></div>`).join('')}</div></section>`).join('');
+  ov.innerHTML=`<div class="wsg-top"><h2>📖 Guía de estilos</h2><button class="gct-x" onclick="webStyGClose()" aria-label="Cerrar">✕</button></div>
+    <p class="wsg-intro">Hay ${STYLE_WHEEL.length} estilos. Cada uno le gana a 3, pierde contra 3 y con los otros 2 está parejo. En las batallas del modo Promesa lo que más pesa es el nivel: el estilo solo inclina la balanza cuando los dos están parejos. En Gazir contra Todos, las 200 batallas no dependen del estilo, pero en el minijuego <b>Contrarréplica</b> tienes que responder con el estilo que le gana al del rival.</p>
+    <div class="wsg-sum"><div class="wsg-wheel mx-wheel" onclick="const g=event.target.closest('g.n'); if(g) webStySel(g.textContent.trim())">${webStyWheel(null)}</div><p class="wsg-leg">Cada flecha va del estilo que gana al que pierde. Toca un estilo para ver solo los suyos, y toca cualquier cruce (ⓘ) para leer la explicación completa.</p>
+      <table class="wsg-t"><thead><tr><th>Estilo</th><th>Le gana a</th><th>Pierde contra</th></tr></thead><tbody>${rows}</tbody></table></div>
+    <div class="wsg-h">Por qué gana cada uno</div><div class="wsg-cards">${cards}</div>
+    <div class="wsg-end"><button class="btn primary" onclick="webStyGClose()">Entendido</button></div>`;
+  ov.scrollTop=0; }
+function webStySel(st){ const ov=document.getElementById('wgtSty'); if(!ov || !STYLES[st]) return; const on=ov.dataset.sel===st; ov.dataset.sel=on?'':st;
+  const w=ov.querySelector('.wsg-wheel'); if(w) w.innerHTML=webStyWheel(on?null:st);
+  const leg=ov.querySelector('.wsg-leg'); if(leg) leg.innerHTML = on ? 'Cada flecha va del estilo que gana al que pierde. Toca un estilo para ver solo los suyos.' : `<span class="g">Verde: a quién le gana ${esc(st)}</span> · <span class="r">rojo: quién le gana a ${esc(st)}</span>`;
+  ov.querySelectorAll('.wsg-t tr').forEach(tr=>tr.classList.toggle('sel', !on && !!tr.querySelector('td') && tr.querySelector('td').textContent.trim()===st));
+  ov.querySelectorAll('.wsg-card').forEach(c=>c.classList.toggle('sel', !on && c.id===webStyId(st)));
+  if(!on){ const c=document.getElementById(webStyId(st)); if(c) setTimeout(()=>c.scrollIntoView({behavior:'smooth', block:'nearest'}), 60); } }
+function webStyGClose(){ const o=document.getElementById('wgtSty'); if(o) o.remove(); }
+function webStyBtn(g){ return g && g.k===3 ? `<button class="btn ghost small wsg-mgbtn" onclick="webStyG()">📖 Guía de estilos: quién le gana a quién</button>` : ''; }
 function mxKoTfInit(ids){ if(state.company && state.company.mode==='promesa') return webTfPool(ids); if(!legendsOn()) return null; const pool={};   /* MOD v12.20: en Red Bull, internacionales y copas no hacen falta estrellas, solo el Modo Históricos */
   (ids||[]).forEach(id=>{ const f=fby(id); if(!f || editionOf(f)) return; const eds=state.freestylers.filter(x=>mxEdVisible(x) && editionOf(x).base===f.name); if(eds.length) pool[id]=pick(eds).name; });
   return Object.keys(pool).length ? {pool, used:{}} : null; }
@@ -3716,18 +3780,57 @@ function traitIcons(f){ return traitsOf(f).map(k=>`<span class="mx-ti" title="${
 /* ---- counters de estilo: cada estilo le gana a 3 y pierde contra 3 (con 9 estilos, los otros 2 son neutros) ----
    MOD v12.13: 11 estilos. Rapper y Disonante entran «en medio» de 3 counters que había cada uno (X > nuevo > Y), así nadie gana ni pierde counters */
 const STYLE_WHEEL=['Ingenio','Rapper','Punchline','Completo','Espectáculo','Disonante','Narrativo','Flow','Métrico'];   /* MOD v12.14: sin Aura y con Narrativo (Poético + Coherencia): 9 estilos */
-const STYLE_BEATS={'Ingenio':['Punchline', 'Flow', 'Rapper'], 'Punchline':['Narrativo', 'Rapper', 'Disonante'], 'Completo':['Flow', 'Espectáculo', 'Punchline'], 'Espectáculo':['Narrativo', 'Métrico', 'Ingenio'], 'Narrativo':['Ingenio', 'Completo', 'Flow'], 'Flow':['Punchline', 'Métrico', 'Disonante'], 'Métrico':['Ingenio', 'Completo', 'Rapper'], 'Rapper':['Espectáculo', 'Completo', 'Disonante'], 'Disonante':['Espectáculo', 'Métrico', 'Narrativo']};   /* MOD v12.14: Disonante ya no le gana a Flow: le gana a Narrativo (y Narrativo a Flow, Flow a Disonante) */
-const CTR_WHY={   /* MOD v12.14: 9 estilos */
-  'Ingenio>Punchline':'le da la vuelta a sus remates', 'Ingenio>Flow':'le pide contenido a cada sonido', 'Ingenio>Rapper':'le gana con conceptos donde el otro solo rapea',
-  'Punchline>Narrativo':'un remate seco le corta la historia', 'Punchline>Rapper':'un remate letal le corta el rap', 'Punchline>Disonante':'un remate seco le corta el caos',
-  'Completo>Flow':'su constancia aguanta más que el sonido', 'Completo>Espectáculo':'la solidez vence al espectáculo', 'Completo>Punchline':'aguanta los remates y gana ronda a ronda',
-  'Espectáculo>Narrativo':'enciende al público mientras el otro construye', 'Espectáculo>Métrico':'el público vibra más con el show que con la técnica', 'Espectáculo>Ingenio':'el público vibra más con el show que con los juegos de palabras',
-  'Narrativo>Ingenio':'desarma sus juegos de palabras con cuartetos que tienen sentido', 'Narrativo>Completo':'la historia bien contada destaca sobre lo regular', 'Narrativo>Flow':'cada cuarteto con sentido pesa más que el sonido',
-  'Flow>Punchline':'el ritmo le quita espacio a los remates', 'Flow>Métrico':'más musical, menos mecánico', 'Flow>Disonante':'el ritmo pone orden en su caos',
-  'Métrico>Ingenio':'lo ahoga en técnica y velocidad', 'Métrico>Completo':'la técnica pura supera a la regularidad', 'Métrico>Rapper':'lo ahoga en técnica y velocidad',
-  'Rapper>Espectáculo':'el rap de verdad pesa más que el espectáculo', 'Rapper>Completo':'lo siente en la sangre: no se queda en lo correcto', 'Rapper>Disonante':'el rap de verdad no se pierde en el caos',
-  'Disonante>Espectáculo':'le roba el foco con lo que nadie espera', 'Disonante>Métrico':'le descuadra la métrica y la estructura', 'Disonante>Narrativo':'le rompe la historia con lo que nadie espera',
+const STYLE_BEATS={'Ingenio':['Espectáculo', 'Narrativo', 'Flow'], 'Punchline':['Ingenio', 'Completo', 'Métrico'], 'Completo':['Espectáculo', 'Narrativo', 'Flow'], 'Espectáculo':['Rapper', 'Narrativo', 'Métrico'], 'Narrativo':['Disonante', 'Punchline', 'Flow'], 'Flow':['Punchline', 'Disonante', 'Rapper'], 'Métrico':['Ingenio', 'Completo', 'Rapper'], 'Rapper':['Ingenio', 'Completo', 'Disonante'], 'Disonante':['Punchline', 'Espectáculo', 'Métrico']};   /* WEB: tabla revisada con los cruces fijos del autor */   /* MOD v12.14: Disonante ya no le gana a Flow: le gana a Narrativo (y Narrativo a Flow, Flow a Disonante) */
+const CTR_WHY={   /* WEB: tabla revisada, una explicación distinta para cada cruce */
+  'Ingenio>Espectáculo':'una idea brillante deja el show en nada', 'Ingenio>Narrativo':'dice en un verso lo que el otro cuenta en cuatro', 'Ingenio>Flow':'le pide contenido a cada sonido',
+  'Punchline>Ingenio':'un remate directo le gana al rodeo del concepto', 'Punchline>Completo':'un remate certero le rompe la regularidad', 'Punchline>Métrico':'un golpe claro pesa más que la técnica sin remate',
+  'Completo>Espectáculo':'la solidez vence al espectáculo', 'Completo>Narrativo':'es regular en todas las rondas y la historia no siempre cierra a tiempo', 'Completo>Flow':'su constancia aguanta más que el sonido',
+  'Espectáculo>Rapper':'el público se le va con el show', 'Espectáculo>Narrativo':'enciende al público mientras el otro construye', 'Espectáculo>Métrico':'el público vibra más con el show que con la técnica',
+  'Narrativo>Disonante':'lo contraría y deja a la vista sus defectos', 'Narrativo>Punchline':'su historia llega a un cierre que pesa más que un remate suelto', 'Narrativo>Flow':'cada cuarteto con sentido pesa más que el sonido',
+  'Flow>Punchline':'el ritmo le quita espacio a los remates', 'Flow>Disonante':'le gana en sonoridad: donde el otro rompe, él suena', 'Flow>Rapper':'suena más fresco sobre el beat',
+  'Métrico>Ingenio':'no le deja tiempo para armar el juego de palabras', 'Métrico>Completo':'la técnica pura supera a la regularidad', 'Métrico>Rapper':'le gana en velocidad y multisilábicas',
+  'Rapper>Ingenio':'con oficio y actitud no necesita adornos para ganarle al concepto', 'Rapper>Completo':'lo siente en la sangre: no se queda en lo correcto', 'Rapper>Disonante':'demuestra que lo clásico sigue vigente',
+  'Disonante>Punchline':'es tan imprevisible que no le deja preparar el remate', 'Disonante>Espectáculo':'le roba el foco con lo que nadie espera', 'Disonante>Métrico':'le descuadra la métrica y la estructura',
 };
+
+/* MOD v12.33: explicación larga de cada cruce (sale al tocar un cruce en las batallas, la guía de estilos o la guía de counters) */
+const CTR_LONG={
+"Ingenio>Espectáculo": "El Espectáculo vive de la reacción inmediata: un gesto, un grito, la grada encendida. El de Ingenio no compite en ruido: suelta un doble sentido o un concepto que obliga a pensar, y cuando el público lo entiende, el show de enfrente se queda sin contenido. El jurado premia la idea que se recuerda, no el ruido que se apaga.",
+"Ingenio>Narrativo": "El Narrativo necesita tiempo: construye un cuarteto tras otro hasta llegar al cierre. El de Ingenio condensa en una sola barra con doble sentido lo que al otro le cuesta una historia entera, así que mientras el Narrativo prepara el terreno, el ingenioso ya ha golpeado. En rondas cortas o con temática, esa economía de palabras marca la diferencia.",
+"Ingenio>Flow": "El Flow hace que todo suene bien, pero sonar bien no es decir algo. El de Ingenio le exige contenido a cada barra: si el rival se apoya solo en la musicalidad, el juego de palabras deja en evidencia que había ritmo pero poco mensaje. Cuando el jurado escucha con atención, el concepto pesa más que la cadencia.",
+"Punchline>Ingenio": "El de Ingenio da vueltas a una idea, la dobla y la retuerce para que brille. El Punchline no se entretiene: va directo al remate al final del cuarteto. Mientras el otro todavía arma el concepto, el golpe ya cayó y se llevó la reacción del público. En el cara a cara, lo directo suele ganarle a lo elaborado.",
+"Punchline>Completo": "El Completo gana por regularidad: no falla, pero tampoco suele explotar. El Punchline vive de momentos, y le basta un par de remates certeros para que la ronda se recuerde por ellos y no por la constancia del rival. Un golpe que levanta a la grada rompe la sensación de igualdad que el Completo necesita para ganar.",
+"Punchline>Métrico": "El Métrico impresiona con técnica: multisilábicas, doble tempo, métrica exacta. Pero si toda esa técnica no termina en un remate, el jurado se queda esperando el golpe. El Punchline le pone a cada cuarteto un final claro, y una barra que se entiende y se celebra pesa más que diez que solo se admiran.",
+"Completo>Espectáculo": "El Espectáculo tiene picos: cuando conecta con la grada es arrollador, pero sus barras no siempre sostienen el show. El Completo rinde igual en todas las rondas y no regala ninguna. Con el paso de la batalla, la solidez se impone a los fuegos artificiales y el jurado acaba valorando más lo que se mantiene que lo que solo deslumbra.",
+"Completo>Narrativo": "El Narrativo se lo juega todo al cierre de su historia: si llega a tiempo, la ronda es suya; si se queda corto, se nota. El Completo no depende de un final, porque cada cuarteto cumple por sí solo. En formatos con el tiempo justo o con muchas rondas, esa regularidad castiga cualquier historia que no termina de cerrar.",
+"Completo>Flow": "El Flow es muy irregular: hay rondas en las que el beat lo lleva y otras en las que se apaga. El Completo no tiene altibajos y aprovecha cada bajón del rival para sumar. En una batalla larga, la constancia aguanta más que el sonido, y el Flow necesita estar inspirado en todas las rondas para no quedarse atrás.",
+"Espectáculo>Rapper": "El Rapper ofrece rap de verdad, con oficio y actitud, pero sin adornos. El Espectáculo convierte cada barra en un momento: gestos, juego con la grada, pausas para que el público reaccione. Cuando la batalla se decide por quién se lleva al público, el show se come la sobriedad del Rapper y la grada acaba coreando al otro.",
+"Espectáculo>Narrativo": "El Narrativo pide paciencia: su cuarteto cobra sentido al final. El Espectáculo no espera y enciende a la grada desde la primera barra. Cuando el Narrativo llega a su cierre, el ambiente ya está del lado del rival, y una buena historia contada a un público que ya eligió bando luce mucho menos.",
+"Espectáculo>Métrico": "El Métrico brilla en lo técnico, algo que el jurado aprecia pero que el público no siempre sigue. El Espectáculo juega a otra cosa: conexión, presencia y reacción. En una batalla en la que la grada empuja, el show hace vibrar a todos mientras la técnica pasa más desapercibida, y esa energía también pesa en cómo se ve cada ronda.",
+"Narrativo>Disonante": "El Disonante vive de romper las reglas y de que nadie sepa por dónde va a salir. El Narrativo hace lo contrario: ordena, construye y lleva cada idea a su sitio. Al lado de alguien que sí cuenta algo con sentido, los saltos del Disonante pierden la gracia y quedan a la vista sus barras flojas y sus huecos.",
+"Narrativo>Punchline": "El Punchline lanza remates sueltos, cada uno por su cuenta. El Narrativo encadena cuartetos que avanzan hacia un cierre, y cuando llega, ese final pesa más porque toda la ronda lo estaba preparando. Un remate aislado impresiona un momento; una historia que cierra se queda en la memoria del jurado.",
+"Narrativo>Flow": "El Flow seduce con el sonido, pero si el contenido es fino, el Narrativo lo deja en evidencia. Cada uno de sus cuartetos dice algo y lleva a algún sitio, y frente a eso la musicalidad sola sabe a poco. Sobre todo en el Easy Mode, donde hay que darle sentido a las palabras, la historia le gana al ritmo.",
+"Flow>Punchline": "El Punchline necesita su espacio para preparar el remate al final del cuarteto. El Flow llena el beat de principio a fin y marca el ritmo de la batalla, así que el otro tiene que adaptarse a su cadencia. Cuando todo suena tan fluido, los remates del Punchline llegan a destiempo y pierden fuerza.",
+"Flow>Disonante": "El Disonante rompe la estructura a propósito, y eso funciona hasta que tiene enfrente a alguien que suena impecable. El Flow se pega al beat y lo hace sonar, y en ese contraste lo del Disonante parece más ruido que intención. Donde uno rompe, el otro suena, y la sonoridad acaba inclinando la balanza.",
+"Flow>Rapper": "El Rapper defiende el rap clásico, con su oficio y su peso. El Flow trae una manera más fresca de montarse en el beat, con cadencias que cambian y sorprenden. En una batalla en la que el beat es protagonista, esa frescura suena más actual y deja al Rapper con la sensación de que lo suyo ya se ha escuchado muchas veces.",
+"Métrico>Ingenio": "El de Ingenio necesita un momento para armar el juego de palabras y que el público lo entienda. El Métrico no se lo da: rapea rápido, con multisilábicas y doble tempo, y cuando el otro todavía está construyendo su concepto, ya le ha caído encima una lluvia de técnica. Sobre todo en los minutos libres, la velocidad le gana a la elaboración.",
+"Métrico>Completo": "El Completo es correcto en todo, pero no tiene un punto en el que destaque. El Métrico sí: cuando está inspirado, su técnica pura supera cualquier regularidad. En una ronda buena del Métrico, la solidez del Completo parece poca cosa, y el jurado premia el pico técnico por encima de la constancia.",
+"Métrico>Rapper": "El Rapper pone el sentimiento y la actitud, pero el Métrico le gana en el terreno técnico: más sílabas por compás, rimas multisilábicas y cambios de velocidad. En formatos rápidos como los minutos, el Rapper se queda corto ante la avalancha técnica y lo suyo suena más plano de lo que es.",
+"Rapper>Ingenio": "El de Ingenio confía en el concepto y en el doble sentido. El Rapper no necesita adornos: rapea con oficio, actitud y una presencia que convence por sí sola. Frente a eso, el juego de palabras puede sonar a truco, y el jurado se queda con quien suena a rap de verdad antes que con quien solo busca la frase ingeniosa.",
+"Rapper>Completo": "El Completo hace todo bien, pero se queda en lo correcto. El Rapper lleva el rap en la sangre y lo transmite, y esa entrega convierte en barras vivas lo que en el Completo son barras que cumplen. Lo correcto gana rondas; lo que se siente gana batallas cuando el jurado busca algo más.",
+"Rapper>Disonante": "El Disonante intenta reinventar la tarima rompiendo las reglas. El Rapper responde con lo de siempre: rap de oficio, bien hecho y con actitud. Frente a alguien que suena a rap de verdad, los experimentos del Disonante parecen improvisados, y la batalla demuestra que lo clásico sigue vigente.",
+"Disonante>Punchline": "El Punchline necesita prever hacia dónde va la batalla para preparar su remate. El Disonante es tan imprevisible que no le deja anticipar nada: cambia de tema, de ritmo o de tono cuando menos se espera. Los remates del Punchline acaban contestando a algo que ya pasó y pierden el impacto.",
+"Disonante>Espectáculo": "El Espectáculo quiere ser el centro de atención, pero el Disonante le roba el foco con lo que nadie espera. Basta un giro raro o una barra que lo rompe todo para que la grada se gire hacia el otro lado. El show preparado pierde fuerza frente a lo que sorprende de verdad.",
+"Disonante>Métrico": "El Métrico se apoya en la estructura: compases, métrica exacta, patrones de rima. El Disonante se la descuadra rompiendo el ritmo y saliéndose de lo previsible, y lo obliga a responder en un terreno donde su técnica no encaja. Cuando la batalla se desordena, la precisión deja de ser una ventaja."
+};
+function ctrTap(a, b, inner){ return `<span class="ctr-tap" role="button" tabindex="0" onclick="event.stopPropagation(); ctrExplain('${a}','${b}')">${inner}<i class="ctr-i">ⓘ</i></span>`; }
+function ctrExplain(a, b){ const k=a+'>'+b; if(!CTR_WHY[k]) return; let ov=document.getElementById('ctrX'); if(!ov){ ov=document.createElement('div'); ov.id='ctrX'; document.body.appendChild(ov); }
+  const tag=x=>styleTag({style:x,name:x});
+  ov.innerHTML=`<div class="ctrx-bg" onclick="if(event.target===this) ctrExplainClose()"><div class="ctrx-box"><div class="ctrx-h">${tag(a)}<b>le gana a</b>${tag(b)}</div>
+    <p class="ctrx-s">«${esc(CTR_WHY[k])}»</p><p class="ctrx-l">${esc(CTR_LONG[k]||'')}</p>
+    <p class="ctrx-n">Es una ventaja pequeña: el nivel y la forma del día deciden casi todo, y el estilo inclina la balanza cuando los dos están parejos. Si el rival es un muro o está en su momento histórico, el counter no cuenta.</p>
+    <div class="ctrx-a"><button class="btn primary" onclick="ctrExplainClose()">Entendido</button></div></div></div>`; }
+function ctrExplainClose(){ const o=document.getElementById('ctrX'); if(o) o.remove(); }
 // El nivel y la forma del día deciden casi todo. Counters, cualidades y rasgos solo inclinan un poco la balanza:
 // la diferencia neta nunca pasa de ±2,6 puntos de rendimiento por ronda (la forma del día y el azar de cada ronda mueven ±15 o más).
 const STYLE_CTR=1.8;   // puntos de rendimiento por ronda para quien hace counter
@@ -3766,7 +3869,7 @@ function matchupInfo(A, B){   // t: explicación larga · s: versión corta para
   const sty=(F,O,tO)=>{ const k=styleOf(F)+'>'+styleOf(O); if(!styleBeats(styleOf(F),styleOf(O))) return;
     if(O.mxLm) out.push({w:null, ic:'🏛️', t:`${O.name} está en su momento histórico: el counter de ${styleOf(F)} no le afecta`, s:`${O.name} sin counter`});
     else if(tO.includes('muro')) out.push({w:null, ic:'🧱', t:`${O.name} es un muro: anula el counter de ${styleOf(F)}`, s:`${O.name} anula el counter`});
-    else out.push({w:F.id, ic:'⚔️', t:`${styleOf(F)} > ${styleOf(O)}: ${CTR_WHY[k]}`, s:`${styleOf(F)} > ${styleOf(O)}`}); };
+    else out.push({w:F.id, ic:'⚔️', t:`${styleOf(F)} > ${styleOf(O)}: ${CTR_WHY[k]}`, s:`${styleOf(F)} > ${styleOf(O)}`, ka:styleOf(F), kb:styleOf(O)}); };
   sty(A,B,tB); sty(B,A,tA);
   const tr=(F,O,tF,tO)=>{
     if(tF.includes('aura')) out.push((tO.includes('frio')||catOf(O)==='leyenda') ? {w:null, ic:'🧊', t:`${O.name} no se deja intimidar por ${F.name}`, s:`${O.name} no se intimida`} : {w:F.id, ic:'👑', t:`La presencia de ${F.name} intimida a ${O.name}`, s:`${F.name} intimida`});
@@ -3781,9 +3884,9 @@ function edgeMark(selId, id){ if(!selId || selId===id) return ''; const A=fby(se
   if(e>=1.5) return `<i class="mx-em up" title="${esc(A.name)} tiene ventaja">▲</i>`; if(e<=-1.5) return `<i class="mx-em dn" title="${esc(B.name)} le hace counter a ${esc(A.name)}">▼</i>`; return ''; }
 function mxPairNote(a, b){ const A=fby(a), B=fby(b); if(!A||!B) return ''; const e=edgeOf(A,B); const info=matchupInfo(A,B).slice(0,2);
   const fav=Math.abs(e)>=1.5 ? (e>0?A:B) : null;
-  return `<small class="mx-pn ${fav?'':'even'}">${info.length?info.map(x=>`${x.ic} ${esc(x.s)}`).join(' · '):'Sin counters'}${fav?` → <b>counters a favor de ${esc(fav.name)}</b>`:(info.length?' → se compensan':'')}</small>`; }
+  return `<small class="mx-pn ${fav?'':'even'}">${info.length?info.map(x=>x.ka ? ctrTap(x.ka, x.kb, `${x.ic} ${esc(x.s)}`) : `${x.ic} ${esc(x.s)}`).join(' · '):'Sin counters'}${fav?` → <b>counters a favor de ${esc(fav.name)}</b>`:(info.length?' → se compensan':'')}</small>`; }
 function mxShowCtr(m){ const A=mxTf(fby(m.a),m), B=mxTf(fby(m.b),m); if(!A||!B) return ''; const info=matchupInfo(A,B).slice(0,2); if(!info.length) return '';
-  return `<div class="mx-fmctr">${info.map(x=>`<span>${x.ic} ${esc(x.t)}</span>`).join('')}</div>`; }
+  return `<div class="mx-fmctr">${info.map(x=>x.ka ? ctrTap(x.ka, x.kb, `${x.ic} ${esc(x.t)}`) : `<span>${x.ic} ${esc(x.t)}</span>`).join('')}</div>`; }
 
 /* ---- ficha ---- */
 // batallas históricas: cruces clásicos de la escena (+30% de visitas; +15% más si alguno va transformado)
@@ -3964,9 +4067,56 @@ Object.entries(MX_ED_REN8).forEach(([o,n])=>{ if(MX_ED_COL[o] && !MX_ED_COL[n]) 
 const MX_ED_PAL=[['#ff5a2e','#ffe2d6'],['#33c9ff','#dcf6ff'],['#9be22d','#effcd9'],['#b57bff','#f1e6ff'],['#ff4fd8','#ffe0f8'],['#2bd46b','#dcffe9'],['#ffb020','#fff0cc'],['#5c6bc0','#e3e6fa'],['#00bfa5','#d4f6f1'],['#e91e63','#fcd9e6']];
 function mxEdCol(n){ if(MX_EDITIONS[n] && MX_EDITIONS[n].gm) return MX_GM_COL; if(MX_EDITIONS[n] && MX_EDITIONS[n].wi) return MX_WI_COL; if(MX_EDITIONS[n] && MX_EDITIONS[n].grm) return MX_ED_COL[n] || MX_GRM_COL; return MX_ED_COL[n] || (MX_EDITIONS[n] && MX_EDITIONS[n].custom ? MX_ED_PAL[mxHash(n,7)%MX_ED_PAL.length] : ['#d4af37','#fff3c4']); }
 /* momento de la transformación: foto normal -> destello -> Special edition, con la media subiendo; si se transforman los dos, chocan */
+/* ===================== MOD v12.34 · un sonido para cada tipo de carta especial (1-2 s, por el volumen de efectos) =====================
+   🏆 Legendary Milestone: fanfarria de metales dorada con timbal y destellos · 🔥 Great Moment: llamarada que sube y estalla
+   🔮 What If: arpa que sube y un acorde misterioso que flota · 🎯 Goal Maker: bocina de estadio y la grada que celebra */
+function csNoise(ac){ if(ac._csN) return ac._csN; const b=ac.createBuffer(1, ac.sampleRate*2, ac.sampleRate), d=b.getChannelData(0); for(let i=0;i<d.length;i++) d[i]=Math.random()*2-1; return (ac._csN=b); }
+function csBus(ac, out){ const k='_csBus'; if(out[k]) return out[k]; const dry=ac.createGain(), cv=ac.createConvolver(), wet=ac.createGain(), len=Math.floor(ac.sampleRate*2.2), ir=ac.createBuffer(2, len, ac.sampleRate);
+  for(let c=0;c<2;c++){ const d=ir.getChannelData(c); for(let i=0;i<len;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/len, 3.2); }
+  cv.buffer=ir; wet.gain.value=0.32; dry.connect(out); dry.connect(cv); cv.connect(wet); wet.connect(out); return (out[k]=dry); }
+function csEnv(g, t, v, a, hold, rel){ g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(v, t+a); g.gain.setValueAtTime(v, t+a+hold); g.gain.exponentialRampToValueAtTime(0.0001, t+a+hold+rel); }
+function csOsc(ac, type, f, t, end, dest, det){ const o=ac.createOscillator(); o.type=type; o.frequency.setValueAtTime(f, t); if(det) o.detune.value=det; o.connect(dest); o.start(t); o.stop(end); return o; }
+function csBrass(ac, d, t, m, dur, v){ const f=mxaHz(m), fl=ac.createBiquadFilter(), g=ac.createGain(); fl.type='lowpass'; fl.Q.value=1.2;
+  fl.frequency.setValueAtTime(380, t); fl.frequency.exponentialRampToValueAtTime(3200, t+0.07); fl.frequency.exponentialRampToValueAtTime(1500, t+0.35);
+  [-7,6].forEach(dt=>csOsc(ac, 'sawtooth', f, t, t+dur+0.3, fl, dt)); csOsc(ac, 'square', f/2, t, t+dur+0.3, fl).detune.value=3;
+  csEnv(g, t, v, 0.035, Math.max(0.01, dur-0.1), 0.25); fl.connect(g); g.connect(d); }
+function csBell(ac, d, t, f, v, dec){ [[1,1],[2.76,0.35],[5.4,0.12]].forEach(([r,a])=>{ const g=ac.createGain(); csOsc(ac, 'sine', f*r, t, t+dec+0.1, g); g.gain.setValueAtTime(v*a, t); g.gain.exponentialRampToValueAtTime(0.0001, t+dec*(r>1?0.6:1)); g.connect(d); }); }
+function csNz(ac, d, t, dur, v, type, f0, f1, q, a){ const s=ac.createBufferSource(), fl=ac.createBiquadFilter(), g=ac.createGain(); s.buffer=csNoise(ac); s.loop=true; fl.type=type; fl.Q.value=q||0.7;
+  fl.frequency.setValueAtTime(f0, t); if(f1) fl.frequency.exponentialRampToValueAtTime(f1, t+dur); g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(v, t+(a||0.005)); g.gain.exponentialRampToValueAtTime(0.0001, t+dur);
+  s.connect(fl); fl.connect(g); g.connect(d); s.start(t, Math.random()); s.stop(t+dur+0.05); return {s, fl, g}; }
+function csBoom(ac, d, t, f0, f1, v, dec){ const g=ac.createGain(), o=csOsc(ac, 'sine', f0, t, t+dec+0.1, g); o.frequency.exponentialRampToValueAtTime(f1, t+0.25); g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(v, t+0.006); g.gain.exponentialRampToValueAtTime(0.0001, t+dec); g.connect(d); }
+const CS_PLAY={
+  ley(ac, d, t){ csBoom(ac, d, t, 95, 55, 0.9, 1.3); csNz(ac, d, t, 0.25, 0.25, 'lowpass', 900, 0, 0.5); csNz(ac, d, t+0.02, 1.4, 0.07, 'highpass', 6000, 0, 0.4);   // timbal + platillo suave
+    [[67,0,0.13],[72,0.13,0.13],[76,0.26,0.13]].forEach(([m,o,du])=>csBrass(ac, d, t+o, m, du, 0.16));                     // ta-ta-ta…
+    [60,64,67,72,79].forEach((m,i)=>csBrass(ac, d, t+0.4+i*0.008, m, 1.05, i===4?0.13:0.09));                               // …taaa (do mayor)
+    csBoom(ac, d, t+0.4, 82, 58, 0.6, 1.2); [96,100,103,108,103,108].forEach((m,i)=>csBell(ac, d, t+0.5+i*0.07, mxaHz(m), 0.05, 0.9)); },   // destellos dorados
+  grm(ac, d, t){ const w=csNz(ac, d, t, 0.62, 0.32, 'bandpass', 220, 5200, 1.6, 0.5);                                         // la llamarada que sube
+    const T=t+0.55, sh=ac.createWaveShaper(), cu=new Float32Array(1024); for(let i=0;i<1024;i++){ const x=i/511.5-1; cu[i]=Math.tanh(3.2*x); } sh.curve=cu; const fl=ac.createBiquadFilter(), g=ac.createGain();
+    fl.type='lowpass'; fl.frequency.setValueAtTime(4200, T); fl.frequency.exponentialRampToValueAtTime(700, T+1.0); [38,45,50,57].forEach((m,i)=>csOsc(ac, 'sawtooth', mxaHz(m), T, T+1.3, sh, i%2?7:-7));
+    sh.connect(fl); csEnv(g, T, 0.2, 0.01, 0.05, 0.95); fl.connect(g); g.connect(d);                                           // acorde distorsionado
+    csBoom(ac, d, T, 110, 38, 1.0, 1.1); csNz(ac, d, T, 0.9, 0.35, 'lowpass', 2400, 300, 0.6);                                   // el estallido
+    for(let i=0;i<18;i++){ const tt=T+0.08+Math.random()*0.95; csNz(ac, d, tt, 0.03+Math.random()*0.03, 0.05+Math.random()*0.08, 'bandpass', 2500+Math.random()*3500, 0, 2); } },   // chispas
+  wi(ac, d, t){ [60,62,64,66,68,70,72,74,76,78,80,82].forEach((m,i)=>{ const tt=t+i*0.042, g=ac.createGain(); csOsc(ac, 'triangle', mxaHz(m), tt, tt+0.9, g); csOsc(ac, 'sine', mxaHz(m+12), tt, tt+0.9, g);
+      g.gain.setValueAtTime(0.0001, tt); g.gain.exponentialRampToValueAtTime(0.06, tt+0.004); g.gain.exponentialRampToValueAtTime(0.0001, tt+0.8); g.connect(d); });   // arpa que sube (escala de tonos enteros)
+    const T=t+0.35; [60,64,68,72].forEach((m,i)=>{ const g=ac.createGain(), o=csOsc(ac, i%2?'triangle':'sine', mxaHz(m), T, T+1.6, g, i*4-6), l=ac.createOscillator(), lg=ac.createGain();
+      l.frequency.value=5.2+i*0.3; lg.gain.value=mxaHz(m)*0.008; l.connect(lg); lg.connect(o.frequency); l.start(T); l.stop(T+1.6);
+      g.gain.setValueAtTime(0.0001, T); g.gain.exponentialRampToValueAtTime(0.05, T+0.55); g.gain.exponentialRampToValueAtTime(0.0001, T+1.55); g.connect(d); });   // acorde aumentado que flota
+    const g2=ac.createGain(), o2=csOsc(ac, 'sine', mxaHz(96), T+0.5, T+1.5, g2); o2.frequency.exponentialRampToValueAtTime(mxaHz(95), T+1.4); g2.gain.setValueAtTime(0.06, T+0.5); g2.gain.exponentialRampToValueAtTime(0.0001, T+1.45); g2.connect(d); },
+  gm(ac, d, t){ csBoom(ac, d, t, 120, 50, 0.8, 0.35); csNz(ac, d, t, 0.12, 0.3, 'bandpass', 1800, 0, 0.9);                    // el golpe al balón
+    [[67,0.06,0.13],[72,0.24,0.62]].forEach(([m,o,du])=>{ const tt=t+o, fl=ac.createBiquadFilter(), g=ac.createGain(); fl.type='lowpass'; fl.frequency.value=2200;
+      csOsc(ac, 'square', mxaHz(m), tt, tt+du+0.2, fl); csOsc(ac, 'sawtooth', mxaHz(m)*1.003, tt, tt+du+0.2, fl); csOsc(ac, 'square', mxaHz(m+7), tt, tt+du+0.2, fl).detune.value=-4;
+      csEnv(g, tt, 0.11, 0.02, du-0.05, 0.15); fl.connect(g); g.connect(d); });                                                // bocina «pa-paaa»
+    [[900,0.35],[1700,0.22],[520,0.2]].forEach(([f,v])=>{ const n=csNz(ac, d, t+0.15, 1.35, v, 'bandpass', f, f*1.15, 0.8, 0.35); const l=ac.createOscillator(), lg=ac.createGain(); l.frequency.value=6+Math.random()*3; lg.gain.value=v*0.25; l.connect(lg); lg.connect(n.g.gain); l.start(t+0.15); l.stop(t+1.55); }); }   // la grada
+};
+const CS_ORDER=['ley','grm','wi','gm'], CS_GAIN={ley:0.72, grm:0.9, wi:3.0, gm:1.45};   // igualados de volumen
+function mxCardSfx(kinds){ try{ const ac=mxaCtx(); if(!ac || !MXA.sfx) return; if(ac.state!=='running') ac.resume().catch(()=>{});
+    const ks=CS_ORDER.filter(k=>(kinds||[]).includes(k)); if(!ks.length) return; const d=csBus(ac, MXA.sfx); const t=ac.currentTime+0.05;
+    ks.slice(0,2).forEach((k,i)=>{ const gk=ac.createGain(); gk.gain.value=CS_GAIN[k]; gk.connect(d); CS_PLAY[k](ac, gk, t+i*1.15); setTimeout(()=>{ try{ gk.disconnect(); }catch(e){} }, 4000+i*1200); }); }catch(e){ console.error(e); } }   // dos tipos distintos: suenan uno detrás de otro
+function mxCardKinds(names){ return [...new Set((names||[]).map(n=>mxEdKind(MX_EDITIONS[n])).filter(Boolean))]; }
 function mxTfFlash(m){ if(!m || !m.tf || !m.tf.length || !m.tfn) return '';
   const k=(typeof fmK==='function' ? fmK() : 1)||1; const own=f=>f ? (f.photo || (typeof FACES!=='undefined' && FACES[f.name]) || null) : null;
   const ids=m.tf.filter(id=>MX_EDITIONS[m.tfn[id]]); if(!ids.length) return ''; const duo=ids.length>1;
+  setTimeout(()=>{ if(document.querySelector('.mx-tfflash')) mxCardSfx(mxCardKinds(ids.map(id=>m.tfn[id]))); }, 250);   /* MOD v12.34: el sonido de su tipo de carta */
   const card=id=>{ const n=m.tfn[id]; const ed=MX_EDITIONS[n]; const bf=fby(id); const ef=state.freestylers.find(x=>x.name===n);
     const pa=own(bf), pb=(ed && ed.gm) ? ((ef && (ef.photo || mxPhoto(ef.name))) || mxGmPh(n, pa)) : (ed && ed.wi) ? ((typeof FACES!=='undefined' && FACES[n]) || (ef && (ef.photo || mxPhoto(ef.name))) || mxWiPh(n, pa)) : (mxEdFace(n) || own(ef) || pa); const ini=esc(((bf&&bf.name)||'?')[0]); const [c,cl]=mxEdCol(n);
     const face=(src, cls)=>src ? `<img class="${cls}" src="${src}" alt="">` : `<span class="${cls} mx-tfm-ini">${ini}</span>`;
@@ -4574,7 +4724,7 @@ function openCtrGuide(back){
   if(back!==undefined) state.ui.ctrBack=back||null;
   const sel=state.ui.ctrSel||null; const tags=l=>l.map(x=>styleTag({style:x,name:x})).join(' ');
   const rows=STYLE_WHEEL.map(s=>`<tr class="${sel===s?'sel':''}" onclick="state.ui.ctrSel=${sel===s?'null':`'${s}'`}; openCtrGuide(state.ui.ctrBack)"><td>${styleTag({style:s,name:s})}</td><td>${tags(beatsList(s))}</td><td>${tags(beatenBy(s))}</td></tr>`).join('');
-  const why=sel ? `<div class="mx-why">${beatsList(sel).map(x=>`<div><b class="g">✓ ${sel} &gt; ${x}</b> · ${CTR_WHY[sel+'>'+x]}</div>`).join('')}${beatenBy(sel).map(x=>`<div><b class="r">✗ ${x} &gt; ${sel}</b> · ${CTR_WHY[x+'>'+sel]}</div>`).join('')}</div>` : '<p class="step-note" style="margin:6px 0 0">Toca un estilo para ver a quién le gana y por qué.</p>';
+  const why=sel ? `<div class="mx-why">${beatsList(sel).map(x=>`<div class="wsg-x" onclick="ctrExplain('${sel}','${x}')"><b class="g">✓ ${sel} &gt; ${x}</b> · ${CTR_WHY[sel+'>'+x]} <i class="ctr-i">ⓘ</i></div>`).join('')}${beatenBy(sel).map(x=>`<div class="wsg-x" onclick="ctrExplain('${x}','${sel}')"><b class="r">✗ ${x} &gt; ${sel}</b> · ${CTR_WHY[x+'>'+sel]} <i class="ctr-i">ⓘ</i></div>`).join('')}</div>` : '<p class="step-note" style="margin:6px 0 0">Toca un estilo para ver a quién le gana y por qué.</p>';
   const bk=state.ui.ctrBack;
   openModal(`<h3>📖 Cualidades y counters</h3>
     <p class="step-note">Cada estilo le hace <b>counter</b> a tres estilos, sufre contra otros tres y con los ${STYLE_WHEEL.length-7===1?'otro':(['','','dos','tres','cuatro'][STYLE_WHEEL.length-7]||STYLE_WHEEL.length-7)+' restantes'} está parejo. Lo que más decide una batalla es el <b>nivel</b>, y después la <b>forma del día</b> (el factor suerte). Counters, cualidades y beats solo <b>inclinan un poco</b> la balanza: se notan en batallas igualadas, pero no tumban a nadie que esté muy por encima.</p>
@@ -4763,14 +4913,16 @@ const MX_ED_ST18={'Arranques en la mente':['Rapper','Disonante'], 'Piezas 2008':
 function mxEdStyles(name){ const e=MX_EDITIONS[name]; if(!e) return null; const fx=MX_ED_ST18[name]; let a=(fx&&fx[0])||STYLE_PRESET[name]||e.st||'Completo'; if(!STYLES[a]) a=MX_STYLE_REN[a]||'Completo'; const M=mxSt2Map();
   let b0=Object.prototype.hasOwnProperty.call(M,name) ? M[name] : ((fx&&fx[1])||e.st2); if(b0 && MX_STYLE_REN[b0]) b0=MX_STYLE_REN[b0];
   const b=(b0 && STYLES[b0] && b0!==a) ? b0 : null; return b ? [a,b] : [a]; }
-function mxEdPick(m, id, name){ const L=mxEdStyles(name); if(!L) return null; if(m && m.mono && L.includes(m.mono)) return m.mono;   /* MOD v12.13: FMS Monochrome */ if(L.length<2 || !m) return L[0]; if(!m.mxSt) m.mxSt={};
+function mxEdPick(m, id, name){ const L=mxEdStyles(name); if(!L) return null; /* MOD v12.36: en la Monochrome la carta especial también usa al azar cualquiera de sus dos estilos */ if(L.length<2 || !m) return L[0]; if(!m.mxSt) m.mxSt={};
   if(!m.mxSt[id] || !L.includes(m.mxSt[id])) m.mxSt[id]=pick(L); return m.mxSt[id]; }
 function mxOv(f, ov){ return new Proxy(f, { get:(t,p)=> Object.prototype.hasOwnProperty.call(ov,p) ? ov[p] : t[p], set:(t,p,v)=>{ t[p]=v; return true; },
     has:(t,p)=> Object.prototype.hasOwnProperty.call(ov,p) || (p in t),
     getOwnPropertyDescriptor:(t,p)=> Object.prototype.hasOwnProperty.call(ov,p) ? {value:ov[p], writable:true, enumerable:true, configurable:true} : Object.getOwnPropertyDescriptor(t,p) }); }
 function mxTf(f, m){ if(!f || !m) return f;
   if(!m.tf || !m.tf.includes(f.id) || !m.tfn || !MX_EDITIONS[m.tfn[f.id]]){   // la Special edition fichada como tal: también rota sus 2 estilos
-    if(!f.custom && MX_EDITIONS[f.name] && mxEdStyles(f.name).length>1){ const st=mxEdPick(m, f.id, f.name); if(st && st!==f.style) return mxOv(f, {style:st}); } return f; }
+    if(!f.custom && MX_EDITIONS[f.name] && mxEdStyles(f.name).length>1){ const st=mxEdPick(m, f.id, f.name); if(st && st!==f.style) return mxOv(f, {style:st}); }
+    if(m.mono && !editionOf(f) && styleOf(f)!==m.mono && mxMonoAlt(f, m.mono)) return mxOv(f, {style:m.mono});   /* MOD v12.36: en la Monochrome, el que entró por el segundo estilo de su carta rapea con el estilo de la temporada */
+    return f; }
   const name=m.tfn[f.id], e=MX_EDITIONS[name];
   const ov={name, nivel:e.nv, style:(mxEdStyles(name).length>1 ? mxEdPick(m, f.id, name) : null)||STYLE_PRESET[name]||f.style, cat:(e.gm || e.wi || e.grm) ? catOf(f) : 'leyenda', atd:undefined, mxLm:!!e.lm};   /* MOD v12.15: Legendary Milestone transformado */   // MOD v11: ni el Goal Maker ni el What If son leyendas
   return new Proxy(f, { get:(t,p)=> Object.prototype.hasOwnProperty.call(ov,p) ? ov[p] : t[p], set:(t,p,v)=>{ t[p]=v; return true; },
@@ -5947,6 +6099,7 @@ const MXA_BEAT_DEF={
   jz2:{type:'rgx', pre:'rai', bpm:[78,82], swing:0.08, g:0.84, drive:2.0, smLp:12000, smHp:90, wow:0.5, smSat:1.05, bsv:0.5, bslp:130, room:1.0, rvg:0.3, inst:['gtrm','ebass','organ','brass']},
   jz3:{type:'rgx', pre:'dub', bpm:[74,78], swing:0.06, g:0.68, drive:2.0, smLp:12000, smHp:90, wow:0.5, smSat:1.05, bsv:0.5, bslp:130, room:1.0, rvg:0.3, fb:0.5, dlv:0.45, inst:['gtrm','ebass','organ']},
   bb3:{type:'bbx', bpm:[87,92], swing:0.04, g:0.74, smLp:6500, wow:3, hiss:0.007, crk:0.16, inst:['epiano','choir']},
+  lf3:{type:'lfx', pre:'caf', bpm:[72,76], swing:0.2, g:0.9, drive:1.5, drg:0.8, smLp:2900, smHp:110, wow:5, smSat:1.15, smv:0.78, bsv:0.34, hiss:0.012, crk:0.3, room:0.9, rvg:0.24, inst:['epiano','piano','bass']},   /* MOD v12.40: tercer lo-fi («Café»), con instrumentos grabados */
   dl3:{type:'dlx', pre:'mis', bpm:[78,82], swing:0, g:2.2, smLp:9000, smHp:100, wow:3, smv:0.6, bsv:0.12, hiss:0.004, crk:0.1, smSat:1.1, room:1.6, rvg:0.4, inst:['strings','piano','box']} };   /* MOD v12.22: drumless oscuro */   /* MOD v12.20: el boom bap nuevo, con el motor sampleado */
 Object.entries({dt1:'gf1', dt2:'gf2', el1:'dl1', el2:'dl2', ds1:'dl1', ds2:'dl2', ds3:'dl3'}).forEach(([o,n])=>{ MXA_BEAT_DEF[o]=MXA_BEAT_DEF[n]; });   /* MOD v12.18: ids viejos · MOD v12.22: los dubstep pasan a drumless */
 /* MOD v12.18: G-funk (sinte agudo que se desliza, bajo gordo, palmas) y dubstep rap (medio tiempo, bajo que ondula) */
@@ -6062,7 +6215,7 @@ function mxaBBXPhrase(S){ const sc=[0,2,3,5,7,8,10]; const top=67+S.key%5; const
     return {s, len:Math.max(1.5, nx-s-(Math.random()<0.35?1:0.4)), n, pass: Math.random()<0.18}; }); }
 function mxaBBXInit(S){ if(S.D.pre) return mxaBBX2Init(S); S.bprog=pick(MXA_BBX_PROGS); S.kick=pick(MXA_BBX_KICKS); mxaBBXPhrase(S); S.chop=pick([[8,10,11,12,14],[8,9,10,12,13,14],[8,11,12,14,15]]); }
 function mxaBBXVary(S){ if(S.D.pre) return mxaBBX2Vary(S); if(Math.random()<0.6) S.kick=pick(MXA_BBX_KICKS); if(S.bar%16===0 && Math.random()<0.5){ S.bprog=pick(MXA_BBX_PROGS); mxaBBXPhrase(S); } else if(Math.random()<0.25) mxaBBXPhrase(S); S.chop=pick([[8,10,11,12,14],[8,9,10,12,13,14],[8,11,12,14,15]]); }
-function mxaBBX(S, i, t, sd){ if(S.D.pre) return mxaBBX2(S, i, t, sd); const B=mxaBus(S), D=S.D, bar=S.bar, intro=bar<2, brk=(bar%16===15) && i>=8, chopBar=(bar%4===3) && !intro;
+function mxaBBX(S, i, t, sd){ if(S.D.pre) return mxaBBX2(S, i, t, sd); const pb=mxaPB(S), B=mxaBus(S), D=S.D, bar=S.bar, intro=bar<2, brk=(mxaMod(pb,16)===15) && i>=8, chopBar=(mxaMod(pb,4)===3) && !intro;
   const root=48+S.key+12; const hb=(bar%2)*2+(i>=8?1:0); const [cd, cq]=S.bprog[hb]; const chord=MXA_Q[cq].map(x=>root+cd+x).map(x=>x>72?x-12:x);
   const hum=()=>(Math.random()-0.5)*0.006;
   /* el sample */
@@ -6080,12 +6233,12 @@ function mxaBBX(S, i, t, sd){ if(S.D.pre) return mxaBBX2(S, i, t, sd); const B=m
   /* la batería */
   if(intro || brk) { if(brk && i===8) mxaKickBB(t, 0.9, B); return; }
   if(S.kick.includes(i)) mxaKickBB(t+hum(), (i===15 ? 0.45 : i===0 ? 1 : 0.92), B);
-  if(i===7 && Math.random()<0.2) mxaKickBB(t, 0.3, B);
+  if(i===7 && mxaDet(S,i,0.2)) mxaKickBB(t, 0.3, B);
   if(i===4 || i===12) mxaSnareBB(t+0.004+hum(), 1.05, B, true);
-  if((i===7 || i===9 || i===15) && Math.random()<0.12) mxaSnareBB(t+hum(), 0.16, B);
-  if(bar%8===7 && i>=13 && i<=15 && Math.random()<0.7) mxaSnareBB(t, 0.3+0.12*(i-13), B, true);
+  if((i===7 || i===9 || i===15) && mxaDet(S,i,0.12)) mxaSnareBB(t+hum(), 0.16, B);
+  if(mxaMod(pb,4)===3 && i>=13 && i<=15 && mxaDet(S,i,0.7)) mxaSnareBB(t, 0.3+0.12*(i-13), B, true);
   if(i%2===0) mxaHatBB(t+hum(), (i%4===0?0.36:0.27)*(0.85+Math.random()*0.3), B, i===14 && bar%2===1);
-  else if(S.hat16 && Math.random()<0.5) mxaHatBB(t+hum(), 0.07, B);
+  else if(S.hat16 && mxaDet(S,i,0.5)) mxaHatBB(t+hum(), 0.07, B);
 }
 /* MOD v12.20: «Vieja escuela» y «Sótano» con el mismo motor (cada uno con su sample y su batería) */
 function mxaPiano(t, f, dur, v, B, pan){ if(mxaSmpOk('piano')){ mxaSmp('piano', t, mxaMidi(f), dur, v, mxaPan(B.sm, pan||0), {rel:0.35, wow:B.wow}); return; } const ac=MXA.ac, g=ac.createGain(), fl=ac.createBiquadFilter(); fl.type='lowpass'; fl.Q.value=0.3;
@@ -6117,7 +6270,7 @@ function mxaBBX2Init(S){ const P=MXA_BBX_PRE[S.D.pre]; S.bprog=pick(P.progs); S.
 function mxaBBX2Vary(S){ const P=MXA_BBX_PRE[S.D.pre]; if(Math.random()<0.6) S.kick=pick(P.kicks); if(P.stabs && Math.random()<0.4) S.stab=pick(P.stabs);
   if(S.bar%16===0 && Math.random()<0.5){ S.bprog=pick(P.progs); mxaBBXPhrase(S); if(S.D.pre==='sot') mxaSotMotif(S); } else if(Math.random()<0.25){ mxaBBXPhrase(S); if(S.D.pre==='sot' && Math.random()<0.5) mxaSotMotif(S); }
   S.hat16=S.D.pre==='vie' && Math.random()<0.6; }
-function mxaBBX2(S, i, t, sd){ const B=mxaBus(S), D=S.D, bar=S.bar, sot=D.pre==='sot', intro=bar<2, half=i>=8, brk=(bar%16===15) && half, drop=(bar%8===7) && half && !brk, chopBar=(bar%4===3) && !intro && !sot;
+function mxaBBX2(S, i, t, sd){ const pb=mxaPB(S), B=mxaBus(S), D=S.D, bar=S.bar, sot=D.pre==='sot', intro=bar<2, half=i>=8, brk=(mxaMod(pb,16)===15) && half, drop=(mxaMod(pb,8)===7) && half && !brk, chopBar=(mxaMod(pb,4)===3) && !intro && !sot;
   const hb=(bar%2)*2+(half?1:0); const [cd, cq]=S.bprog[hb]; const chord=MXA_Q[cq].map(x=>60+S.key+cd+x).map(x=>x>72?x-12:x); const bassN=36+((S.key+cd)%12);
   const hum=()=>(Math.random()-0.5)*0.007; const nextK=k=>{ const n=S.kick.find(x=>x>k); return n==null?16:n; };
   const LP=D.smLp||3600;
@@ -6127,12 +6280,12 @@ function mxaBBX2(S, i, t, sd){ const B=mxaBus(S), D=S.D, bar=S.bar, sot=D.pre===
   if(!sot){
     if(S.stab.includes(i) && !(chopBar && half)){ const nx=S.stab[S.stab.indexOf(i)+1]; const len=sd*Math.max(1.2, ((nx==null?16:nx)-i)*0.95); chord.forEach((n,k)=>mxaPiano(t+k*0.008, mxaHz(n), len, 0.062, B, k%2?0.25:-0.25)); }
     if(chopBar && half && [8,10,11,12,14].includes(i)) chord.slice(1).forEach((n,k)=>mxaPiano(t+k*0.005, mxaHz(n+(i>=12?12:0)), sd*1.6, 0.066, B, 0));
-    const ph=S.ph.find(x=>x.s===(bar%2)*16+i); if(ph && bar%4<2 && !intro) mxaPiano(t, mxaHz(ph.n), sd*Math.min(ph.len,4), 0.07, B, 0.1);
-    if((bar%4===1 && i===14) || (drop && (i===8 || i===11))) chord.slice(0,3).forEach((n,k)=>mxaHorn(t+k*0.01, mxaHz(n), sd*(i===14?2.2:1.6), 0.075, B, k%2?0.3:-0.3));
-    if(!intro && !brk && S.kick.includes(i)){ const bn=bassN+(i>=10 && Math.random()<0.3 ? 7 : 0); mxaUpright(t, mxaHz(bn), sd*Math.max(1.5, (nextK(i)-i)*0.9), 0.5, B); }
+    const ph=S.ph.find(x=>x.s===(bar%2)*16+i); if(ph && mxaMod(pb,4)<2 && !intro) mxaPiano(t, mxaHz(ph.n), sd*Math.min(ph.len,4), 0.07, B, 0.1);
+    if((mxaMod(pb,4)===1 && i===14) || (drop && (i===8 || i===11))) chord.slice(0,3).forEach((n,k)=>mxaHorn(t+k*0.01, mxaHz(n), sd*(i===14?2.2:1.6), 0.075, B, k%2?0.3:-0.3));
+    if(!intro && !brk && S.kick.includes(i)){ const bn=bassN+(i>=10 && mxaDet(S,i,0.3) ? 7 : 0); mxaUpright(t, mxaHz(bn), sd*Math.max(1.5, (nextK(i)-i)*0.9), 0.5, B); }
   } else {
     if(i===0 || i===8) mxaStrings(t, chord.slice(0,3), sd*8.3, 0.09, B);
-    const m=S.motif.find(x=>x.s===i); if(m && !brk){ mxaPiano(t, mxaHz(m.n), sd*m.len, 0.09, B, -0.12); if(bar%4===2 && !intro) mxaBox(t, mxaHz(m.n+24), sd*2.5, 0.018, B.sm); }
+    const m=S.motif.find(x=>x.s===i); if(m && !brk){ mxaPiano(t, mxaHz(m.n), sd*m.len, 0.09, B, -0.12); if(mxaMod(pb,4)===2 && !intro) mxaBox(t, mxaHz(m.n+24), sd*2.5, 0.018, B.sm); }
     if(!intro && !brk && S.kick.includes(i)) mxaSub(t, mxaHz(bassN), sd*Math.max(2, (nextK(i)-i)*0.95), 0.42, B);
   }
   /* vinilo */
@@ -6144,14 +6297,14 @@ function mxaBBX2(S, i, t, sd){ const B=mxaBus(S), D=S.D, bar=S.bar, sot=D.pre===
     if(S.kick.includes(i)) mxaKickBB(t+hum(), i===0?1:0.92, B, {f0:112, f1:40, dec:0.45});
     if(drop){ if(i===12) mxaSnareBB(t+0.008, 1.1, B, true, {b0:250, b1:160, nz:0.8}); return; }
     if(i===4 || i===12) mxaSnareBB(t+0.008+hum(), 1.1, B, true, {b0:250, b1:160, nz:0.8});
-    if(bar%8===3 && i===15 && Math.random()<0.5) mxaSnareBB(t, 0.25, B, true, {b0:250, b1:160, nz:0.8});
-    if(i%2===0) mxaHatBB(t+hum(), (i%4===0?0.24:0.15)*(0.85+Math.random()*0.3), B, i===14 && bar%4===3, 6600);
+    if(mxaMod(pb,4)===3 && i===15) mxaSnareBB(t, 0.25, B, true, {b0:250, b1:160, nz:0.8});
+    if(i%2===0) mxaHatBB(t+hum(), (i%4===0?0.24:0.15)*(0.85+Math.random()*0.3), B, i===14 && mxaMod(pb,4)===3, 6600);
   } else {
     if(drop){ if(i%2===0) mxaHatBB(t+hum(), 0.24, B, i===14, 8000); return; }
     if(S.kick.includes(i)) mxaKickBB(t+hum(), i===0?1:0.9, B);
     if(i===4 || i===12) mxaSnareBB(t+0.005+hum(), 1.0, B, true, {b0:330, b1:200, nz:1.15});
-    if((i===7 || i===10 || i===15) && Math.random()<0.18) mxaSnareBB(t+hum(), 0.14, B, false, {b0:330, b1:200, nz:1.15});
-    if(bar%8===3 && i>=13 && Math.random()<0.6) mxaSnareBB(t, 0.25+0.1*(i-13), B, true, {b0:330, b1:200, nz:1.15});
+    if((i===7 || i===10 || i===15) && mxaDet(S,i,0.18)) mxaSnareBB(t+hum(), 0.14, B, false, {b0:330, b1:200, nz:1.15});
+    if(mxaMod(pb,4)===3 && i>=13 && mxaDet(S,i,0.6)) mxaSnareBB(t, 0.25+0.1*(i-13), B, true, {b0:330, b1:200, nz:1.15});
     if(i%2===0) mxaHatBB(t+hum(), (i%4===0?0.33:0.25)*(0.85+Math.random()*0.3), B, i===14 && bar%2===1, 8000);
     else if(S.hat16) mxaHatBB(t+hum(), 0.1*(0.7+Math.random()*0.6), B, false, 8000);
   }
@@ -6293,10 +6446,10 @@ function mxaDLChops(S, P){ S.chop=P.chops ? pick(P.chops) : []; S.chopN={}; S.ch
 function mxaDLXInit(S){ const P=MXA_DL_PRE[S.D.pre]; S.dprg=pick(P.progs); S.bp=P.bass ? pick(P.bass) : []; mxaDLChops(S, P); S.arp=P.arps ? pick(P.arps) : null; mxaBBXPhrase(S); }
 function mxaDLXVary(S){ const P=MXA_DL_PRE[S.D.pre]; if(P.bass && Math.random()<0.5) S.bp=pick(P.bass); if(S.bar%16===0 && Math.random()<0.5){ S.dprg=pick(P.progs); mxaBBXPhrase(S); }
   if(P.chops && Math.random()<0.5) mxaDLChops(S, P); if(P.arps && Math.random()<0.35) S.arp=pick(P.arps); }
-function mxaDLX(S, i, t, sd){ const B=mxaBus(S), D=S.D, P=D.pre, bar=S.bar, intro=bar<2, half=i>=8, LP=D.smLp||3000, ac=MXA.ac;
+function mxaDLX(S, i, t, sd){ const pb=mxaPB(S), B=mxaBus(S), D=S.D, P=D.pre, bar=S.bar, intro=bar<2, half=i>=8, LP=D.smLp||3000, ac=MXA.ac;
   if(!S.dlrv){ const sg=ac.createGain(); sg.gain.value=D.smRv||0.25; B.smg.connect(sg); sg.connect(B.rv); S.dlrv=1; }   // un poco de sala para el sample
-  const [cd, cq]=S.dprg[bar%4]; const chord=MXA_Q[cq].map(x=>60+(S.key%12)+cd+x).map(x=>x>72?x-12:x); const bassN=36+((S.key+cd)%12);
-  const brk=(bar%8===7) && half, lay=Math.floor(Math.max(0,bar-2)/8)%2===1;   // cada 8 compases entra o sale una capa
+  const [cd, cq]=S.dprg[mxaMod(pb,4)]; const chord=MXA_Q[cq].map(x=>60+(S.key%12)+cd+x).map(x=>x>72?x-12:x); const bassN=36+((S.key+cd)%12);
+  const brk=(mxaMod(pb,8)===7) && half, lay=Math.floor(Math.max(0,pb)/8)%2===1;   // cada 8 compases entra o sale una capa
   if(bar===0 && i===0){ B.smf.frequency.setValueAtTime(600,t); B.smf.frequency.exponentialRampToValueAtTime(LP, t+sd*30); }
   if(brk && i===8){ B.smf.frequency.setValueAtTime(LP,t); B.smf.frequency.exponentialRampToValueAtTime(900,t+sd*4); B.smf.frequency.setValueAtTime(900,t+sd*7.6); B.smf.frequency.exponentialRampToValueAtTime(LP,t+sd*8); }
   /* textura de disco: soplido y crujidos (sin batería, esto también marca el pulso) */
@@ -6305,8 +6458,8 @@ function mxaDLX(S, i, t, sd){ const B=mxaBus(S), D=S.D, P=D.pre, bar=S.bar, intr
   if(P==='cin'){
     if(i===0){ mxaStrings(t, chord, sd*16.2, 0.1, B); mxaOrgan(t, [chord[0]-12, chord[0], chord[2]], sd*16, 0.05, B); }
     if(lay && !intro && i===0) mxaTrem(t, chord.slice(1).map(x=>x+12), sd*16, 0.05, B, S.bpm/60*4);
-    const ph=S.ph.find(x=>x.s===(bar%2)*16+i); if(ph && !intro && (bar%4<2 || lay)){ mxaVox(t, mxaHz(ph.n), sd*ph.len, 0.07, B, S.vxl||0); S.vxl=mxaHz(ph.n); }
-    if(!intro && !brk && S.bp.includes(i)) mxaUpright(t, mxaHz(bassN+(i===S.bp[S.bp.length-1] && Math.random()<0.4 ? 12 : 0)), sd*(i%8===0 ? 1.8 : 1.1), 0.5, B);
+    const ph=S.ph.find(x=>x.s===(bar%2)*16+i); if(ph && !intro && (mxaMod(pb,4)<2 || lay)){ mxaVox(t, mxaHz(ph.n), sd*ph.len, 0.07, B, S.vxl||0); S.vxl=mxaHz(ph.n); }
+    if(!intro && !brk && S.bp.includes(i)) mxaUpright(t, mxaHz(bassN+(i===S.bp[S.bp.length-1] && mxaDet(S,i,0.4) ? 12 : 0)), sd*(i%8===0 ? 1.8 : 1.1), 0.5, B);
   } else if(P==='sou'){
     if(i===0 || i===8) chord.forEach((n,k)=>mxaKeysFM(t+k*0.012, mxaHz(n), sd*7.6, 0.06, B, k%2?0.22:-0.22));
     const ch=S.chop.find(x=>x[0]===i);
@@ -6316,8 +6469,8 @@ function mxaDLX(S, i, t, sd){ const B=mxaBus(S), D=S.D, P=D.pre, bar=S.bar, intr
   } else {
     if(i===0) mxaStrings(t, [chord[0]-12, chord[0]-5], sd*16.2, 0.09, B);
     if(i%2===0 && !(brk && i>=12)){ const n=60+(S.key%12)+cd+S.arp[(i/2)%8]; mxaPiano(t, mxaHz(n>79 ? n-12 : n), sd*2.2, 0.065, B, (i/2)%2 ? 0.2 : -0.2); }
-    if(!intro && lay && i%4===2 && Math.random()<0.6) mxaBox(t, mxaHz(72+(S.key%12)+cd+pick([0,3,7,1])), sd*3, 0.02, B.sm);
-    if(i===0 && bar%4===3) mxaNzX(t, sd*16, 0.07, 'bandpass', 2500, 0.6, B.sm, sd*15, true);   // un soplido al revés que avisa del cambio
+    if(!intro && lay && i%4===2 && mxaDet(S,i,0.6)) mxaBox(t, mxaHz(72+(S.key%12)+cd+[0,3,7,1][(mxaMod(pb,4)+(i>>2))%4]), sd*3, 0.02, B.sm);
+    if(i===0 && mxaMod(pb,4)===3) mxaNzX(t, sd*16, 0.07, 'bandpass', 2500, 0.6, B.sm, sd*15, true);   // un soplido al revés que avisa del cambio
     if(!intro && i===0) mxaSub(t, mxaHz(bassN), sd*15.5, 0.45, B);
   } }
 /* ===================== MOD v12.24 · G-FUNK nuevo (Costa Oeste y Atardecer rehechos + Lowrider), calibrado con dos referencias =====================
@@ -6353,21 +6506,21 @@ function mxaGfLead(S){ const sc=[0,3,5,7,10]; let d=pick([2,3,4]); const pos=S.D
   S.lead=pos.map((s,k)=>{ const nx=pos[k+1]==null ? 32 : pos[k+1]; if(k) d=Math.max(0, Math.min(9, d+pick([-2,-1,1,2,0]))); return {s, len:Math.max(2,(nx-s)*0.92), n:72+(S.key%12)+(d>=5?12:0)+sc[d%5]-(S.key%12>5?12:0), sl:Math.random()<0.55}; }); }
 function mxaGFXInit(S){ const P=MXA_GF_PRE[S.D.pre]; S.gprg=pick(P.progs); S.kick=pick(P.kicks); S.bp=pick(P.bass); mxaGfLead(S); }
 function mxaGFXVary(S){ const P=MXA_GF_PRE[S.D.pre]; if(Math.random()<0.5) S.kick=pick(P.kicks); if(Math.random()<0.4) S.bp=pick(P.bass); if(S.bar%16===2 && Math.random()<0.4) S.gprg=pick(P.progs); if(Math.random()<0.5) mxaGfLead(S); S.hat16=Math.random()<0.4; }
-function mxaGFX(S, i, t, sd){ const B=mxaGfBus(S), D=S.D, P=D.pre, bar=S.bar, intro=bar<2, half=i>=8, sec=intro ? -1 : (bar-2)%16, leadOn=sec>=8 || intro, fill=(bar%8===7) && i>=12;
+function mxaGFX(S, i, t, sd){ const pb=mxaPB(S), B=mxaGfBus(S), D=S.D, P=D.pre, bar=S.bar, intro=bar<2, half=i>=8, sec=intro ? -1 : (bar-2)%16, leadOn=sec>=8 || intro, fill=(mxaMod(pb,4)===3) && !intro && i>=12;
   const hb=(bar%2)*2+(half?1:0); const [cd, cq]=S.gprg[hb]; const chord=MXA_Q[cq].map(x=>60+(S.key%12)+cd+x).map(x=>x>74?x-12:x); const bassN=36+((S.key+cd)%12);
   const hum=()=>(Math.random()-0.5)*0.006;
   /* acordes: cuerdas largas (Costa Oeste) o piano eléctrico (Atardecer / Lowrider) */
-  if(P==='cos'){ if(i===0 || i===8) mxaStrings(t, chord.slice(0,4), sd*8.2, 0.26, B); if(!intro && i===6 && Math.random()<0.5) chord.slice(1,4).forEach((n,k)=>mxaKeysFM(t+k*0.01, mxaHz(n), sd*1.6, 0.05, B, k%2?0.2:-0.2)); }
+  if(P==='cos'){ if(i===0 || i===8) mxaStrings(t, chord.slice(0,4), sd*8.2, 0.26, B); if(!intro && i===6 && mxaDet(S,i,0.5)) chord.slice(1,4).forEach((n,k)=>mxaKeysFM(t+k*0.01, mxaHz(n), sd*1.6, 0.05, B, k%2?0.2:-0.2)); }
   else { if(i===0 || i===8) mxaStrings(t, chord.slice(0,3), sd*8.2, 0.06, B);
     const stab=P==='ata' ? [0,3,6,8,11,14] : [0,3,7,10,12]; if(stab.includes(i)) chord.slice(0,4).forEach((n,k)=>mxaKeysFM(t+k*0.008, mxaHz(n), sd*(i%8===0?2.4:1.4), 0.055, B, k%2?0.22:-0.22)); }
   /* el «whine» (y en Lowrider, el talkbox) */
   const pos=(bar%2)*16+i, L=S.lead.find(x=>x.s===pos);
-  if(L && (leadOn || (bar%4===0 && pos<16))){ const f=mxaHz(L.n); if(P==='low' && !intro && sec>=8) mxaTalk(t, mxaHz(L.n-12), sd*L.len, 0.11, B, pick(['oa','ua','oia','uo']), L.sl && S.gfl ? S.gfl*0.5 : 0);
-    else mxaWhineG(t, f, sd*L.len, P==='cos' ? 0.075 : 0.06, B, L.sl && S.gfl ? S.gfl : (Math.random()<0.4 ? f*0.75 : 0), sd*(L.sl ? 3 : 1)); S.gfl=f; }
-  if(P==='ata' && i===0 && bar%8===6) mxaWhineG(t, mxaHz(64+(S.key%12)), sd*30, 0.045, B, mxaHz(91+(S.key%12)), sd*24);   // el «láser» que cae
+  if(L && (leadOn || (mxaMod(pb,4)===0 && pos<16))){ const f=mxaHz(L.n); if(P==='low' && !intro && sec>=8) mxaTalk(t, mxaHz(L.n-12), sd*L.len, 0.11, B, ['oa','ua','oia','uo'][L.s%4], L.sl && S.gfl ? S.gfl*0.5 : 0);
+    else mxaWhineG(t, f, sd*L.len, P==='cos' ? 0.075 : 0.06, B, L.sl && S.gfl ? S.gfl : (mxaDet(S,i,0.4) ? f*0.75 : 0), sd*(L.sl ? 3 : 1)); S.gfl=f; }
+  if(P==='ata' && i===0 && pb>=0 && mxaMod(pb,8)===6) mxaWhineG(t, mxaHz(64+(S.key%12)), sd*30, 0.045, B, mxaHz(91+(S.key%12)), sd*24);   // el «láser» que cae
   /* el bajo Moog (desde que entra la batería) */
-  if(!intro && S.bp.includes(i) && !(fill && i>=13)){ const k=S.bp.indexOf(i), nx=S.bp[k+1]==null ? 16 : S.bp[k+1]; const oct=(P!=='cos' && k===S.bp.length-1 && Math.random()<0.5) ? 12 : 0; const f=mxaHz(bassN+oct-(D.sub ? 12 : 0));
-    mxaMoog(t, f, sd*Math.max(1.2,(nx-i)*0.9), 0.5, B, S.gfb && Math.random()<0.3 ? S.gfb : 0); S.gfb=f; }
+  if(!intro && S.bp.includes(i) && !(fill && i>=13)){ const k=S.bp.indexOf(i), nx=S.bp[k+1]==null ? 16 : S.bp[k+1]; const oct=(P!=='cos' && k===S.bp.length-1 && mxaDet(S,i,0.5)) ? 12 : 0; const f=mxaHz(bassN+oct-(D.sub ? 12 : 0));
+    mxaMoog(t, f, sd*Math.max(1.2,(nx-i)*0.9), 0.5, B, S.gfb && mxaDet(S,i+16,0.3) ? S.gfb : 0); S.gfb=f; }
   /* la batería */
   if(intro){ if(bar===1 && i>=12) mxaSnareBB(t, 0.2+0.08*(i-12), B, true, {b0:240, b1:180, nz:1.1}); return; }
   if(S.kick.includes(i)) mxaKickBB(t+hum(), i===0 ? 1 : 0.9, B, {f0:190, f1:48, dec:0.32});
@@ -6399,8 +6552,8 @@ const MXA_DR_PRE={
 function mxaDRXInit(S){ const P=MXA_DR_PRE[S.D.pre]; S.dprg=pick(P.progs); S.k8=pick(P.k808); S.hp=pick(P.hats); S.riff=P.riffs ? pick(P.riffs) : null; mxaBBXPhrase(S); }
 function mxaDRXVary(S){ const P=MXA_DR_PRE[S.D.pre]; if(Math.random()<0.45) S.k8=pick(P.k808); if(Math.random()<0.35) S.hp=pick(P.hats); if(P.riffs && Math.random()<0.3) S.riff=pick(P.riffs);
   if(S.bar%16===0 && Math.random()<0.4) S.dprg=pick(P.progs); if(Math.random()<0.4) mxaBBXPhrase(S); }
-function mxaDRX(S, i, t, sd){ const B=mxaBus(S), D=S.D, P=D.pre, PR=MXA_DR_PRE[P], bar=S.bar, IN=D.intro||2, intro=bar<IN, cyc=intro ? -1 : (bar-IN)%16, ab=(bar-IN+64)%2;
-  const brk=cyc===12 || cyc===13, drop=(bar%8===7) && i>=12; const deg=S.dprg[bar%4]; const key=S.key%12;
+function mxaDRX(S, i, t, sd){ const pb=mxaPB(S), B=mxaBus(S), D=S.D, P=D.pre, PR=MXA_DR_PRE[P], bar=S.bar, IN=D.intro||2, intro=bar<IN, cyc=intro ? -1 : (bar-IN)%16, ab=(bar-IN+64)%2;
+  const brk=cyc===12 || cyc===13, drop=(mxaMod(pb,8)===7) && i>=12; const deg=S.dprg[mxaMod(pb,4)]; const key=S.key%12;
   const qual=[3,8,10,7,1].includes(deg) ? 'M' : 'm'; const chord=MXA_Q[qual].map(x=>60+key+deg+x).map(x=>x>71 ? x-12 : x);
   const R8=D.low ? 24+((key+deg)%12) : 26+((key+deg+10)%12),   /* el 808 entre ~37 y ~69 Hz (Bloque, más grave) */ hum=()=>(Math.random()-0.5)*0.005;
   /* la melodía (instrumentos grabados) */
@@ -6411,7 +6564,7 @@ function mxaDRX(S, i, t, sd){ const B=mxaBus(S), D=S.D, P=D.pre, PR=MXA_DR_PRE[P
   } else if(P==='blo'){
     if(i===0) mxaStrings(t, [chord[0]-12, chord[0]-5], sd*16.2, 0.14, B);
     const mo=[[0,0],[6,1],[10,0],[13,(deg===1?0:8)]]; const m=mo.find(x=>x[0]===i); if(m && (bar%2===0 || i<8)) mxaPiano(t, mxaHz(60+key+deg+m[1]), sd*3, 0.1, B, -0.12);
-    if(!intro && bar%4===3 && i===8) mxaBox(t, mxaHz(84+key+deg), sd*6, 0.02, B.sm);
+    if(!intro && mxaMod(pb,4)===3 && i===8) mxaBox(t, mxaHz(84+key+deg), sd*6, 0.02, B.sm);
   } else {
     if(i===0) mxaStrings(t, [chord[0]-12, chord[0]], sd*16.2, 0.16, B);
     if((!drop || i<12) && i%2===0){ const n=55+((key+5)%12)+S.riff[(bar%2)*8+i/2];   // el riff en pizzicato (y el arpa una octava arriba en el centro de la sección)
@@ -6422,14 +6575,14 @@ function mxaDRX(S, i, t, sd){ const B=mxaBus(S), D=S.D, P=D.pre, PR=MXA_DR_PRE[P
   }
   /* el 808 que se desliza */
   const K=S.k8[ab]; if(!intro && !brk && !drop && K.includes(i)){ const k=K.indexOf(i), nx=K[k+1]==null ? 16 : K[k+1]; const len=sd*Math.max(1.5,(nx-i)*0.95);
-    const slide=k>0 && Math.random()<0.4; const up=(k===K.length-1 && Math.random()<0.3) ? mxaHz(R8+12) : 0; const oct=(k>0 && Math.random()<0.25) ? 12 : 0; const f=mxaHz(R8+oct);
+    const slide=k>0 && mxaDet(S,i,0.4,8); const up=(k===K.length-1 && mxaDet(S,i+32,0.3,8)) ? mxaHz(R8+12) : 0; const oct=(k>0 && mxaDet(S,i+64,0.25,8)) ? 12 : 0; const f=mxaHz(R8+oct);
     mxa808G(t, f, len, 0.55, B, slide && S.l8 ? S.l8 : 0, up); S.l8=up||f; if(k===0 || !slide) mxaKickBB(t+hum(), k===0 ? 0.8 : 0.55, B, {f0:170, f1:52, dec:0.2}); }
   /* caja, palmas y hi-hats */
   if(intro){ if(bar===IN-1 && i>=8 && i%2===0) mxaHatBB(t, 0.18+0.02*i, B, false, 9000); return; }
   if(PR.sn[ab].includes(i) && !drop) { mxaSnareBB(t+hum(), 1, B, true, {b0:280, b1:200, nz:1.3}); mxaClap(t+0.004, 0.3, B.dr); }
-  if(PR.gh[ab].includes(i) && Math.random()<0.5) mxaSnareBB(t+hum(), 0.28, B, false, {b0:280, b1:200, nz:1.3});
+  if(PR.gh[ab].includes(i) && mxaDet(S,i,0.5,8)) mxaSnareBB(t+hum(), 0.28, B, false, {b0:280, b1:200, nz:1.3});
   if(drop){ if(i===12) [0,1,2,3,4,5].forEach(r=>mxaHatBB(t+r*sd*2/3, 0.16+0.03*r, B, false, 9000)); return; }
-  const H=S.hp[ab], hv=D.hatv||1; if(H.includes(i)){ if(PR.roll.includes(i) && Math.random()<0.45) [0,1,2].forEach(r=>mxaHatBB(t+r*sd*2/3, 0.22*hv, B, false, 9000)); else mxaHatBB(t+hum(), (i%4===0 ? 0.36 : 0.28)*hv*(0.85+Math.random()*0.3), B, false, 9000); }
+  const H=S.hp[ab], hv=D.hatv||1; if(H.includes(i)){ if(PR.roll.includes(i) && mxaDet(S,i+80,0.45,8)) [0,1,2].forEach(r=>mxaHatBB(t+r*sd*2/3, 0.22*hv, B, false, 9000)); else mxaHatBB(t+hum(), (i%4===0 ? 0.36 : 0.28)*hv*(0.85+Math.random()*0.3), B, false, 9000); }
 }
 /* ===================== MOD v12.26 · ÉPICO nuevo (Coliseo y Gladiador rehechos + Leyenda), calibrado con cuatro referencias =====================
    Hip hop orquestal a ~104-108 BPM: cuerdas en ostinato, golpes de metales y de «orchestra hit», coro, trompas con la melodía,
@@ -6443,8 +6596,8 @@ const MXA_EP_PRE={
   ley:{progs:[[0,5,8,7],[0,3,10,8],[0,8,10,7],[0,8,3,7]], kick:[[0,7,10],[0,7,10,13]], sn:[[4,12],[4,12]], ost:[[0,3,7,12,7,3,0,3,7,12,15,12,7,3,7,12],[0,7,12,15,12,7,0,7,12,15,19,15,12,7,12,15]]} };
 function mxaEPXInit(S){ const P=MXA_EP_PRE[S.D.pre]; S.eprg=pick(P.progs); S.ost=P.ost ? pick(P.ost) : null; S.tk=P.taiko ? pick(P.taiko) : null; mxaBBXPhrase(S); }
 function mxaEPXVary(S){ const P=MXA_EP_PRE[S.D.pre]; if(P.ost && Math.random()<0.35) S.ost=pick(P.ost); if(P.taiko && Math.random()<0.4) S.tk=pick(P.taiko); if(S.bar%16===0 && Math.random()<0.4) S.eprg=pick(P.progs); if(Math.random()<0.45) mxaBBXPhrase(S); }
-function mxaEPX(S, i, t, sd){ const B=mxaEpBus(S), D=S.D, P=D.pre, PR=MXA_EP_PRE[P], bar=S.bar, IN=D.intro||2, intro=bar<IN, cyc=intro ? -1 : (bar-IN)%16, ab=bar%2;
-  const brk=cyc===12 || cyc===13, deg=S.eprg[bar%4], key=S.key%12, qual=[3,8,10,7,1].includes(deg) ? 'M' : 'm';
+function mxaEPX(S, i, t, sd){ const pb=mxaPB(S), B=mxaEpBus(S), D=S.D, P=D.pre, PR=MXA_EP_PRE[P], bar=S.bar, IN=D.intro||2, intro=bar<IN, cyc=intro ? -1 : (bar-IN)%16, ab=bar%2;
+  const brk=cyc===12 || cyc===13, deg=S.eprg[mxaMod(pb,4)], key=S.key%12, qual=[3,8,10,7,1].includes(deg) ? 'M' : 'm';
   const chord=MXA_Q[qual].map(x=>60+key+deg+x).map(x=>x>71 ? x-12 : x), root=48+((key+deg)%12), hum=()=>(Math.random()-0.5)*0.005, ok=k=>mxaSmpOk(k);
   const sm=(k, tt, m, dur, v, o, pan)=>ok(k) && mxaSmp(k, tt, m, dur, v, pan ? mxaPan(B.sm, pan) : B.sm, o||{});
   const pc=(k, tt, m, dur, v)=>ok(k) && mxaSmp(k, tt, m, dur, v, B.pc, {rel:0.3});
@@ -6458,7 +6611,7 @@ function mxaEPX(S, i, t, sd){ const B=mxaEpBus(S), D=S.D, P=D.pre, PR=MXA_EP_PRE
     /* ostinato de cuerdas en corcheas + golpes de metales */
     if(!intro && i%2===0){ const n=chord[0]-12+S.ost[(i/2)%8]; sm('strings', t, n, sd*0.9, brk ? 0.11 : 0.15, {att:0.004, rel:0.05}, -0.25); sm('strings', t, n+12, sd*0.9, 0.08, {att:0.004, rel:0.05}, 0.25); }
     if(!intro && !brk && (i===0 || (ab===1 && i===10))) chord.forEach((n,k)=>sm('brass', t+k*0.01, n, sd*(i===0 ? 2.5 : 1.5), 0.09, {att:0.01, rel:0.15}));
-    if(!intro && !brk && i===0 && bar%4===0) sm('ohit', t, chord[0], sd*4, 0.14);
+    if(!intro && !brk && i===0 && mxaMod(pb,4)===0) sm('ohit', t, chord[0], sd*4, 0.14);
     const ph=S.ph.find(x=>x.s===ab*16+i); if(ph && cyc>=8 && cyc<12) sm('horn', t, ph.n, sd*ph.len, 0.12, {att:0.04, rel:0.2, vib:8});
   } else if(P==='gla'){
     /* metales que entran deslizándose cada 2 compases, trompas heroicas y tambores de guerra */
@@ -6480,7 +6633,7 @@ function mxaEPX(S, i, t, sd){ const B=mxaEpBus(S), D=S.D, P=D.pre, PR=MXA_EP_PRE
   if(PR.sn[ab].includes(i) && !(brk && P!=='gla')){ mxaSnareBB(t+0.004+hum(), 1.05, B, true, {b0:220, b1:160, nz:1.15}); mxaClap(t+0.006, 0.4, B.dr); }
   if(brk) return;
   if(i%4===0) mxaHatBB(t+hum(), 0.26*(0.85+Math.random()*0.3), B, false, 8000); else if(i%2===0 && P!=='gla') mxaHatBB(t+hum(), 0.15, B, false, 8500);
-  if(bar%4===3 && i>=12 && P!=='gla') mxaTom(t, mxaHz(41+(15-i)*2+(key%5)), 0.4, B.dr, 0.35);   // redoble de toms
+  if(!intro && mxaMod(pb,4)===3 && i>=12 && P!=='gla') mxaTom(t, mxaHz(41+(15-i)*2+(key%5)), 0.4, B.dr, 0.35);   // redoble de toms
 }
 /* ===================== MOD v12.28 · REGGAE (reemplaza al jazz rap): Kingston, Raíces y Dub, calibrados con dos referencias =====================
    ~78-89 BPM: caja (o rimshot) en 2 y 4, hi-hats en corcheas con algo de swing, el «skank» de guitarra apagada en los contratiempos,
@@ -6504,11 +6657,11 @@ const MXA_RG_BASS=[[[0,3,0],[4,2,0],[6,1,7],[8,3,12],[12,2,10],[14,2,7]], [[2,2,
   [[0,2,0],[3,1,0],[4,2,7],[8,2,3],[10,2,0],[12,1,12],[13,1,10],[14,2,7]], [[2,3,0],[6,2,7],[8,2,12],[11,1,10],[12,4,7]]];
 function mxaRGXInit(S){ const P=MXA_RG_PRE[S.D.pre]; S.rprg=pick(P.progs); S.kick=pick(P.kick); S.rb=pick(MXA_RG_BASS); mxaBBXPhrase(S); }
 function mxaRGXVary(S){ const P=MXA_RG_PRE[S.D.pre]; if(Math.random()<0.45) S.kick=pick(P.kick); if(Math.random()<0.4) S.rb=pick(MXA_RG_BASS); if(S.bar%16===0 && Math.random()<0.4) S.rprg=pick(P.progs); if(Math.random()<0.4) mxaBBXPhrase(S); }
-function mxaRGX(S, i, t, sd){ const B=mxaRgBus(S), D=S.D, P=D.pre, bar=S.bar, intro=bar<2, cyc=intro ? -1 : (bar-2)%16, drop=cyc===12 || cyc===13, fill=cyc===15 && i>=12;
-  const [cd, cq]=S.rprg[bar%4], key=S.key%12, chord=MXA_Q[cq].map(x=>60+key+cd+x).map(x=>x>70 ? x-12 : x), root=28+((key+cd+4)%12), third=cq==='M' ? 4 : 3;
+function mxaRGX(S, i, t, sd){ const pb=mxaPB(S), B=mxaRgBus(S), D=S.D, P=D.pre, bar=S.bar, intro=bar<2, cyc=intro ? -1 : (bar-2)%16, drop=cyc===12 || cyc===13, fill=!intro && mxaMod(pb,4)===3 && i>=12;
+  const [cd, cq]=S.rprg[mxaMod(pb,4)], key=S.key%12, chord=MXA_Q[cq].map(x=>60+key+cd+x).map(x=>x>70 ? x-12 : x), root=28+((key+cd+4)%12), third=cq==='M' ? 4 : 3;
   const hum=()=>(Math.random()-0.5)*0.006, ok=k=>mxaSmpOk(k), sm=(k, tt, m, dur, v, o, dest)=>ok(k) && mxaSmp(k, tt, m, dur, v, dest||B.sm, o||{});
   /* el skank (guitarra apagada en los contratiempos) */
-  const skank=P==='rai' ? [4,12] : [2,6,10,14]; const dubSend=P==='dub' && (i===6 || i===14) && Math.random()<0.6 ? B.dly : null;
+  const skank=P==='rai' ? [4,12] : [2,6,10,14]; const dubSend=P==='dub' && (i===6 || i===14) && mxaDet(S,i,0.6) ? B.dly : null;
   if(skank.includes(i) && !(P==='dub' && drop)){ const pan=mxaPan(B.sm, 0.25); chord.forEach((n,k)=>{ sm('gtrm', t+k*0.006+hum(), n+12, sd*(P==='rai' ? 1.4 : 0.9), 0.22, {rel:0.04}, pan); if(dubSend) sm('gtrm', t+k*0.006, n+12, sd*0.9, 0.14, {rel:0.04}, dubSend); });
     if(P==='rai') chord.forEach((n,k)=>sm('gtrm', t+sd*0.5+k*0.006, n+12, sd*0.5, 0.12, {rel:0.03}, pan)); }   // el doble skank de raíces
   /* el bubble de órgano (raíces) y el órgano largo (kingston) */
@@ -6518,14 +6671,14 @@ function mxaRGX(S, i, t, sd){ const B=mxaRgBus(S), D=S.D, P=D.pre, bar=S.bar, in
   /* el bajo eléctrico (deja libre el primer tiempo cuando el patrón lo pide) */
   if(!intro && !(P!=='dub' && drop) && !fill){ const b=S.rb.find(x=>x[0]===i); if(b){ const iv=b[2]===3 ? third : b[2]; sm('ebass', t, root+iv, sd*b[1]*0.92, P==='dub' ? 0.6 : 0.5, {rel:0.06}, B.bsl); } }
   /* metales: un riff cada 4 compases (kingston y raíces) */
-  if(P!=='dub' && !intro && bar%4===3){ const ph=S.ph.find(x=>x.s===i && x.s<16); if(ph) sm('brass', t, ph.n, sd*Math.min(3, ph.len), 0.08, {att:0.02, rel:0.12}); }
+  if(P!=='dub' && !intro && mxaMod(pb,4)===3){ const ph=S.ph.find(x=>x.s===i && x.s<16); if(ph) sm('brass', t, ph.n, sd*Math.min(3, ph.len), 0.08, {att:0.02, rel:0.12}); }
   /* la batería */
   if(intro){ if(P==='dub' && i%4===2) mxaRim(t, 0.25, B, B.dly); return; }
   if(S.kick.includes(i) && !(drop && P==='kin')) mxaKickBB(t+hum(), i===0 || i===8 ? 1 : 0.85, B, {f0:120, f1:50, dec:0.3});
-  if(i===4 || i===12){ if(P==='kin'){ mxaSnareBB(t+0.006+hum(), 0.95, B, true, {b0:260, b1:190, nz:1.05}); } else mxaRim(t+hum(), 0.9, B, P==='dub' && i===12 && Math.random()<0.5 ? B.dly : null); }
+  if(i===4 || i===12){ if(P==='kin'){ mxaSnareBB(t+0.006+hum(), 0.95, B, true, {b0:260, b1:190, nz:1.05}); } else mxaRim(t+hum(), 0.9, B, P==='dub' && i===12 && mxaDet(S,i+16,0.5) ? B.dly : null); }
   if(fill && i>=13) mxaSnareBB(t, 0.25+0.1*(i-13), B, true, {b0:260, b1:190, nz:1.05});
   if(i%2===0) mxaHatBB(t+hum(), (i%4===0 ? 0.34 : 0.27)*(0.85+Math.random()*0.3), B, P==='kin' && i===14 && bar%2===1, 8500);
-  else if(P==='rai' && Math.random()<0.3) mxaHatBB(t+hum(), 0.07, B, false, 9000);
+  else if(P==='rai' && mxaDet(S,i,0.3)) mxaHatBB(t+hum(), 0.07, B, false, 9000);
 }
 /* ===================== MOD v12.29 · TRAP nuevo (Atlanta y Nocturno rehechos + Azotea), calibrado con dos referencias =====================
    Para que no se confunda con el drill:
@@ -6546,8 +6699,8 @@ const MXA_TR_PRE={
 const MXA_TR_ROLLS=[[[6,2],[14,3]], [[11,2],[15,3]], [[3,3],[14,2]], [[7,2],[13,2],[15,3]]];   // [paso, 2 = fusas · 3 = tresillo]
 function mxaTRXInit(S){ const P=MXA_TR_PRE[S.D.pre]; S.tprg=pick(P.progs); S.tk=pick(P.kick); S.riff=pick(P.riffs); S.rolls=pick(MXA_TR_ROLLS); mxaBBXPhrase(S); }
 function mxaTRXVary(S){ const P=MXA_TR_PRE[S.D.pre]; if(Math.random()<0.45) S.tk=pick(P.kick); if(Math.random()<0.6) S.rolls=pick(MXA_TR_ROLLS); if(Math.random()<0.3) S.riff=pick(P.riffs); if(S.bar%16===0 && Math.random()<0.4) S.tprg=pick(P.progs); if(Math.random()<0.4) mxaBBXPhrase(S); }
-function mxaTRX(S, i, t, sd){ const B=mxaBus(S), D=S.D, P=D.pre, bar=S.bar, IN=D.intro||2, intro=bar<IN, cyc=intro ? -1 : (bar-IN)%16, ab=bar%2;
-  const brk=cyc===12 || cyc===13, stop=(cyc===15 || bar===IN-1) && i>=12; const deg=S.tprg[bar%4], key=S.key%12, qual=[3,8,10,7,1].includes(deg) ? 'M' : 'm';
+function mxaTRX(S, i, t, sd){ const pb=mxaPB(S), B=mxaBus(S), D=S.D, P=D.pre, bar=S.bar, IN=D.intro||2, intro=bar<IN, cyc=intro ? -1 : (bar-IN)%16, ab=bar%2;
+  const brk=cyc===12 || cyc===13, stop=(cyc===15 || bar===IN-1) && i>=12; const deg=S.tprg[mxaMod(pb,4)], key=S.key%12, qual=[3,8,10,7,1].includes(deg) ? 'M' : 'm';
   const chord=MXA_Q[qual].map(x=>60+key+deg+x).map(x=>x>71 ? x-12 : x), R8=26+((key+deg+10)%12), hum=()=>(Math.random()-0.5)*0.004, ok=k=>mxaSmpOk(k);
   /* melodía */
   const r=(i%2===0) ? S.riff[i/2] : null, base=55+((key+5)%12);
@@ -6566,7 +6719,7 @@ function mxaTRX(S, i, t, sd){ const B=mxaBus(S), D=S.D, P=D.pre, bar=S.bar, IN=D
   }
   /* el 808 largo (y el bombo encima) */
   const K=S.tk[ab]; if(!intro && !brk && !stop && K.includes(i)){ const k=K.indexOf(i), nx=K[k+1]==null ? 16+(S.tk[1-ab][0]||0) : K[k+1]; const len=sd*Math.max(2,(nx-i)*0.97);
-    const f=mxaHz(R8+((k===K.length-1 && Math.random()<0.2) ? 12 : 0)); const slide=k===K.length-1 && Math.random()<0.15;
+    const f=mxaHz(R8+((k===K.length-1 && mxaDet(S,i,0.2,8)) ? 12 : 0)); const slide=k===K.length-1 && mxaDet(S,i+16,0.15,8);
     mxa808G(t, f, len, 0.6, B, 0, slide ? mxaHz(R8-5) : 0); mxaKickBB(t+hum(), k===0 ? 0.8 : 0.7, B, {f0:160, f1:50, dec:0.28}); }
   if(intro) return;
   /* palma + caja SIEMPRE en el 3 */
@@ -6577,9 +6730,61 @@ function mxaTRX(S, i, t, sd){ const B=mxaBus(S), D=S.D, P=D.pre, bar=S.bar, IN=D
   if(roll && !brk){ const n=roll[1]; for(let q=0;q<n;q++) mxaHatBB(t+q*sd/n, (0.16+0.04*q)*hv, B, false, 9500); }
   else if(P==='azo' || i%2===0) mxaHatBB(t+hum(), ((i%4===0) ? 0.32 : 0.22)*hv*(0.85+Math.random()*0.3), B, P==='atl' && i===14 && ab===1, 9500);
 }
+/* ===================== MOD v12.40 · LO-FI «Café» (el tercer lo-fi), con instrumentos grabados =====================
+   ~72-76 BPM con mucho swing: acordes de piano eléctrico de jazz (novenas y séptimas) un poco arrastrados y con el «wow» de cinta,
+   un contrabajo suave, bombo blando, caja de aro (rimshot) en 2 y 4, hi-hats apagados y el polvo del vinilo.
+   La melodía de piano solo entra en la segunda mitad de cada 16 compases; al final de cada cuarteto, un redoble suave. */
+const MXA_LF_PRE={
+  caf:{progs:[[[2,'m9'],[7,'d9'],[0,'M9'],[9,'m7']], [[0,'M9'],[9,'m9'],[2,'m9'],[7,'d9']], [[5,'M9'],[4,'m7'],[2,'m9'],[0,'M9']], [[9,'m9'],[2,'m9'],[7,'d9'],[0,'M9']]],
+    kicks:[[0,10],[0,7,10],[0,10,13]], comp:[[0,6],[0,7,14],[0,3,10]], bass:[[[0,0],[10,7],[14,5]], [[0,0],[7,7],[10,0]], [[0,0],[6,0],[10,7],[14,10]]]} };
+function mxaLFXInit(S){ const P=MXA_LF_PRE[S.D.pre]; S.lprg=pick(P.progs); S.kick=pick(P.kicks); S.comp=pick(P.comp); S.lb=pick(P.bass); mxaBBXPhrase(S); }
+function mxaLFX(S, i, t, sd){ const pb=mxaPB(S), B=mxaBus(S), D=S.D, bar=S.bar, intro=bar<2, cyc=intro ? -1 : mxaMod(pb,16), q4=mxaMod(pb,4), LP=D.smLp||2900;
+  const brk=cyc===15 && i>=8, fill=!intro && q4===3 && i>=12 && !brk; const [cd, cq]=S.lprg[mxaMod(pb,4)]; const key=S.key%12;
+  const chord=MXA_Q[cq].map(x=>57+key+cd+x).map(x=>x>74 ? x-12 : x), bassN=33+((key+cd)%12), hum=()=>(Math.random()-0.5)*0.008;
+  if(bar===0 && i===0){ B.smf.frequency.setValueAtTime(1100,t); B.smf.frequency.exponentialRampToValueAtTime(LP, t+sd*24); }
+  if(brk && i===8){ B.smf.frequency.setValueAtTime(LP,t); B.smf.frequency.exponentialRampToValueAtTime(650,t+sd*3); B.smf.frequency.setValueAtTime(650,t+sd*7.6); B.smf.frequency.exponentialRampToValueAtTime(LP,t+sd*8); }
+  /* el piano eléctrico: el acorde arrastrado en el 1 y sus golpes de «comping» */
+  if(S.comp.includes(i)){ const first=i===0, len=sd*(first ? Math.max(5, (S.comp[1]||16)-0.4) : 3.2); chord.forEach((n,k)=>mxaKeysFM(t+k*(first ? 0.022 : 0.012)+hum(), mxaHz(n), len, first ? 0.1 : 0.072, B, k%2 ? 0.22 : -0.22)); }
+  /* la melodía de piano (segunda mitad de cada 16 compases) */
+  const ph=S.ph.find(x=>x.s===(mxaMod(pb,2))*16+i); if(ph && !intro && cyc>=8 && cyc<15) mxaPiano(t+hum(), mxaHz(ph.n-5), sd*Math.min(ph.len,4), 0.06, B, 0.18);
+  /* vinilo */
+  if(i===0) mxaNzX(t, sd*16, D.hiss||0.012, 'bandpass', 4800, 0.35, B.smg, 0.05, true);
+  if(Math.random()<(D.crk||0.3)) mxaNzX(t+Math.random()*sd, 0.004, 0.05+Math.random()*0.05, 'highpass', 1800, 0.5, B.smg);
+  if(intro) return;
+  /* el contrabajo */
+  const b=S.lb.find(x=>x[0]===i); if(b && !brk && !(fill && i>=14)){ const k=S.lb.indexOf(b), nx=S.lb[k+1] ? S.lb[k+1][0] : 16; mxaUpright(t, mxaHz(bassN+b[1]), sd*Math.max(1.5,(nx-i)*0.9), 0.5, B); }
+  /* la batería (blanda) */
+  if(brk){ if(i===8) mxaKickBB(t, 0.6, B, {f0:95, f1:42, dec:0.3}); return; }
+  if(S.kick.includes(i)) mxaKickBB(t+hum(), i===0 ? 0.85 : 0.7, B, {f0:95, f1:42, dec:0.3});
+  if(i===4 || i===12) mxaRim(t+0.012+hum(), 0.55, B);
+  if(i===12 || (i===4 && mxaMod(pb,2)===1)) mxaSnareBB(t+0.014, 0.32, B, true, {b0:190, b1:150, nz:0.55});
+  if(fill && (i===14 || i===15)) mxaSnareBB(t, 0.16+0.06*(i-14), B, true, {b0:190, b1:150, nz:0.55});
+  if(i%2===0) mxaHatBB(t+hum(), (i%4===0 ? 0.16 : 0.11)*(0.85+Math.random()*0.3), B, false, 6200);
+  else if(mxaDet(S,i,0.25)) mxaHatBB(t+hum(), 0.05, B, false, 6200);
+}
+/* ===================== MOD v12.39 · beats previsibles y con el compás bien marcado =====================
+   · Todo se cuenta desde que entra la batería («pb», el compás dentro de la frase): cada cuarteto empieza en su «1»,
+     los acordes arrancan con él y los redobles, cortes y escalas caen siempre al final del cuarteto (antes caían a destiempo).
+   · El ritmo (bombo, 808, caja, hi-hats, bajo) y los acordes ya no cambian al azar: se repiten en bucle todo el beat.
+     Lo que antes se sorteaba en cada golpe (fantasmas, deslizamientos del 808, redobles…) ahora se sortea una vez y se repite igual en cada cuarteto.
+   · Cada 16 compases solo se alterna la melodía (A / B / A / B…).
+   · Un platillo suave marca el arranque de cada cuarteto (cada 4 compases; cada 8 en el trap y el drill, que van al doble de velocidad
+     y cada verso ocupa 2 compases). En los drumless, sin batería, lo avisa un soplido al revés que crece hacia el «1». */
+function mxaIN(S){ return S.IN!=null ? S.IN : (S.IN=(S.D && S.D.type) ? (S.D.intro||2) : 0); }
+function mxaPB(S){ return S.bar-mxaIN(S); }
+function mxaMod(a, n){ return ((a%n)+n)%n; }
+function mxaDet(S, i, p, n){ n=n||4; const c=mxaMod(mxaPB(S), n); let h=Math.imul(((S.seed||7)+c*16+i+1)|0, 2654435761); h^=h>>>15; h=Math.imul(h, 2246822507); h^=h>>>13; return ((h>>>0)%10000)/10000 < p; }
+function mxaCq(S){ return S.bpm>=120 ? 8 : 4; }   // compases por cuarteto
+function mxaNextBar(S){ S.bar++; const pb=mxaPB(S); if(pb>0 && pb%16===0) (S.D ? mxaBeatVary : mxaVary)(S); }
+function mxaMark(S, t, sd){ const pb=mxaPB(S), D=S.D, cq=mxaCq(S), ac=MXA.ac; if(!ac || !S.out) return;
+  if(D && D.type==='dlx'){ if(D.pre!=='mis' && pb>=0 && mxaMod(pb,4)===3) mxaNzX(t, sd*16, 0.06, 'bandpass', 2500, 0.6, mxaBus(S).sm, sd*15, true); return; }   // drumless: el soplido al revés
+  if(pb<0 || pb%cq) return; if(D && D.type==='epx' && (pb===0 || pb%16===12)) return;   // el épico ya trae su gran entrada (y en su respiro no va)
+  if(D && D.type==='trx' && pb%16===12) return;
+  if(!S.crb){ const g=ac.createGain(); g.gain.value=1; g.connect(S.out); if(D && D.type){ const r=ac.createGain(); r.gain.value=0.3; g.connect(r); r.connect(mxaBus(S).rv); } S.crb=g; }
+  const big=pb%16===0; mxaCrash(t+0.002, (big ? 0.2 : 0.14)*(D && (D.base==='lofi' || D.type==='lfx') ? 0.7 : 1)*(cq===8 ? 1.5 : 1), S.crb); }
 function mxaBeatSong(id){ const D=MXA_BEAT_DEF[id]; if(!D) return null; const st=D.base||D.type; const k=rint(0,11);
   const S={sid:id, style:st, beat:id, D, key:k, bar:0, step:0, prog:pick(MXA_PROGS), kick:(MXA_KICKS[st]?pick(MXA_KICKS[st]):[0,10]), bpm:rint(D.bpm[0],D.bpm[1]), swing:D.swing||0,
-    hat16: st!=='lofi' && Math.random()<0.4, out:null, next:0, gain:D.g||1, mel:null};
+    hat16: st!=='lofi' && Math.random()<0.4, out:null, next:0, gain:D.g||1, mel:null, seed:rint(1,999999)};
   if(st==='drill') S.prog=pick([[0,8,3,10],[0,3,8,7],[0,10,8,7]]);
   if(st==='jazz') S.jprog=pick([[[2,'m9'],[7,'d9'],[0,'M9'],[0,'M9']], [[2,'m9'],[7,'d9'],[0,'M9'],[9,'m7']], [[0,'M9'],[9,'m9'],[2,'m9'],[7,'d9']]]);
   if(st==='gfunk') S.gprog=pick([[[0,'m9'],[5,'m9'],[0,'m9'],[5,'m9']], [[0,'m7'],[10,'d9'],[8,'M7'],[7,'d7']], [[0,'m9'],[3,'M9'],[5,'m9'],[7,'d9']], [[0,'m9'],[8,'M9'],[5,'m7'],[7,'d9']]]);
@@ -6592,17 +6797,22 @@ function mxaBeatSong(id){ const D=MXA_BEAT_DEF[id]; if(!D) return null; const st
   if(st==='epx') mxaEPXInit(S);
   if(st==='rgx') mxaRGXInit(S);
   if(st==='trx') mxaTRXInit(S);
+  if(st==='lfx') mxaLFXInit(S);
   mxaBeatMel(S); return S; }
 /* frase melódica de 16 pasos que se repite (cambia de vez en cuando) */
 function mxaBeatMel(S){ const sc=(S.style==='jazz'||S.style==='gfunk')?MXA_PENTA:MXA_MINOR; const n=S.style==='drill'?6:5; const steps=S.style==='gfunk'?pick([[0,3,6,8,12],[0,4,6,10,14],[2,6,8,12,14]]):pick([[0,3,6,10,12,14],[0,2,6,8,11,14],[0,3,7,10,13]]);
   S.mel=steps.slice(0,n).map(i=>({i, d:sc[rint(0,sc.length-1)]+(Math.random()<0.25?12:0)})); }
-function mxaBeatVary(S){ const st=S.style; if(st==='bbx'){ mxaBBXVary(S); if(!S.D.pre) S.hat16=Math.random()<0.4; return; } if(st==='dsx'){ mxaDSXVary(S); return; } if(st==='dlx'){ mxaDLXVary(S); return; } if(st==='gfx'){ mxaGFXVary(S); return; } if(st==='drx'){ mxaDRXVary(S); return; } if(st==='epx'){ mxaEPXVary(S); return; } if(st==='rgx'){ mxaRGXVary(S); return; } if(st==='trx'){ mxaTRXVary(S); return; } if(MXA_KICKS[st] && Math.random()<0.5) S.kick=pick(MXA_KICKS[st]); if(st==='dubstep') S.wob=pick([1,2,2,3,4]); if(S.bar%16===0 && Math.random()<0.5 && st!=='jazz' && st!=='gfunk' && st!=='dubstep') S.prog=pick(MXA_PROGS); if(Math.random()<0.4) mxaBeatMel(S); S.hat16=st!=='lofi' && Math.random()<0.45; }
-function mxaBeatStep(S, i, t, sd){ if(S.style==='bbx') return mxaBBX(S, i, t, sd); if(S.style==='dsx') return mxaDSX(S, i, t, sd); if(S.style==='dlx') return mxaDLX(S, i, t, sd); if(S.style==='gfx') return mxaGFX(S, i, t, sd); if(S.style==='drx') return mxaDRX(S, i, t, sd); if(S.style==='epx') return mxaEPX(S, i, t, sd); if(S.style==='rgx') return mxaRGX(S, i, t, sd); if(S.style==='trx') return mxaTRX(S, i, t, sd); const d=S.out, bar=S.bar, st=S.style, D=S.D; const deg=S.prog[bar%4]; const root=48+S.key; const fill=(bar%4===3) && i>=12;
+function mxaBeatVary(S){   /* MOD v12.39: cada 16 compases solo se alterna la melodía (A / B / A / B…); el ritmo y los acordes no cambian */
+  if(!S.melA){ S.melA=mxaMelSnap(S); if(S.ph) mxaBBXPhrase(S); if(S.lead) mxaGfLead(S); if(S.motif) mxaSotMotif(S); if(S.mel) mxaBeatMel(S); S.melB=mxaMelSnap(S); S.mAB=1; return; }
+  S.mAB=1-S.mAB; Object.assign(S, S.mAB ? S.melB : S.melA); }
+function mxaMelSnap(S){ return {ph:S.ph, lead:S.lead, motif:S.motif, mel:S.mel}; }
+function mxaBeatStep(S, i, t, sd){ mxaBeatStep0(S, i, t, sd); if(i===0) try{ mxaMark(S, t, sd); }catch(e){} }
+function mxaBeatStep0(S, i, t, sd){ if(S.style==='lfx') return mxaLFX(S, i, t, sd); if(S.style==='bbx') return mxaBBX(S, i, t, sd); if(S.style==='dsx') return mxaDSX(S, i, t, sd); if(S.style==='dlx') return mxaDLX(S, i, t, sd); if(S.style==='gfx') return mxaGFX(S, i, t, sd); if(S.style==='drx') return mxaDRX(S, i, t, sd); if(S.style==='epx') return mxaEPX(S, i, t, sd); if(S.style==='rgx') return mxaRGX(S, i, t, sd); if(S.style==='trx') return mxaTRX(S, i, t, sd); const d=S.out, bar=S.bar, st=S.style, D=S.D; const deg=S.prog[bar%4]; const root=48+S.key; const fill=(bar%4===3) && i>=12;
   if(D.base){   // boom bap, lo-fi y trap: el motor de siempre, con su variante
     mxaStep(S, i, t, sd);
     if(D.dark && st==='boombap' && i===14 && bar%2===0) mxaHat(t, 0.16, true, d);
     if(D.dark && st==='lofi' && Math.random()<0.12) mxaNz(t+Math.random()*sd, 0.04, 0.05, 'highpass', 2500, 0.5, d);
-    if(D.dark && st==='trap'){ if(i===0 && bar%2===0) mxaPad(t, mxaTones(root+12, deg).slice(0,3), sd*31, 0.12, d, 'sawtooth', 900, 0.5); if((i===6 || i===14) && Math.random()<0.5) [0,1,2].forEach(r=>mxaHat(t+r*sd/3, 0.14, false, d)); }
+    if(D.dark && st==='trap'){ if(i===0 && bar%2===0) mxaPad(t, mxaTones(root+12, deg).slice(0,3), sd*31, 0.12, d, 'sawtooth', 900, 0.5); if((i===6 || i===14) && mxaDet(S,i,0.5)) [0,1,2].forEach(r=>mxaHat(t+r*sd/3, 0.14, false, d)); }
     return; }
   if(st==='gfunk'){
     const [gd, gq]=S.gprog[bar%4]; const chord=MXA_Q[gq].map(x=>root+gd+x); const bass=36+S.key+gd;
@@ -6660,15 +6870,15 @@ function mxaTones(root, deg, lofi){ const maj={3:1,8:1,10:1}; const q=maj[deg] ?
 const MXA_KICKS={boombap:[[0,7,10],[0,3,10],[0,8,10,14],[0,6,9]], trap:[[0,7,10],[0,3,6,11],[0,10,13],[0,6,8,14]], lofi:[[0,10],[0,7,10],[0,9]]};
 function mxaNewSong(style){ const k=rint(0,11); const S={style, key:k, bar:0, step:0, prog:pick(MXA_PROGS), kick:pick(MXA_KICKS[style]),
     bpm: style==='trap' ? rint(136,148) : style==='lofi' ? rint(72,82) : rint(86,95), swing: style==='trap' ? 0 : style==='lofi' ? 0.2 : 0.14,
-    hat16: style!=='lofi' && Math.random()<0.4, out:null, next:0, sid:style}; return S; }
-function mxaVary(S){ if(Math.random()<0.5) S.kick=pick(MXA_KICKS[S.style]); if(S.bar%16===0 && Math.random()<0.5) S.prog=pick(MXA_PROGS); S.hat16=S.style!=='lofi' && Math.random()<0.45; }
+    hat16: style!=='lofi' && Math.random()<0.4, out:null, next:0, sid:style, seed:rint(1,999999)}; return S; }
+function mxaVary(S){ }   /* MOD v12.39: la música del menú tampoco cambia el ritmo al azar: es un bucle */
 function mxaStep(S, i, t, sd){ const d=S.out, bar=S.bar, deg=S.prog[bar%4], fill=(bar%4===3) && i>=12, st=S.style;
   const root=48+S.key; const bass=mxaHz(36+S.key+deg);
   if(st==='trap'){
     if(S.kick.includes(i)){ mxaKick(t, 0.9, d); mxaTone(t, bass, Math.min(sd*6,1.2), 0.42, 'sine', 700, d, bass*1.6); }
     if(i===8) mxaClap(t, 0.8, d);
     if(fill && i%2===0) mxaSnare(t, 0.35, d);
-    const roll = (i===13 || i===14) && Math.random()<0.6; if(roll){ [0,1,2].forEach(r=>mxaHat(t+r*sd/3, 0.2, false, d)); } else mxaHat(t, i%4===0?0.26:0.17, false, d);
+    const roll = (i===13 || i===14) && mxaDet(S,i,0.6); if(roll){ [0,1,2].forEach(r=>mxaHat(t+r*sd/3, 0.2, false, d)); } else mxaHat(t, i%4===0?0.26:0.17, false, d);
     if(i===0) mxaChord(t, mxaTones(root+12, deg).slice(0,3), sd*15, 0.16, d, 2200);
   } else {
     const soft=st==='lofi';
@@ -6682,7 +6892,7 @@ function mxaStep(S, i, t, sd){ const d=S.out, bar=S.bar, deg=S.prog[bar%4], fill
   } }
 function mxaTick(){ const ac=MXA.ac, S=MXA.song; if(!ac || !S || S.wait) return; const sd=60/S.bpm/4;
   if(S.next < ac.currentTime-0.2) S.next=ac.currentTime+0.05;
-  while(S.next < ac.currentTime+0.16){ (S.D?mxaBeatStep:mxaStep)(S, S.step, S.next + ((S.step%2) ? S.swing*sd : 0), sd); S.next+=sd; S.step=(S.step+1)%16; if(S.step===0){ S.bar++; if(S.bar%8===0) (S.D?mxaBeatVary:mxaVary)(S); } } }
+  while(S.next < ac.currentTime+0.16){ (S.D?mxaBeatStep:mxaStep)(S, S.step, S.next + ((S.step%2) ? S.swing*sd : 0), sd); S.next+=sd; S.step=(S.step+1)%16; if(S.step===0) mxaNextBar(S); } }
 function mxaStart(style){ const ac=mxaCtx(); if(!ac) return; mxaStop(true); const S=(typeof MXA_BEAT_DEF!=='undefined' && MXA_BEAT_DEF[style]) ? mxaBeatSong(style) : mxaNewSong(style); S.out=ac.createGain(); S.out.gain.setValueAtTime(0.0001, ac.currentTime); S.out.gain.exponentialRampToValueAtTime(S.gain || {lofi:1.35, boombap:1, trap:0.6}[style] || 1, ac.currentTime+1.2);   /* los tres estilos suenan a un volumen parecido */ S.out.connect(MXA.mus);
   S.next=ac.currentTime+0.08;
   if(S.D && S.D.inst){ const p=mxaSmpLoad(S.D.inst); if(!S.D.inst.every(k=>MXA_SB[k] && MXA_SB[k].done)){ S.wait=true; const go=()=>{ if(!S.wait) return; S.wait=false; if(MXA.ac) S.next=MXA.ac.currentTime+0.06; }; p.then(go, go); setTimeout(go, 2500); } }   /* MOD v12.25: espera a sus instrumentos grabados (como mucho 2,5 s) */ MXA.song=S; if(!MXA.timer) MXA.timer=setInterval(mxaTick, 40); mxaTick(); }
@@ -6717,8 +6927,11 @@ function mxaBeatTrack(segs, t0){ const ac=mxaCtx(); if(!ac) return []; const d=w
 function mxaLatency(){ const ac=MXA.ac; return ac ? (ac.outputLatency||0)+(ac.baseLatency||0) : 0; }
 /* botón rápido y ajustes */
 function mxaBtn(){ const c=mxaCfg(); return `<button class="btn small gear-btn mx-mubtn" onclick="mxaToggle()" title="${c.on?'Apagar la música':'Encender la música'}" aria-label="${c.on?'Apagar la música':'Encender la música'}">${c.on?'🔊':'🔇'}</button>`; }
-function mxaToggle(){ const c=mxaCfg(); c.on=!c.on; mxaSave(); mxaUnlock(); mxaPoll(); try{ renderTopbar(); }catch(e){} toast(c.on?'🔊 Música encendida':'🔇 Música apagada'); }
-function mxaSet(k, v){ const c=mxaCfg(); c[k]=v; mxaSave(); mxaUnlock(); mxaPoll(); mxaVol(); try{ renderTopbar(); }catch(e){} }
+/* MOD v12.38: el mismo botón 🔊/🔇 también en las jornadas, torneos y copas (y en el reto de Gazir) */
+function mxaShBtn(){ const c=mxaCfg(), t=c.on?'Apagar la música':'Encender la música'; return `<button class="btn small ghost mx-mubtn mx-mush" onclick="mxaToggle()" title="${t}" aria-label="${t}">${c.on?'🔊':'🔇'}</button>`; }
+function mxaBtnSync(){ const c=mxaCfg(), t=c.on?'Apagar la música':'Encender la música'; document.querySelectorAll('.mx-mush').forEach(b=>{ b.textContent=c.on?'🔊':'🔇'; b.title=t; b.setAttribute('aria-label', t); }); }
+function mxaToggle(){ const c=mxaCfg(); c.on=!c.on; mxaSave(); mxaUnlock(); mxaPoll(); try{ renderTopbar(); }catch(e){} mxaBtnSync(); toast(c.on?'🔊 Música encendida':'🔇 Música apagada'); }
+function mxaSet(k, v){ const c=mxaCfg(); c[k]=v; mxaSave(); mxaUnlock(); mxaPoll(); mxaVol(); try{ renderTopbar(); }catch(e){} mxaBtnSync(); }
 function openAudioSettings(){ const c=mxaCfg(); const sl=(k,l)=>`<label class="mxa-row"><span>${l}</span><input type="range" min="0" max="100" value="${Math.round(c[k]*100)}" oninput="mxaSet('${k}', this.value/100); this.nextElementSibling.textContent=this.value+'%'"><b>${Math.round(c[k]*100)}%</b></label>`;
   const ck=(k,l,d)=>`<label class="mxa-ck"><input type="checkbox" ${c[k]?'checked':''} onchange="mxaSet('${k}', this.checked)"><span><b>${l}</b><small>${d}</small></span></label>`;
   openModal(`<h3>🎵 Música y sonido</h3>
@@ -7022,7 +7235,7 @@ function mxTsOpen(ev){ const s=cur(); closeModal(); document.body.classList.remo
   root.innerHTML=`<div class="rbs rbs-enter mx-ts ${copa?'copa':'dos'}" role="dialog" aria-label="${esc(title)}">
     <div class="rbs-top"><span class="mx-ts-logo" aria-hidden="true"><img class="mx-cupic" src="${copa?MX_TEAM_LOGO.mx_copa:MX_TEAM_LOGO.mx_2v2}" alt=""></span><div style="min-width:0"><div class="rbs-title">${esc(title)}</div><div class="rbs-sub">${fmtDay(s.year, ev.day)} ${s.year} · ${copa?'selecciones de 3 MCs, gana la eliminatoria quien gane 2 batallas':'parejas de tus ligas'+((ev.guests&&ev.guests.length)?' y históricos y artistas invitados':'')+', eliminación directa'}</div></div></div>
     <div class="mx-ts-stage" id="tsStage"></div>
-    <div class="mx-shfoot"><div class="mx-shctl"><button class="btn small ghost x2-btn ${state.ui.x2?'on':''}" id="shX2" aria-pressed="${state.ui.x2?'true':'false'}" title="Velocidad x2 / x4" onclick="shToggleX2()">${mxSpdLbl()}</button><button class="btn small ghost mx-segbtn ${mxTsSeg()?'on':''}" id="tsSeg" aria-pressed="${mxTsSeg()?'true':'false'}" title="Las eliminatorias de cada ronda se reproducen seguidas" onclick="mxTsSegToggle()">▶▶ Ronda seguida</button><button class="btn small ghost" id="tsRnd" onclick="mxTsSkipRound()">⏭ Siguiente ronda</button><button class="btn small ghost" id="tsSkip" onclick="mxTsSkip()">Saltar al campeón</button></div><div class="rbs-bottom" id="shBottom"></div></div></div>`;
+    <div class="mx-shfoot"><div class="mx-shctl"><button class="btn small ghost x2-btn ${state.ui.x2?'on':''}" id="shX2" aria-pressed="${state.ui.x2?'true':'false'}" title="Velocidad x2 / x4" onclick="shToggleX2()">${mxSpdLbl()}</button>${mxaShBtn()}<button class="btn small ghost mx-segbtn ${mxTsSeg()?'on':''}" id="tsSeg" aria-pressed="${mxTsSeg()?'true':'false'}" title="Las eliminatorias de cada ronda se reproducen seguidas" onclick="mxTsSegToggle()">▶▶ Ronda seguida</button><button class="btn small ghost" id="tsRnd" onclick="mxTsSkipRound()">⏭ Siguiente ronda</button><button class="btn small ghost" id="tsSkip" onclick="mxTsSkip()">Saltar al campeón</button></div><div class="rbs-bottom" id="shBottom"></div></div></div>`;
   mxTsRun(SHOW.tok, ev); }
 /* MOD v10.1: ver cada ronda seguida (sin "Siguiente eliminatoria" entre una y otra) y saltar a la siguiente ronda */
 function mxTsSeg(){ return state.ui.tsSeg!==false; }
@@ -7199,13 +7412,14 @@ var LZ=(function(){
   };
 })();
 /* ---- slots de guardado (3) ---- */
-const SLOTS=[1,2,3,4,5,6];   // MOD v12.16: 6 slots de guardado (antes 3)
+const SLOTS=[1,2,3,4];   /* WEB: 4 slots */   // MOD v12.16: 6 slots de guardado (antes 3)
 function slotKey(n){ return 'fms_ceo_slot_'+n; }
 function slotMetaKey(n){ return 'fms_ceo_slotmeta_'+n; }
 function saveStr(d){ return JSON.stringify(d, (k,v)=> (k==='img' && typeof v==='string' && v.startsWith('data:')) ? undefined : v); }   // las fotos de los tuits se recuperan al pintar
 function metaOf(d){ const ss=d.seasons||[]; const last=ss[ss.length-1]||{};
   return {inf:!!(d.company&&(d.company.infinite||d.company.sbxWon)), mode:(d.company&&d.company.mode)||'empresario', name:(d.company&&d.company.name)||'FMS', stars:(d.company&&d.company.stars)||0, money:(d.company&&d.company.money)||0, year:last.year||null, seasons:ss.length, phase:last.phase||'pre', lost:!!(d.company&&d.company.lost), t:Date.now()}; }
-function slotMeta(n){ try{ const m=localStorage.getItem(slotMetaKey(n)); if(m) return JSON.parse(m);
+function slotMeta(n){ return webSlotName(slotMeta0(n)); }
+function slotMeta0(n){ try{ const m=localStorage.getItem(slotMetaKey(n)); if(m) return JSON.parse(m);
     const d=readSlot(n); if(!d||!d.company) return null; const mm=metaOf(d); mm.t=null; return mm; }catch(e){ return null; } }
 // GUARDADO por trozos: las temporadas antiguas (ya cerradas) se guardan una sola vez y comprimidas (LZ, ~10 veces menos);
 // en el guardado principal solo van la empresa, los freestylers y las 2 últimas temporadas. Así guardar es rápido y caben cientos de temporadas.
@@ -7226,7 +7440,7 @@ function writeSlot(n, d){
   try{ localStorage.setItem(slotKey(n), main); }
   catch(e){ localStorage.setItem(slotKey(n), packSave(main)); }   // casi sin espacio: también se comprime lo principal
   try{ localStorage.setItem(slotMetaKey(n), JSON.stringify(metaOf(d))); localStorage.setItem('fms_ceo_lastslot', String(n)); }catch(e){} }
-function clearSlot(n){ try{ localStorage.removeItem(slotKey(n)); localStorage.removeItem(slotMetaKey(n)); if(localStorage.getItem('fms_ceo_lastslot')===String(n)) localStorage.removeItem('fms_ceo_lastslot');
+function clearSlot(n){ try{ localStorage.removeItem('fmsceo_gct_slot_'+n); localStorage.removeItem(slotKey(n)); localStorage.removeItem(slotMetaKey(n)); if(localStorage.getItem('fms_ceo_lastslot')===String(n)) localStorage.removeItem('fms_ceo_lastslot');
     for(let i=0;i<5000 && localStorage.getItem(chunkKey(n,i))!=null;i++) localStorage.removeItem(chunkKey(n,i)); }catch(e){} chunkMap(n).clear(); }
 function migrateSlots(){   // la partida de versiones antiguas pasa al slot 1
   try{ const old=localStorage.getItem(STORAGE_KEY); if(!old) return;
@@ -7586,7 +7800,7 @@ function mxSendTo(from, id){ const s=cur(); if(!s || s.phase!=='pre') return; co
   const keys=s.activeKeys.filter(k=>k!==from && s.leagues[k]);
   const rows=keys.map(k=>{ const why=mxSendWhy(s, from, k, f); const L2=s.leagues[k]; const c=catOf(f) ? (negDeal(f,k)||contractCost(f,k)) : contractCost(f,k);
     return `<button class="mx-send-row ${why?'off':''}" ${why?'disabled':''} onclick="mxSendDo('${from}','${k}','${id}')">${leagueDot(k)}<span class="nm"><b>${esc(ldef(k).name)}</b><small>${L2.competitors.length}/${lgSize(k)}${isForeign(f,k)?' · ✈ viajes':''}${why?' · '+esc(why):''}</small></span><span class="pr">${moneyK(c)}</span></button>`; }).join('');
-  openModal(`<h3>📤 Enviar a ${nameH(f)}…</h3><p class="step-note">Sale de ${esc(ldef(from).name)} (se le devuelve su contrato) y firma en la liga que elijas con el sueldo de allí.${(L.tf&&L.tf[id])?' Su modo especial no viaja con él.':''}</p>
+  openModal(`<h3>📤 Enviar a ${nameH(f)}…</h3>${mxTrfGood(s, from, id)?`<p class="step-note mx-trfwarn">⚠️ ${mxTrfTxt(from, id)} ¿Seguro que lo envías?</p>`:''}<p class="step-note">Sale de ${esc(ldef(from).name)} (se le devuelve su contrato) y firma en la liga que elijas con el sueldo de allí.${(L.tf&&L.tf[id])?' Su modo especial no viaja con él.':''}</p>
     <div class="mx-send-list">${rows || '<div class="step-note">No tienes otras ligas activas.</div>'}</div>
     <div class="modal-actions"><button class="btn" onclick="closeModal()">Cancelar</button></div>`); }
 function mxSendDo(from, to, id, back, swap){ const s=cur(); if(!s || s.phase!=='pre') return; const f=fby(id); const A=s.leagues[from], B=s.leagues[to]; if(!f || !A || !B || !A.competitors.includes(id)) return;
@@ -7643,7 +7857,10 @@ function mxVenAllCount(s){ let a=0, t=0; mxVenAllKeys(s).forEach(k=>{ const L=s.
    No se mueven: el que ascendió, los que llevan carta especial, históricos y artistas (se negocian), los del Vida o muerte ni los que tienen bonus de verse. */
 const MX_MIX_KEEP=4;
 function mxMixKeys(s){ s=s||cur(); return natKeys(s).filter(k=>s.leagues[k] && (s.leagues[k].competitors||[]).length); }
-function mxMixFixed(s, L, id){ return !fby(id) || id===L.ascUp; }   /* MOD v12.18: solo el que ascendió no se mueve */
+function mxMixFixed(s, L, id){ return !fby(id) || id===L.ascUp || mxMixLocked(s, id); }   /* MOD v12.18: el que ascendió no se mueve · MOD v12.34: ni los que bloqueas */
+function mxMixLocked(s, id){ return !!(s && s.mixLock && s.mixLock[id]); }
+function mxMixLockT(id){ const s=cur(); if(!s) return; s.mixLock=s.mixLock||{}; if(s.mixLock[id]) delete s.mixLock[id]; else s.mixLock[id]=1; save();
+  const q=()=>[document.querySelector('#modalRoot .mx-mix-list'), document.querySelector('#modalRoot .modal-bg')]; const y=q().map(e=>e?e.scrollTop:0); mxMixOpen(); q().forEach((e,i)=>{ if(e) e.scrollTop=y[i]; }); }   /* sin perder dónde estabas */
 function mxMixTf(s, from, id){ const L=s.leagues[from]; return (L && L.tf && L.tf[id]) || null; }
 function mxMixCan(s, k, f, from){ const L=s.leagues[k]; if(!L || !f) return false; if(k===from) return true;
   if(isBlocked(L, f.id) || (foreignLocked() && isForeignTo(k, f)) || !mxLtOk(k, f) || isSpeakerId(s, f.id) || isJudgeId(s, f.id) || isBanned(f)) return false;
@@ -7656,6 +7873,9 @@ function mxMixPlan1(s){ const ks=mxMixKeys(s); const keep={}, pool=[];
   ks.forEach(k=>{ const L=s.leagues[k]; const ids=L.competitors.slice(); const fixed=ids.filter(id=>mxMixFixed(s,L,id)); const fr=shuffle(ids.filter(id=>!fixed.includes(id)));
     const free=fr.filter(id=>mxMixLoc(k,fby(id))).concat(fr.filter(id=>!mxMixLoc(k,fby(id))));   // se quedan primero los locales
     const need=Math.max(0, MX_MIX_KEEP-fixed.length); keep[k]=fixed.concat(free.slice(0,need)); free.slice(need).forEach(id=>pool.push({id, from:k})); });
+  /* MOD v12.34: una liga temática solo entrega tantos MCs como puede recibir (los que cumplen sus condiciones); el resto se queda */
+  ks.forEach(k=>{ const out=pool.filter(x=>x.from===k); const can=pool.filter(x=>x.from!==k && mxMixCan(s, k, fby(x.id), x.from)).length;
+    if(can<out.length) out.slice(can).forEach(x=>{ keep[k].push(x.id); pool.splice(pool.indexOf(x),1); }); });
   /* huecos: cada liga recibe tantos como entrega; algunos huecos exigen un local para llegar al mínimo */
   const slots=[]; ks.forEach(k=>{ const n=pool.filter(x=>x.from===k).length; const loc=keep[k].filter(id=>mxMixLoc(k,fby(id))).length; const nl=Math.min(n, Math.max(0, MX_MIX_LOC-loc));
     for(let i=0;i<n;i++) slots.push({k, loc:i<nl}); });
@@ -7669,6 +7889,9 @@ function mxMixPlan1(s){ const ks=mxMixKeys(s); const keep={}, pool=[];
   locJ.filter(j=>!owner.includes(j)).forEach(j=>{ slots[j].loc=false; cand[j]=mkCand(slots[j]); tryK(j, {}); });   // no hay locales para ese hueco: vale cualquiera
   /* si algún MC quedó sin hueco (no debería), se queda en su liga */
   const moves=[]; pool.forEach((x,i)=>moves.push({id:x.id, from:x.from, to: owner[i]>=0 ? slots[owner[i]].k : x.from}));
+  /* MOD v12.34: ninguna liga se queda con menos MCs de los que tenía: si recibe menos de los que entrega, vuelven a casa los que sobran */
+  for(let it=0; it<200; it++){ const bal=k=>moves.filter(x=>x.to===k && x.from!==k).length - moves.filter(x=>x.from===k && x.to!==k).length; const k=ks.find(k=>bal(k)<0); if(!k) break;
+    const x=shuffle(moves.filter(m=>m.from===k && m.to!==k))[0]; if(!x) break; x.to=k; }
   /* máximo de cartas especiales por FMS: si una liga se pasa, se intercambian destinos sin bajar sus locales */
   const tfK={}; ks.forEach(k=>Object.entries(s.leagues[k].tf||{}).forEach(([id,n])=>{ if(s.leagues[k].competitors.includes(id)) tfK[id]=mxTfKindN(n); }));
   const ros=k=>keep[k].concat(moves.filter(x=>x.to===k).map(x=>x.id)); const over=k=>Object.keys(MX_TF_LIM).find(kd=>ros(k).filter(id=>tfK[id]===kd).length>MX_TF_LIM[kd]) || null;
@@ -7687,9 +7910,18 @@ function mxMixOpen(){ const s=cur(); if(!s || s.phase!=='pre' || (typeof isProme
   if(ks.length<2){ toast('Necesitas al menos dos FMS con MCs preseleccionados para mezclar.'); return; }
   openModal(`<h3>🔀 Mezclar plantillas</h3>
     <p class="step-note">Los MCs que ya tienes preseleccionados se revuelven entre todas tus FMS (${ks.map(k=>esc(ldef(k).short)).join(', ')}). Cada liga se queda con <b>${MX_MIX_KEEP} de los suyos</b> (o más) y el resto le llega de otras ligas, pero siempre con <b>al menos ${MX_MIX_LOC} MCs del país</b>. Cada MC firma con el sueldo de su nueva liga.</p>
-    <p class="step-note">Solo no se mueve el que ascendió. Los que tienen carta especial se la llevan a su nueva FMS (respetando el máximo por FMS) y los históricos y artistas mantienen lo que negociaste.${foreignLocked()?' Ahora mismo no puedes fichar extranjeros, así que solo se mezclan MCs que puedan jugar en cada liga.':''}</p>
-    <div class="modal-actions"><button class="btn" onclick="closeModal()">Cancelar</button><button class="btn primary" onclick="mxMixDo()">🔀 Mezclar</button></div>`); }
-function mxMixDo(){ const s=cur(); if(!s || s.phase!=='pre') return; const plan=mxMixPlan(s); const snap=mxMixSnap(s); const m0=state.company.money;
+    <p class="step-note">No se mueven el que ascendió ni los que bloquees con 🔒. Las FMS temáticas solo entregan tantos MCs como pueden recibir de los que cumplen sus condiciones. Los que tienen carta especial se la llevan a su nueva FMS (respetando el máximo por FMS) y los históricos y artistas mantienen lo que negociaste.${foreignLocked()?' Ahora mismo no puedes fichar extranjeros, así que solo se mezclan MCs que puedan jugar en cada liga.':''}</p>
+    <p class="step-note" style="margin-top:6px"><b>Toca un MC para bloquearlo</b> (🔒 se queda en su FMS) o desbloquearlo.</p>
+    <div class="mx-mix-list">${ks.map(k=>{ const L=s.leagues[k]; const nl=L.competitors.filter(id=>mxMixLocked(s,id)||id===L.ascUp).length;
+      return `<div class="mx-mix-r"><div class="mx-mix-h">${leagueDot(k)} <b>${esc(ldef(k).name)}</b> <small>${nl?`🔒 ${nl} fijo${nl===1?'':'s'}`:'ninguno fijo'}</small></div><div class="mx-mixlk">${L.competitors.filter(id=>fby(id)).map(id=>{ const up=id===L.ascUp, lk=up||mxMixLocked(s,id);
+        return `<button type="button" class="mx-lk${lk?' on':''}" ${up?'disabled title="Ascendió: no se mueve"':`onclick="mxMixLockT('${id}')"`}>${lk?'🔒':'🔓'} ${esc(fname(id))}${up?' <small>(ascendió)</small>':''}</button>`; }).join('')}</div></div>`; }).join('')}</div>
+    <div class="modal-actions"><button class="btn" onclick="closeModal()">Cancelar</button><button class="btn primary" onclick="mxMixDo()">🔀 Mezclar</button></div>`, 'uqwide'); }
+function mxMixDo(go){ const s=cur(); if(!s || s.phase!=='pre') return; MX_MIX_PEND=null;
+  if(!go){ const ks=mxMixKeys(s); const ad=[]; ks.forEach(k=>{ const L=s.leagues[k]; L.competitors.forEach(id=>{ if(id!==L.ascUp && !mxMixLocked(s,id) && mxTrfGood(s, k, id)) ad.push([k,id]); }); });
+    if(ad.length){ const ids=JSON.stringify(ad.map(x=>x[1])).replace(/"/g,"'");   /* MOD v12.37: antes de mezclar, ¿bloqueamos a los que se adaptaron bien? */
+      openModal(`<h3>🌟 ¿Quieres bloquear a los MCs que se adaptaron la temporada pasada?</h3><p class="step-note">Si salen de la liga donde se adaptaron bien, pierden su boost de esta temporada (+${Math.round((TRF_FX.good.views-1)*100)}% de visitas y +${Math.round((TRF_FX.good.ptb-1)*100)}% de PTB):</p><ul class="mx-trflist">${ad.map(([k,id])=>`<li>${nameH(fby(id))} · ${esc(ldef(k).name)}</li>`).join('')}</ul>
+        <div class="modal-actions"><button class="btn" onclick="mxMixOpen()">Cancelar</button><button class="btn" onclick="mxMixDo(true)">No, mezclar igual</button><button class="btn primary" onclick="const s=cur(); s.mixLock=s.mixLock||{}; ${ids}.forEach(id=>s.mixLock[id]=1); save(); mxMixDo(true)">🔒 Sí, bloquearlos y mezclar</button></div>`, 'uqwide'); return; } }
+  const plan=mxMixPlan(s); const snap=mxMixSnap(s); const m0=state.company.money;
   const T0=window.toast; window.toast=()=>{}; const done=[], back=[];
   const P0=state.ui.tfPending;
   try{ const mv=plan.moves.filter(x=>x.to!==x.from);
@@ -7715,16 +7947,23 @@ function mxMixDo(){ const s=cur(); if(!s || s.phase!=='pre') return; const plan=
     <div class="mx-mix-list">${rows}</div>
     <div class="modal-actions">${done.length?`<button class="btn" onclick="mxMixUndo()">↩️ Deshacer</button>`:''}<button class="btn" onclick="mxMixAgain()">🔀 Mezclar otra vez</button><button class="btn primary" onclick="closeModal()">Listo</button></div>`, 'uqwide');
   if(typeof addLog==='function' && done.length) addLog(s, 0, `🔀 Plantillas mezcladas: ${done.length} MCs cambian de FMS.`, 'gold'); }
-function mxMixAgain(){ closeModal(); if(MX_MIX_UNDO) mxMixRestore(); mxMixDo(); }   /* vuelve a sortear desde las plantillas originales */
+function mxMixAgain(){ closeModal(); if(MX_MIX_UNDO) mxMixRestore(); mxMixDo(true); }   /* vuelve a sortear desde las plantillas originales */
 function mxMixUndo(){ if(!mxMixRestore()) return; save(); closeModal(); render(); toast('↩️ Plantillas como estaban antes de mezclar.'); }
 function mxMixRestore(){ const s=cur(); const u=MX_MIX_UNDO; if(!s || !u || s.phase!=='pre') return false; state.company.money=u.money; s.fin.salaries=u.sal;
   Object.entries(u.L).forEach(([k,v])=>{ const L=s.leagues[k]; if(!L) return; L.competitors=v.competitors; L.contracts=v.contracts; L.tf=v.tf||{}; L.tfLeft=v.tfLeft||{}; L.tfCost=v.tfCost||{}; if(v.verseBon) L.verseBon=v.verseBon; if(L.po) L.po.a=v.poA; if(L.po2) L.po2.a=v.po2A; (v.hf||[]).forEach(([id,h,fa])=>{ const f=fby(id); if(f){ f.hype=h; f.fama=fa; } }); });
   MX_MIX_UNDO=null; return true; }
 function signedLeagueOf(s, id){ return natKeys(s).find(k=> s.leagues[k] && s.leagues[k].competitors.includes(id)) || null; }
+/* MOD v12.37: si un MC triunfó en su liga (se adaptó bien) y sigue con el boost esta temporada, te preguntamos antes de sacarlo de ahí */
+let MX_TRF_OK=false, MX_MIX_PEND=null;
+function mxTrfGood(s, k, id){ const f=fby(id); const t=f && f.trf && f.trf[k]; return !!(t && t.res>0 && t.shown && trfRes(f, k, s.year)>0); }
+function mxTrfTxt(k, id){ return `${nameH(fby(id))} se adaptó muy bien a ${esc(ldef(k).name)} y esta temporada tiene su boost allí (+${Math.round((TRF_FX.good.views-1)*100)}% de visitas y +${Math.round((TRF_FX.good.ptb-1)*100)}% de PTB). Si sale de esa liga, lo pierde.`; }
+function mxTrfAsk(key, id){ openModal(`<h3>🌟 ¿Seguro que lo sacas?</h3><p class="step-note">${mxTrfTxt(key, id)}</p>
+  <div class="modal-actions"><button class="btn" onclick="closeModal()">Cancelar</button><button class="btn primary" onclick="closeModal(); MX_TRF_OK=true; try{ toggleSign('${key}','${id}'); } finally { MX_TRF_OK=false; }">Sí, sacarlo</button></div>`); }
 function toggleSign(key, id, silent){
   const s=cur(); if(s.phase!=='pre') return;
   const L=s.leagues[key]; const f=fby(id);
   if(!f) return;
+  if(!silent && !MX_TRF_OK && L.competitors.includes(id) && id!==L.ascUp && mxTrfGood(s, key, id)){ mxTrfAsk(key, id); return; }   /* MOD v12.37 */
   if(!silent && !L.competitors.includes(id) && trfRes(f, key, s.year)<0) setTimeout(()=>{ if(L.competitors.includes(id)) toast(`😒 ${f.name}: «No estoy conforme. En ${ldef(key).short} no me adapté y la gente no me quiere aquí» (−30% de visitas, −8% de PTB).`); }, 0);   // MOD v9.5
   if(editionOf(f) && !L.competitors.includes(id)){ mxTfSign(key, f, silent); return; }   // MOD: las ediciones son transformaciones
   const i=L.competitors.indexOf(id);
@@ -8477,13 +8716,13 @@ const GAME_MODES=[
   {k:'empresario', name:'Empresario', img:'mode_empresario', txt:'La partida normal: empiezas sin estrellas, con poco dinero y una sola liga, y vas haciendo crecer la empresa temporada a temporada. Si cierras una temporada en negativo, bancarrota.'},
   {k:'pandemia', name:'Pandemia', img:'mode_pandemia', txt:'El modo difícil. No hay público: ni taquilla ni Torneo de Plazas, solo ganas con visitas y patrocinadores, y no se puede fichar fuera del país. Las estrellas no son automáticas: si cierras con muchas pérdidas no subes, y con pérdidas enormes bajas. A cambio, +10% de visitas y desde la primera temporada puedes firmar con Playz. Si cierras una temporada en negativo, bancarrota.'},
   {k:'promesa', name:'Promesa', img:'mode_promesa', txt:'Modo carrera: eliges un MC con media 78 o menos y tienes 7 temporadas para llevarlo a ganar la FMS Internacional o la Red Bull Internacional. El mundo se juega solo: tú decides su plan de cada mes (entrenar, plazas, contenido, descansar) y juegas minijuegos antes de sus batallas.'},
-  {k:'gazir', name:'Gazir contra Todos', img:'mode_gazir', txt:'Modo especial: el reto de Red Bull del 7 de noviembre de 2026 en Gijón. Preparas a Gazir con entrenamientos (minijuegos) y después se simulan de corrido sus 200 batallas contra 250 MCs. Si pierde más de 10, no lo supera. No usa tu partida.'}];
+  {k:'gazir', name:'Gazir contra Todos', img:'mode_gazir', txt:'Modo especial: el reto de Red Bull del 7 de noviembre de 2026 en Gijón. Preparas a Gazir con entrenamientos (minijuegos) y después se simulan de corrido sus 200 batallas contra 250 MCs. Si pierde más de 10, no lo supera. Se guarda en su propio slot.'}];
 const WEB_MODES=['promesa','gazir']; GAME_MODES.splice(0, GAME_MODES.length, ...GAME_MODES.filter(m=>WEB_MODES.includes(m.k)));   /* WEB: solo Promesa y Gazir contra Todos */
    // MOD v10 · MOD v12.12: Gazir contra Todos
 function newGame(){
-  if(state.ui.gameMode==='gazir'){ gctOpen(); return; }   /* MOD v12.12: Gazir contra Todos no crea partida */
+  if(state.ui.gameMode==='gazir'){ state.ui.gctSlot=state.ui.slot||1; gctOpen(); return; }   /* WEB: se guarda en el slot elegido */   /* MOD v12.12: Gazir contra Todos no crea partida */
   clearUiDrafts();
-  const name=(document.getElementById('ng_name').value||'').trim()||'FMS';
+  const name=(document.getElementById('ng_name').value||'').trim()||'Promesa';
   let mode=WEB_MODES.includes(state.ui.gameMode) ? state.ui.gameMode : 'promesa';   /* WEB */
   state.company={name, stars:0, reputation:0, money:START_MONEY, dbv:12, mxinc:MX_INC_VER, mode, legends:!!state.ui.legendsMode, mxb:MX_BASE_VER, mxst:MX_STYLE_VER, mxsh:MX_SHEET_VER, mxc2:MX_FIX2_VER, mxc3:MX_FIX3_VER, mxec:MX_ECON_VER, mxv8:1, mxv12:1, mxv1212:1, mxst13:12, mxLe33:1}; mxApplyCode(); state.ui.tutQ=null;
   if(mode==='sandbox'){ Object.assign(state.company, {stars:5, reputation:STAR_THRESHOLDS[5], money:SANDBOX_MONEY, infinite:true, tutLU:true, tut:{s2:true, intl:true, inf:true}}); }
@@ -8516,10 +8755,10 @@ function importPoolFile(ev){
 function exportGame(){
   flushSave();
   const dump={company:state.company, freestylers:state.freestylers, seasons:state.seasons, _counter:state._counter};
-  const fname=`fms_ceo_${cur()?cur().year:'partida'}.json`;
+  const fname=`gazir_contra_todos_${cur()?cur().year:'partida'}.json`;
   if(window.AndroidBridge && AndroidBridge.saveFile){ AndroidBridge.saveFile(fname, JSON.stringify(dump)); return; }
   const blob=new Blob([JSON.stringify(dump)],{type:'application/json'});
-  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`fms_ceo_${cur()?cur().year:'partida'}.json`; a.click();
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`gazir_contra_todos_${cur()?cur().year:'partida'}.json`; a.click();
 }
 function importGameFile(ev){
   const file=ev.target.files[0]; if(!file) return;
@@ -8544,7 +8783,7 @@ function toMenu(){ if(_saveT){ clearTimeout(_saveT); _saveT=null; } _saveDirty=f
 function lastSlot(){ try{ const n=parseInt(localStorage.getItem('fms_ceo_lastslot'),10); if(SLOTS.includes(n) && slotMeta(n)) return n; }catch(e){} const f=SLOTS.find(n=>slotMeta(n)); return f||null; }
 function fmtSaved(t){ if(!t) return ''; try{ return new Date(t).toLocaleString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}); }catch(e){ return ''; } }
 function slotCard(n, mode){ const m=slotMeta(n);
-  const info = m ? `<div class="sl-name">${esc(m.name)}</div><div class="sl-stars">${starsHtml(m.stars)} ${modeTag(m.mode||'empresario')}</div>
+  const info = (m && m.mode==='gazir') ? webGctSlotInfo(m) : m ? `<div class="sl-name">${esc(m.name)}</div><div class="sl-stars">${starsHtml(m.stars)} ${modeTag(m.mode||'empresario')}</div>
       <div class="sl-line">${m.year?`Temporada ${m.year}`:'Pretemporada'}${m.phase==='done'?' · cerrada':''}${m.lost?' · <b class="neg">📉 Bancarrota</b>':''}</div><div class="sl-line">${money(m.money)}</div>${m.t?`<div class="sl-date">Guardado: ${fmtSaved(m.t)}</div>`:''}`
     : `<div class="sl-empty">Vacío</div>`;
   let acts='';
@@ -8568,7 +8807,8 @@ function renderMenu(){
       <button class="btn ${lm?'':'primary'} mm-btn" onclick="state.ui.menuMode='new'; render()">Nueva partida</button>
       <button class="btn mm-btn" onclick="state.ui.menuMode='load'; render()">Cargar partida</button>
         <button class="btn mm-btn" onclick="state.ui.menuMode='db'; state.ui.dbQ=''; render()">🎤 Competidores<small>Base de datos · ${dbList().length}</small></button>
-    </div><p class="gct-cred">Créditos a Medster, pues se usó FMS CEO como base</p></div>`;
+      <button class="btn mm-btn" onclick="webStyG()">📖 Guía de estilos<small>Quién le gana a quién y por qué</small></button>
+    </div><p class="gct-cred">Créditos a Medster, pues se usó FMS CEO como base</p><p class="gct-cred gct-ver">Versión 1.1</p></div>`;
 }
 function menuNewSlot(n){
   const go=()=>{ clearSlot(n); state.company=null; state.seasons=[]; state.freestylers=[]; state.ui.slot=n; state.ui.menuMode=null; closeModal(); goto('welcome'); };
@@ -8577,7 +8817,8 @@ function menuNewSlot(n){
   openModal(`<h3>Sobrescribir slot ${n}</h3><p class="step-note">Se borrará la partida guardada en este slot (<b>${esc(slotMeta(n).name)}</b>). Si quieres conservarla, cárgala y expórtala antes.</p>
     <div class="modal-actions"><button class="btn" onclick="closeModal()">Cancelar</button><button class="btn danger" onclick="_menuGo()">Sobrescribir</button></div>`);
 }
-function menuLoadSlot(n){ { const _m=slotMeta(n); if(_m && !WEB_MODES.includes(_m.mode||'empresario')){ toast('Esta versión web solo tiene los modos Promesa y Gazir contra Todos.'); return; } }   /* WEB */
+function menuLoadSlot(n){ { const _g=slotMeta(n); if(_g && _g.mode==='gazir'){ state.ui.menuMode=null; state.ui.slot=n; state.ui.gctSlot=n; closeModal(); gctOpen(); return; } }   /* WEB: cargar un reto de Gazir */
+  { const _m=slotMeta(n); if(_m && !WEB_MODES.includes(_m.mode||'empresario')){ toast('Esta versión web solo tiene los modos Promesa y Gazir contra Todos.'); return; } }   /* WEB */
   state.ui.menuMode=null; if(load(n)){ closeModal(); _skipScrollRestore=true; goto('dashboard'); } else { toast('No se pudo cargar esa partida.'); render(); } }
 function menuImport(n){ state.ui.importSlot=n; closeModal(); document.getElementById('gameFileInput').click(); }
 function menuDeleteSlot(n){ const m=slotMeta(n); if(!m) return;
@@ -8697,7 +8938,7 @@ function renderWelcome(){
   return `<div class="welcome">
     <div class="hero" style="display:block;">
       <h1 class="gct-title">GAZIR <span>CONTRA TODOS</span></h1>
-      <p>${(state.ui.gameMode)==='gazir' ? 'Gazir contra Todos: preparas a Gazir con entrenamientos y luego afronta 200 batallas seguidas. No toca ninguna de tus partidas guardadas.' : (state.ui.gameMode)==='promesa' ? 'Modo Promesa: eliges a un MC con media 78 o menos y lo llevas desde abajo (under, Red Bull, ascenso) hasta ganar una internacional en 7 temporadas. Tú decides su plan de cada mes y juegas minijuegos antes de sus batallas.' : (state.ui.gameMode||'empresario')==='sandbox' && sandboxUnlocked() ? 'Modo Sandbox: 5 estrellas, todas las ligas, la World Series y el Internacional desbloqueados, y dinero infinito. Monta las FMS que quieras.' : `Empiezas con 0 estrellas, ${money(START_MONEY)} y una sola liga. Cada temporada que completas sumas 1 estrella y desbloqueas una liga más (con 3★ y 4 ligas, el Internacional). Ficha a los 10 freestylers, reparte las 9 jornadas por el año y haz crecer la empresa hasta las 5 estrellas.${(state.ui.gameMode)==='pandemia'?' <b>Modo Pandemia:</b> sin público, así que solo ganas dinero con las visitas y los patrocinadores.':''}`}</p>
+      <p>${(state.ui.gameMode)==='gazir' ? 'Gazir contra Todos: preparas a Gazir con entrenamientos y luego afronta 200 batallas seguidas. Se guarda en el slot que elegiste: preparación e intentos.' : (state.ui.gameMode)==='promesa' ? 'Modo Promesa: eliges a un MC con media 78 o menos y lo llevas desde abajo (under, Red Bull, ascenso) hasta ganar una internacional en 7 temporadas. Tú decides su plan de cada mes y juegas minijuegos antes de sus batallas.' : (state.ui.gameMode||'empresario')==='sandbox' && sandboxUnlocked() ? 'Modo Sandbox: 5 estrellas, todas las ligas, la World Series y el Internacional desbloqueados, y dinero infinito. Monta las FMS que quieras.' : `Empiezas con 0 estrellas, ${money(START_MONEY)} y una sola liga. Cada temporada que completas sumas 1 estrella y desbloqueas una liga más (con 3★ y 4 ligas, el Internacional). Ficha a los 10 freestylers, reparte las 9 jornadas por el año y haz crecer la empresa hasta las 5 estrellas.${(state.ui.gameMode)==='pandemia'?' <b>Modo Pandemia:</b> sin público, así que solo ganas dinero con las visitas y los patrocinadores.':''}`}</p>
     </div>
     <div class="step" style="margin-top:16px;">
       <span class="field-label">Modo de juego</span>
@@ -8705,8 +8946,8 @@ function renderWelcome(){
         if(lock) return `<button class="mode-card locked" onclick="toast('Completa una temporada con 5 estrellas en una partida Empresario o Pandemia para desbloquear el Sandbox.')" aria-disabled="true">${im?`<img src="${im}" alt="">`:''}<b>🔒 ${m.name}</b><small>Bloqueado. Se desbloquea cuando llegues al modo infinito (5 estrellas) en una partida Empresario o Pandemia.</small></button>`;
         return `<button class="mode-card ${on?'on':''}" onclick="state.ui.gameMode='${m.k}'; render()" aria-pressed="${on}">${im?`<img src="${im}" alt="">`:''}<b>${m.name}</b><small>${m.txt}</small></button>`; }).join('')}</div>
       ${state.ui.gameMode==='gazir' ? '<div style="display:flex; gap:8px; flex-wrap:wrap;">' : `${mxLegendsCard()}
-      <label class="field-label" for="ng_name">Nombre de la empresa</label>
-      <input id="ng_name" value="${esc(state.ui.ngName||'FMS')}" oninput="state.ui.ngName=this.value" style="width:100%; margin-bottom:14px;">
+      <label class="field-label" for="ng_name">Nombre de la partida</label>
+      <input id="ng_name" value="${esc(state.ui.ngName||'Promesa')}" oninput="state.ui.ngName=this.value" style="width:100%; margin-bottom:14px;">
       ${mxCodeField()}
       <span class="field-label">Freestylers</span>
       <p class="step-note" style="margin-bottom:10px;">${imp? `Usarás <b>${imp.length}</b> freestylers importados de tu gestor.` : 'Por defecto se carga el preset de freestylers reales de las FMS (nivel y fama estimados). También puedes importar tu lista desde el JSON que exporta tu gestor de temporadas.'}</p>
@@ -9815,7 +10056,7 @@ let SHOW = null;
 function shSpeed(){ return (SHOW && state.ui.x2) ? (state.ui.x2===4 ? MX_SHOW_X4 : SHOW_X2) : SHOW_SPEEDS.normal; }
 const SHOW_X2 = {label:'x2', reveal:700, k:0.5};
 function shToggleX2(){ state.ui.x2 = !state.ui.x2 ? 2 : (state.ui.x2===4 ? 0 : 4); const b=document.getElementById('shX2'); if(b){ b.classList.toggle('on', !!state.ui.x2); b.setAttribute('aria-pressed', state.ui.x2?'true':'false'); b.textContent=mxSpdLbl(); } }
-function shWait(ms){ return new Promise(r=>setTimeout(r, ms)); }
+function shWait(ms){ return new Promise(r=>{ const go=()=>{ if(document.getElementById('ctrX')){ setTimeout(go, 150); return; } r(); }; setTimeout(go, ms); }); }   /* MOD v12.33: con la explicación de un cruce abierta, la batalla espera */
 // en móvil vertical el cuadrante se dibuja en dos mitades apiladas (arriba lado izquierdo, abajo lado derecho)
 const SHP = {CW:164, CH:36, GAP:16, BOT:760}; SHP.W = 3*SHP.CW + 2*SHP.GAP; SHP.H = SHP.BOT + 420;
 const SHP_C = {champ:470, finA:540, finB:586, thA:672, thB:718};
@@ -9927,7 +10168,7 @@ function openRBShow(key){
       </div>
     <div class="rbs-wrap" id="shWrap"><div class="rbs-stage ${shPortrait()?'portrait':''}" id="shStage" style="width:${shDims().W}px;height:${shDims().H}px">${shLinesSvg()}</div></div>
     <div class="rbs-status" id="shStatus">Sorteo de cruces…</div>
-    <div class="mx-shfoot"><div class="mx-shctl"><button class="btn small ghost x2-btn ${state.ui.x2?'on':''}" id="shX2" aria-pressed="${state.ui.x2?'true':'false'}" title="Velocidad x2 / x4" onclick="shToggleX2()">${mxSpdLbl()}</button><button class="btn small ghost" id="shRnd" style="display:none" onclick="shNextRound()">⏭ Siguiente ronda</button><button class="btn small ghost" onclick="shSkip()">Saltar</button></div><div class="rbs-bottom" id="shBottom"></div></div></div>`;
+    <div class="mx-shfoot"><div class="mx-shctl"><button class="btn small ghost x2-btn ${state.ui.x2?'on':''}" id="shX2" aria-pressed="${state.ui.x2?'true':'false'}" title="Velocidad x2 / x4" onclick="shToggleX2()">${mxSpdLbl()}</button>${mxaShBtn()}<button class="btn small ghost" id="shRnd" style="display:none" onclick="shNextRound()">⏭ Siguiente ronda</button><button class="btn small ghost" onclick="shSkip()">Saltar</button></div><div class="rbs-bottom" id="shBottom"></div></div></div>`;
   shFit(); window.addEventListener('resize', shFit);
   shReveal(SHOW.tok);
 }
@@ -10078,7 +10319,7 @@ const MX_BEAT_TYPES={
   drumless:{n:'Drumless', st:'Disonante', s2:'Métrico', un:'un drumless'},   /* MOD v12.22: reemplaza al dubstep rap (mismos estilos) */ jazz:{n:'Reggae', st:'Flow', s2:'Completo', un:'un reggae'} };   /* MOD v12.28: el jazz rap pasa a reggae */
 const MX_BEATS=[
   {id:'bb1', t:'boombap', n:'Vieja escuela'}, {id:'bb2', t:'boombap', n:'Sótano'}, {id:'bb3', t:'boombap', n:'Esquina'},
-  {id:'lf1', t:'lofi', n:'Lluvia'}, {id:'lf2', t:'lofi', n:'Madrugada'},
+  {id:'lf1', t:'lofi', n:'Lluvia'}, {id:'lf2', t:'lofi', n:'Madrugada'}, {id:'lf3', t:'lofi', n:'Café'},
   {id:'gf1', t:'gfunk', n:'Costa Oeste'}, {id:'gf2', t:'gfunk', n:'Atardecer'}, {id:'gf3', t:'gfunk', n:'Lowrider'},
   {id:'dr1', t:'drill', n:'Londres'}, {id:'dr2', t:'drill', n:'Bloque'}, {id:'dr3', t:'drill', n:'Callejón'},
   {id:'tr1', t:'trap', n:'Atlanta'}, {id:'tr2', t:'trap', n:'Nocturno'}, {id:'tr3', t:'trap', n:'Azotea'},
@@ -10334,7 +10575,7 @@ function openFMSShow(key, jReplay){
       <div class="rbs-sub">${fmtDay(s.year,L.dates[j])} ${s.year}</div></div>
       </div>
     <div class="fm-stage" id="fmStage"></div>
-    <div class="mx-shfoot"><div class="mx-shctl"><button class="btn small ghost x2-btn ${state.ui.x2?'on':''}" id="shX2" aria-pressed="${state.ui.x2?'true':'false'}" title="Velocidad x2 / x4" onclick="shToggleX2()">${mxSpdLbl()}</button><button class="btn small ghost mx-segbtn ${state.ui.fmSeg?'on':''}" id="fmSeg" aria-pressed="${state.ui.fmSeg?'true':'false'}" title="Las batallas de la jornada se reproducen una tras otra" onclick="fmSegToggle()">▶▶ Todas seguidas</button><button class="btn small ghost" id="fmSkipB" style="display:none" onclick="fmSkipBattle()">Saltar batalla</button><button class="btn small ghost" id="fmSkip" onclick="fmSkip()">Saltar jornada</button></div><div class="rbs-bottom" id="shBottom"></div></div></div>`;
+    <div class="mx-shfoot"><div class="mx-shctl"><button class="btn small ghost x2-btn ${state.ui.x2?'on':''}" id="shX2" aria-pressed="${state.ui.x2?'true':'false'}" title="Velocidad x2 / x4" onclick="shToggleX2()">${mxSpdLbl()}</button>${mxaShBtn()}<button class="btn small ghost mx-segbtn ${state.ui.fmSeg?'on':''}" id="fmSeg" aria-pressed="${state.ui.fmSeg?'true':'false'}" title="Las batallas de la jornada se reproducen una tras otra" onclick="fmSegToggle()">▶▶ Todas seguidas</button><button class="btn small ghost" id="fmSkipB" style="display:none" onclick="fmSkipBattle()">Saltar batalla</button><button class="btn small ghost" id="fmSkip" onclick="fmSkip()">Saltar jornada</button></div><div class="rbs-bottom" id="shBottom"></div></div></div>`;
   fmRun(SHOW.tok);
 }
 function fmData(){ const s=cur(); const L=s.leagues[SHOW.key]; const base=L.rounds[SHOW.j]; const o0=(L.ord&&L.ord[SHOW.j]) || jornadaOrder(base);
@@ -15377,7 +15618,7 @@ var TW_CHOUT={
 };
 
 /* ---- versión del juego (esquina inferior derecha) ---- */
-var GAME_VERSION='1.3.0 · mod v12.31';
+var GAME_VERSION='1.3.0 · mod v12.40';
 /* MOD v12.9: sin marca de agua con la versión en pantalla (GAME_VERSION sigue disponible por dentro) */
 /*PM-BEGIN*/
 /* =========================================================================
@@ -15644,9 +15885,8 @@ function pmMgRima(el, ctx, done){ const qs=shuffle(PM_RIMAS).slice(0,2); let i=0
   round(); }
 /* 3 · contrarréplica */
 function pmMgContra(el, ctx, done){ let i=0, tot=0; const N=3;
-  const round=()=>{ if(i>=N){ done(tot/N); return; } i++; const atk=pick(STYLE_WHEEL); const win=pick(beatenBy(atk)); const lose=pick(beatsList(atk).filter(x=>x!==win)) || pick(STYLE_WHEEL.filter(x=>x!==atk && x!==win));
-    const neu=pick(STYLE_WHEEL.filter(x=>x!==atk && x!==win && x!==lose && !styleBeats(x,atk) && !styleBeats(atk,x))) || pick(STYLE_WHEEL.filter(x=>x!==atk && x!==win && x!==lose));
-    const ops=shuffle([[win,1],[neu,0.3],[lose,0]]); let over=false; const t0=Date.now(), LIM=5000;
+  const round=()=>{ if(i>=N){ done(tot/N); return; } i++; const atk=pick(STYLE_WHEEL);   /* WEB: 3 que le ganan, 2 parejos y 1 que pierde */
+    const ops=shuffle(beatenBy(atk).map(x=>[x,1]).concat(STYLE_WHEEL.filter(x=>x!==atk && !styleBeats(x,atk) && !styleBeats(atk,x)).map(x=>[x,0.3]), [[pick(beatsList(atk)),0]])); let over=false; const t0=Date.now(), LIM=6000;
     el.innerHTML=`<div class="pm-atk"><small>Ronda ${i} de ${N} · ${esc(ctx.rv)} te ataca con</small>${pmMgSt(atk)}</div><div class="pm-ops c3">${ops.map((o,j)=>`<button class="pm-op st" data-j="${j}">${pmMgSt(o[0])}</button>`).join('')}</div><div class="pm-tbar"><i></i></div><div class="pm-fb"></div>`;
     const bar=el.querySelector('.pm-tbar i'); const fin=(sc,j)=>{ if(over) return; over=true; tot+=sc; el.querySelectorAll('.pm-op').forEach((b,k)=>{ b.disabled=true; b.classList.add(ops[k][1]>=1?'best':ops[k][1]>0?'meh':'bad'); if(k===j) b.classList.add('pick'); });
       el.querySelector('.pm-fb').textContent = j==null ? '⏱️ Tarde: la ronda se la lleva él' : sc>=1 ? `🔄 ¡Le das la vuelta! ${ops[j][0]} le gana a ${atk}` : sc>0 ? '😐 Aguantas, pero no le das la vuelta' : `❌ ${atk} le gana a ${ops[j][0]}`; pmMgTo(round, 1300); };
@@ -15793,7 +16033,7 @@ function pmMgChain(el, ctx, done){ const g=pick(Object.keys(PM_CHAIN)); const po
 
 const PM_MG=[
   {k:2, ic:'✍️', n:'Completa la rima', h:'Elige el final que rima y además le contesta. Tienes 6 segundos.', fn:pmMgRima},
-  {k:3, ic:'🛡️', n:'Contrarréplica', h:'Mira con qué estilo te ataca y responde con el que le gana.', fn:pmMgContra},
+  {k:3, ic:'🛡️', n:'Contrarréplica', h:'Mira con qué estilo te ataca y responde con uno de los tres que le ganan. Hay seis opciones: tres le ganan, dos empatan y una pierde.', fn:pmMgContra},
   {k:4, ic:'🎯', n:'Modo objetos', h:'Salen tres objetos a la vez: toca el que te piden antes de que desaparezcan. Si tocas otro, lo pierdes.', fn:pmMgObj},
   {k:5, ic:'🔥', n:'Prende al público', h:'Mantén pulsado para cargar la rima y suéltala justo en la zona verde.', fn:pmMgPublico},
   {k:6, ic:'🪤', n:'Caza la rima', h:'Toca solo las palabras que riman con la terminación. Si fallas, resta.', fn:pmMgCaza},
@@ -15816,9 +16056,9 @@ function pmSession(n, only){ const ctx=pmMgCtx(); const games=only ? PM_MG.filte
     <div class="mid"><b>${esc(ctx.E.name)}</b><small>${sub}</small></div>
     <div class="who r">${ctx.rival?pmAv(ctx.rival,42):'<span class="pm-av" style="width:42px;height:42px">?</span>'}<span><b>${esc(ctx.rv)}</b><small>${ctx.rival?(ctx.E.rival?'Rival':'Rival a batir')+' · media '+ctx.rival.nivel:''}</small></span></div></div>`;
   const next=()=>{ pmMgClear(); if(i>=games.length){ pmMgSummary(ov, ctx, games, sc, head); return; } const g=games[i++];
-    ov.innerHTML=`${head(`Minijuego ${i} de ${games.length}`)}<div class="pm-mg-ttl">${g.ic} ${esc(g.n)}</div><div class="pm-mg-help">${esc(g.h)}</div>
+    ov.innerHTML=`${head(`Minijuego ${i} de ${games.length}`)}<div class="pm-mg-ttl">${g.ic} ${esc(g.n)}</div><div class="pm-mg-help">${esc(g.h)}</div>${webStyBtn(g)}
       <div class="pm-mg-stage"><button class="btn primary pm-mg-go">¡Vamos!</button></div><div class="pm-mg-foot"><button class="pm-mg-skip" onclick="pmMgSkip()">Simular el resto</button><span class="bar"><i style="width:${Math.round(i/games.length*100)}%"></i></span><b>${i} / ${games.length}</b></div>`;
-    ov.querySelector('.pm-mg-go').onclick=()=>{ const st=ov.querySelector('.pm-mg-stage'); st.innerHTML=''; let fired=false;
+    ov.querySelector('.pm-mg-go').onclick=()=>{ const _wb=ov.querySelector('.wsg-mgbtn'); if(_wb) _wb.remove(); const st=ov.querySelector('.pm-mg-stage'); st.innerHTML=''; let fired=false;
       try{ g.fn(st, ctx, v=>{ if(fired) return; fired=true; v=clamp(+v||0,0,1); sc.push(v); pmMgClear(); const t=v>=0.85?'🔥 ¡Brutal!':v>=0.6?'👏 ¡Bien!':v>=0.35?'😐 Regular':'😓 Flojo';
         st.innerHTML=`<div class="pm-mg-sc"><b>${t}</b><span>${Math.round(v*100)}%</span></div>`; pmMgTo(next, 1100); }); }
       catch(e){ console.error(e); sc.push(0.5); next(); } }; };
@@ -16012,11 +16252,12 @@ const MX_FONT_K=1.05;
    2021 y 2022) y luego se simulan las 200 batallas de corrido. Si pierde más de 10, no lo supera.
    La aleatoriedad es más baja que en el resto del juego: si no, sería imposible.
 ========================================================================= */
-const GCT_KEY='fmsceo_gct', GCT_SES=8, GCT_N=200, GCT_N21=50, GCT_LIVES=10, GCT_BLOCK=40; var GCT_D=8;
+var GCT_SLOW=1.15;   /* WEB: ritmo de las batallas (1.15 = un 15% más lento) */
+const GCT_KEY='fmsceo_gct', GCT_SES=10, GCT_N=200, GCT_N21=50, GCT_LIVES=10, GCT_BLOCK=40; var GCT_D=8;
 const GCT_CLOSERS=['Bnet','Noult','Piezas','Blon','Zasko'], GCT_STARS=['Aczino','Valles-T','MCKlopedia','Mecha','Invert'];
 var GCT_EASE=0.3;   /* MOD v12.18: un 10% más fácil (nivel extra de Gazir en la tarima) */
-const GCT_BOSS=20, GCT_BOSS_MIN=89;   /* WEB: rivales de élite, por encima de 88 */
-const GCT_LO=75, GCT_HI=87, GCT_MIDP=0.15; var GCT_LO_MIN=0, GCT_MID_MIN=81, GCT_BOSS_TOP=10; GCT_EASE=1.0;   /* WEB: los de menos de 75 salen de este nivel hacia arriba (dificultad) */   /* WEB: el resto, 85% por debajo de 75 y 15% entre 75 y 87 */   /* MOD v12.18: cada 20 batallas, un rival de más de 90 (se ve más grande y dura más) */
+const GCT_BOSS=20, GCT_BOSS_MIN=88, GCT_BOSS_MAX=99;   /* WEB: rivales de élite, variados entre 88 y 99 */
+const GCT_LO=75, GCT_HI=87, GCT_MIDP=0.15; var GCT_LO_MIN=0, GCT_MID_MIN=81, GCT_BOSS_TOP=999; GCT_EASE=0.18;   /* WEB: los de menos de 75 salen de este nivel hacia arriba (dificultad) */   /* WEB: el resto, 85% por debajo de 75 y 15% entre 75 y 87 */   /* MOD v12.18: cada 20 batallas, un rival de más de 90 (se ve más grande y dura más) */
 const GCT_TR=[
   {k:'voz', ic:'🎙️', n:'Foniatra', s:'Voz', d:'Proyección, respiración y dosificar la voz para que aguante las 200 batallas.', mg:[5,12]},
   {k:'fis', ic:'🏋️', n:'Preparación física', s:'Físico', d:'Piernas, core y cardio: muchas horas de pie sin bajar el ritmo.', mg:[9,4]},
@@ -16024,8 +16265,18 @@ const GCT_TR=[
   {k:'nut', ic:'🥗', n:'Nutricionista', s:'Cuerpo', d:'Ganar músculo, perder grasa y tener las defensas a tope. Sin minijuego: suma seguro, pero poco.', mg:[]},
   {k:'fre', ic:'🎤', n:'Batallas con amigos', s:'Freestyle', d:'Sesiones de batallas sin parar para la agilidad mental y la adaptación.', mg:[2,14,13,6,11]},
 ];
-function gctLoad(){ try{ const S=JSON.parse(localStorage.getItem(GCT_KEY)||'null'); if(S && S.st) return S; }catch(e){} return null; }
-function gctSave(S){ try{ localStorage.setItem(GCT_KEY, JSON.stringify(S)); }catch(e){} }
+function webGctKey(){ const n=(typeof state!=='undefined' && state.ui) ? state.ui.gctSlot : null; return n ? 'fmsceo_gct_slot_'+n : GCT_KEY; }
+function gctLoad(){ try{ const k=webGctKey(); let S=JSON.parse(localStorage.getItem(k)||'null');
+  if(!S && k!==GCT_KEY){ const old=JSON.parse(localStorage.getItem(GCT_KEY)||'null'); if(old && old.st){ S=old; try{ localStorage.removeItem(GCT_KEY); }catch(e){} } }   /* WEB: el reto guardado antes de los slots pasa al primer slot de Gazir */
+  if(S && S.st) return S; }catch(e){} return null; }
+function gctSave(S){ try{ localStorage.setItem(webGctKey(), JSON.stringify(S)); }catch(e){} webGctMeta(S); }
+function webGctMeta(S){ const n=(typeof state!=='undefined' && state.ui) ? state.ui.gctSlot : null; if(!n || !S) return; const R=S.runs||[];
+  try{ localStorage.setItem(slotMetaKey(n), JSON.stringify({mode:'gazir', name:'Gazir contra Todos', stars:0, money:0, year:null, seasons:0, phase:S.left>0?'pre':'live',
+      gct:{done:GCT_SES-Math.max(0,S.left), runs:R.length, ok:R.filter(r=>r&&r.ok).length}, t:Date.now()})); localStorage.setItem('fms_ceo_lastslot', String(n)); }catch(e){} }
+function webGctSlotInfo(m){ const g=m.gct||{done:0, runs:0, ok:0};
+  return `<div class="sl-name">🎤 Gazir contra Todos</div><div class="sl-line">${g.done>=GCT_SES?'Preparación terminada':`Preparación: ${g.done} de ${GCT_SES}`}</div>`
+    + `<div class="sl-line">${g.runs?`${g.runs} ${g.runs===1?'intento':'intentos'} · ${g.ok} ${g.ok===1?'superado':'superados'}`:'Todavía sin intentos'}</div>${m.t?`<div class="sl-date">Guardado: ${fmtSaved(m.t)}</div>`:''}`; }
+function webSlotName(m){ if(m && m.name==='FMS') m.name = m.mode==='gazir' ? 'Gazir contra Todos' : 'Promesa'; return m; }
 function gctNew(){ const old=gctLoad(); return {v:1, left:GCT_SES, st:{voz:40, fis:40, men:40, nut:40, fre:40}, log:[], runs:(old && old.runs)||[], res:null}; }
 function gctBase(){ for(const l of Object.values(REAL_PRESET)){ const r=l.find(x=>x[0]==='Gazir'); if(r) return r[1]; } return 94; }
 function gctMe(){ return {id:'gct_gazir', name:'Gazir', country:'España', nivel:gctBase(), fama:95, style:(STYLE_PRESET && STYLE_PRESET.Gazir)||'Ingenio'}; }
@@ -16036,7 +16287,7 @@ function gctDraw(){ const P=gctPool(); const used=new Set(); const by=n=>{ const
   const closers=GCT_CLOSERS.map(by).filter(Boolean);
   /* MOD v12.18: rivales de élite (más de 90) reservados para cada tramo de 20 batallas; si un cierre de bloque ya es de más de 90, ese tramo lo pone él */
   const nEl=GCT_N/GCT_BOSS-closers.filter(c=>c.nivel>=GCT_BOSS_MIN).length;
-  const cand=P.filter(x=>!used.has(x.name)).sort((a,b)=>b.nivel-a.nivel); let elite=cand.filter(x=>x.nivel>=GCT_BOSS_MIN); if(elite.length<nEl) elite=cand.slice(0, nEl);
+  const cand=P.filter(x=>!used.has(x.name)).sort((a,b)=>b.nivel-a.nivel); let elite=cand.filter(x=>x.nivel>=GCT_BOSS_MIN && x.nivel<=GCT_BOSS_MAX);   /* WEB: élite entre 88 y 99 */ if(elite.length<nEl) elite=cand.slice(0, nEl);
   elite.forEach(x=>used.add(x.name));
   const stars=shuffle(GCT_STARS.map(n=>P.find(x=>x.name===n && !used.has(n))).filter(Boolean)); stars.forEach(x=>used.add(x.name)); const rest=P.filter(x=>!used.has(x.name));
   const mid=shuffle(rest.filter(x=>x.nivel>=Math.max(GCT_LO,GCT_MID_MIN) && x.nivel<=GCT_HI)).concat(shuffle(rest.filter(x=>x.nivel>=GCT_LO && x.nivel<Math.max(GCT_LO,GCT_MID_MIN)))), lo=shuffle(rest.filter(x=>x.nivel<GCT_LO && x.nivel>=GCT_LO_MIN)).concat(shuffle(rest.filter(x=>x.nivel<GCT_LO_MIN)));
@@ -16052,6 +16303,7 @@ function gctDraw(){ const P=gctPool(); const used=new Set(); const by=n=>{ const
     if(cl.closer && cl.o[0] && cl.o[0].nivel>=GCT_BOSS_MIN){ cl.boss=true; continue; }
     const tg=cl.closer ? end-1 : end; let at=tg; while(at>k*GCT_BOSS && (sched[at].closer || sched[at].star || sched[at].o.length>1)) at--;
     const e=elite.shift(); if(!e) continue; if(at!==tg) sched[at]=sched[tg]; sched[tg]={o:[e], boss:true}; }   // justo en la batalla 20, 40, 60… (o la anterior al cierre de bloque)
+  for(let k=1;k<=GCT_N/GCT_BOSS;k++){ const e=k*GCT_BOSS-1; if(sched[e] && sched[e].closer && !sched[e].boss && sched[e-1] && sched[e-1].boss){ const c=sched[e]; sched[e]=sched[e-1]; sched[e-1]=c; } }   /* WEB: el último rival de élite, en la batalla 200 */
   return webGctDrawTf(sched.map((x,i)=>Object.assign(x, {i, two:x.o.length>1}))); }
 /* --- la simulación (menos azar que una batalla normal) --- */
 function gctOpp(x){ const a=x.o.map(f=>f.nivel).sort((p,q)=>q-p); return x.two ? a[0]+2.5+(a[1]>=85?1:0) : a[0]; }
@@ -16076,7 +16328,9 @@ function gctSim(st, sched){ const S=gctSimNew(st, sched); while(!S.done) gctSimS
 function gctEsc(t){ return typeof esc==='function' ? esc(t) : String(t); }
 function gctAv(f, sz){ return typeof pmAv==='function' ? pmAv(f, sz) : `<span class="pm-av" style="width:${sz}px;height:${sz}px">${gctEsc((f.name||'?')[0])}</span>`; }
 function gctOpen(fresh){ let S=gctLoad(); if(!S || fresh===true && S.res) S=gctNew(); if(!S) S=gctNew(); gctSave(S); gctRender(); }
-function gctClose(){ GCT_RUN=null; gctMusicOff(); const o=document.getElementById('gct'); if(o) o.remove(); document.body.classList.remove('noscroll'); if(typeof render==='function') render(); }
+function gctClose(){ GCT_RUN=null; gctMusicOff(); const o=document.getElementById('gct'); if(o) o.remove(); document.body.classList.remove('noscroll');
+  if(!state.company && state.ui.gctSlot){ state.ui.gctSlot=null; state.ui.slot=null; state.ui.menuMode=null; closeModal(); try{ goto('dashboard'); }catch(e){ render(); } return; }   /* WEB: al salir del reto, vuelta al menú (ya está guardado) */
+  if(typeof render==='function') render(); }
 function gctOv(){ let ov=document.getElementById('gct'); if(!ov){ ov=document.createElement('div'); ov.id='gct'; document.body.appendChild(ov); } document.body.classList.add('noscroll'); return ov; }
 function gctBars(st){ return `<div class="gct-st">${GCT_TR.map(T=>`<div class="gct-sr"><span>${T.ic} ${T.s}</span><span class="bar"><i style="width:${st[T.k]}%"></i></span><b>${Math.round(st[T.k])}</b></div>`).join('')}</div>`; }
 function gctOdds(st){ const sc=gctDraw(); let ok=0; const N=60; for(let i=0;i<N;i++) if(gctSim(st, sc).ok) ok++; return Math.round(ok/N*100); }
@@ -16090,7 +16344,7 @@ function webGctProg(S){ const n=GCT_SES, left=Math.max(0, S.left), done=n-left; 
     : left===1 ? `<b>Te queda 1 entrenamiento</b> · es el último antes del reto`
     : `<b>Te quedan ${left} entrenamientos</b> · llevas ${done} de ${n}`;
   return `<div class="wgt-prog ${left<=0?'fin':''}"><div class="wgt-pips">${pips}</div><div class="wgt-ptxt">${txt}</div></div>`; }
-/* saltar un entrenamiento desde la pantalla de elegir: gasta 1 de los 8 y no sube ningún stat */
+/* saltar un entrenamiento desde la pantalla de elegir: gasta uno y no sube ningún stat */
 function webGctSkip(){ const S=gctLoad(); if(!S || S.left<=0) return; S.left--; S.log.unshift({k:'skip', g:0, sc:null}); gctSave(S);
   if(typeof toast==='function') toast(`⏭ Entrenamiento saltado · ${webGctLeftTxt(S.left)}`); gctRender(); }
 function webGctGuide(S){ const first=S.left>=GCT_SES;
@@ -16098,18 +16352,18 @@ function webGctGuide(S){ const first=S.left>=GCT_SES;
     <li><b>Elige un entrenamiento.</b> Cada uno sube un stat de Gazir.</li>
     <li><b>Juega su minijuego.</b> Cuanto mejor lo hagas, más sube. El nutricionista no tiene minijuego: sube seguro, pero poco.</li>
     <li><b>Completa los ${GCT_SES}.</b> Después, Gazir sale a por las 200 batallas.</li></ol>
-    <p>Puedes repetir un entrenamiento, pero cuanto más alto está un stat, menos sube. Si no quieres entrenar, elige «Saltar»: gastas uno de los ${GCT_SES} sin subir ningún stat.</p></details>`; }
+    <p class="wsg-gl"><a href="#" onclick="webStyG(); return false">📖 Guía de estilos: quién le gana a quién y por qué</a></p><p>Puedes repetir un entrenamiento, pero cuanto más alto está un stat, menos sube. Si no quieres entrenar, elige «Saltar»: gastas uno de los ${GCT_SES} sin subir ningún stat.</p></details>`; }
 function webGctLeftTxt(n){ return n<=0 ? '¡Preparación terminada! Ya puedes empezar el reto.' : (n===1 ? 'Te queda 1 entrenamiento.' : `Te quedan ${n} entrenamientos.`); }
 function gctRender(){ const S=gctLoad()||gctNew(); const ov=gctOv(); ov.className=''; const me=gctMe(); const done=S.left<=0;
   const runs=(S.runs||[]).slice(-5).reverse();
-  ov.innerHTML=`<div class="gct-top"><button class="gct-x" onclick="gctClose()" aria-label="Salir">✕</button><div class="gct-hd">${gctAv(me,64)}<div><small>Red Bull Batalla · 7 de noviembre de 2026 · Gijón</small><h2>Gazir contra Todos</h2><p>200 batallas seguidas contra 250 MCs: 150 uno contra uno y 50 dos contra uno. Cada ${GCT_BOSS} batallas llega un rival de élite, de más de 88. Si pierde más de ${GCT_LIVES}, no supera el reto.</p></div></div></div>
+  ov.innerHTML=`<div class="gct-top"><button class="gct-x" onclick="gctClose()" aria-label="Salir">✕</button><div class="gct-hd">${gctAv(me,64)}<div><small>Red Bull Batalla · 7 de noviembre de 2026 · Gijón</small><h2>Gazir contra Todos</h2><p>200 batallas seguidas contra 250 MCs: 150 uno contra uno y 50 dos contra uno. Cada ${GCT_BOSS} batallas llega un rival de élite, de entre 88 y 99 de media. Si pierde más de ${GCT_LIVES}, no supera el reto.</p></div></div></div>
     <div class="gct-body"><div class="gct-col"><div class="gct-h">Preparación</div>${webGctProg(S)}${gctBars(S.st)}
       <p class="gct-note">Freestyle sube su nivel en la tarima; voz, físico y cuerpo hacen que aguante hasta la batalla 200; la mente le ayuda a no hundirse después de perder ni a relajarse en las rachas.</p>
       ${S.log.length?`<div class="gct-log">${S.log.slice(0,4).map(x=>{ const T=GCT_TR.find(y=>y.k===x.k); if(!T) return `<span>⏭ Entrenamiento saltado</span>`; return `<span>${T.ic} ${T.n}: <b>+${x.g}</b>${x.sc!=null?` <small>(${Math.round(x.sc*100)}%)</small>`:''}</span>`; }).join('')}</div>`:''}</div>
       <div class="gct-col">${done?`<div class="gct-ready"><div class="gct-h">Todo listo</div><p>Gazir llega con ${Math.round(gctBase()+clamp((S.st.fre-50)/50*3,-1.5,3))} de nivel en la tarima. El equipo cree que tiene un <b>${gctOdds(S.st)}%</b> de opciones.</p><button class="btn primary gct-go" onclick="gctStart()">🎤 Empezar el reto</button></div>`
         : `${webGctGuide(S)}<div class="gct-h">Elige el entrenamiento <small>${S.left===1?'te queda 1':`te quedan ${S.left}`}</small></div><div class="gct-tr">${GCT_TR.map(T=>`<button class="gct-tb" onclick="gctTrain('${T.k}')"><span class="ic">${T.ic}</span><span><b>${T.n}</b><small>${T.d}</small></span><em>${T.s} ${Math.round(S.st[T.k])}</em></button>`).join('')}<button class="gct-tb wgt-skiptb" onclick="webGctSkip()"><span class="ic">⏭</span><span><b>Saltar</b><small>Gastas uno de los ${GCT_SES} entrenamientos sin subir ningún stat.</small></span><em>Sin subir</em></button></div>`}
       ${runs.length?`<div class="gct-h" style="margin-top:12px">Tus intentos</div><div class="gct-runs">${runs.map(r=>`<span class="${r.ok?'ok':'ko'}">${r.ok?'✅':'❌'} ${r.W}-${r.L}${r.ok?'':` · cayó en la ${r.n}`}</span>`).join('')}</div>`:''}
-      <div class="gct-acts"><button class="btn ghost small" onclick="if(this.dataset.ok){ gctSave(gctNew()); gctRender(); } else { this.dataset.ok=1; this.textContent='¿Seguro? Toca otra vez'; }">↺ Preparación nueva</button></div></div></div>`; }
+      <div class="gct-acts"><button class="btn ghost small" onclick="webStyG()">📖 Guía de estilos</button><button class="btn ghost small" onclick="if(this.dataset.ok){ gctSave(gctNew()); gctRender(); } else { this.dataset.ok=1; this.textContent='¿Seguro? Toca otra vez'; }">↺ Preparación nueva</button></div></div></div>`; }
 function gctTrain(k){ const S=gctLoad(); if(!S || S.left<=0) return; const T=GCT_TR.find(x=>x.k===k); if(!T) return; const wNum=GCT_SES-S.left+1;
   if(!T.mg.length){ const sc=0.45+Math.random()*0.25; const g=gctGain(S.st[k], sc); S.st[k]=Math.min(100, S.st[k]+g); S.left--; S.log.unshift({k, g, sc:null}); gctSave(S); if(typeof toast==='function') toast(`${T.ic} ${T.n}: ${T.s} +${g} · ${webGctLeftTxt(S.left)}`); gctRender(); return; }
   const ks=k==='fre' ? shuffle(T.mg).slice(0,2) : T.mg; const games=ks.map(x=>PM_MG.find(g=>g.k===x)).filter(Boolean); const me=gctMe();
@@ -16120,8 +16374,8 @@ function gctTrain(k){ const S=gctLoad(); if(!S || S.left<=0) return; const T=GCT
     ov.innerHTML=`${head('Resumen')}<div class="pm-mg-ttl">${avg>=0.75?'🔥':avg>=0.45?'💪':'😓'} ${T.s} +${g}</div><div class="pm-mg-sum">${games.map((gm,j)=>`<div><span>${gm.ic} ${gctEsc(gm.n)}</span><b>${Math.round((sc[j]||0)*100)}%</b></div>`).join('')}<div class="tot big"><span>${T.s}</span><b>${Math.round(S.st[k])}</b></div></div>
       <p class="wgt-left">${webGctLeftTxt(S.left)}</p><div class="pm-mg-stage"><button class="btn primary pm-mg-go" onclick="pmMgClear(); const o=document.getElementById('pmMg'); if(o) o.remove(); gctRender();">${S.left>0?'Volver a la preparación':'Ir al reto'}</button></div>`; };
   const next=()=>{ pmMgClear(); if(i>=games.length){ fin(); return; } const g=games[i++];
-    ov.innerHTML=`${head(`Ejercicio ${i} de ${games.length}`)}<div class="pm-mg-ttl">${g.ic} ${gctEsc(g.n)}</div><div class="pm-mg-help">${gctEsc(g.h)}</div><div class="pm-mg-stage"><button class="btn primary pm-mg-go">¡Vamos!</button></div>`;
-    ov.querySelector('.pm-mg-go').onclick=()=>{ const st=ov.querySelector('.pm-mg-stage'); st.innerHTML=''; let fired=false;
+    ov.innerHTML=`${head(`Ejercicio ${i} de ${games.length}`)}<div class="pm-mg-ttl">${g.ic} ${gctEsc(g.n)}</div><div class="pm-mg-help">${gctEsc(g.h)}</div>${webStyBtn(g)}<div class="pm-mg-stage"><button class="btn primary pm-mg-go">¡Vamos!</button></div>`;
+    ov.querySelector('.pm-mg-go').onclick=()=>{ const _wb=ov.querySelector('.wsg-mgbtn'); if(_wb) _wb.remove(); const st=ov.querySelector('.pm-mg-stage'); st.innerHTML=''; let fired=false;
       try{ g.fn(st, ctx, v=>{ if(fired) return; fired=true; v=clamp(+v||0,0,1); sc.push(v); pmMgClear(); st.innerHTML=`<div class="pm-mg-sc"><b>${v>=0.85?'🔥 ¡Brutal!':v>=0.6?'👏 ¡Bien!':v>=0.35?'😐 Regular':'😓 Flojo'}</b><span>${Math.round(v*100)}%</span></div>`; pmMgTo(next, 1000); }); }
       catch(e){ console.error(e); sc.push(0.5); next(); } }; };
   next(); }
@@ -16165,12 +16419,12 @@ function gctMgCr(el, ctx, done){ const qs=shuffle(GCT_CR).slice(0,3); let i=0, t
 function gctMgLee(el, ctx, done){ const R=ctx.rival; const A=attrsOf(R); const ord=A.map((v,k)=>({k,v:v+Math.random()*0.01})).sort((a,b)=>a.v-b.v); const rank=k=>ord.findIndex(o=>o.k===k);
   let peeks=3; const picks=[], seen=new Set(); const PTS=[1,1,0.55,0.3,0.1,0];
   const draw=(end)=>{ el.innerHTML=`<div class="pm-pubtop">${end?'Así estaba el rival':peeks>0?`Espía ${peeks} ${peeks===1?'atributo más':'atributos'} · estilo de ${gctEsc(ctx.rv)}: <b>${gctEsc(styleOf(R))}</b>`:`Elige ${2-picks.length} ${2-picks.length===1?'punto débil más':'puntos débiles'} para atacar`}</div>
-      <div class="gct-lee">${ATTRS.map((a,k)=>{ const sh=end||seen.has(k); const pk=picks.includes(k); return `<button class="gct-at${sh?' seen':''}${pk?' pick':''}${end&&rank(k)<2?' weak':''}" data-k="${k}"><b style="color:${a.c}">${gctEsc(a.n)}</b><span class="v">${sh?A[k]:'?'}</span>${pk?'<i>🎯</i>':''}</button>`; }).join('')}</div>
+      <div class="gct-lee">${ATTRS.map((a,k)=>{ const sh=end||seen.has(k); const pk=picks.includes(k); return `<button class="gct-at${sh?' seen':''}${pk?' pick':''}${end&&rank(k)<3?' weak':''}" data-k="${k}"><b style="color:${a.c}">${gctEsc(a.n)}</b><span class="v">${sh?A[k]:'?'}</span>${pk?'<i>🎯</i>':''}</button>`; }).join('')}</div>
       <div class="pm-fb">${end?'':peeks>0?'🔍 Toca un atributo para espiarlo':'🎯 Toca dónde atacar'}</div>`;
     if(end) return; el.querySelectorAll('.gct-at').forEach(b=>b.onclick=()=>{ const k=+b.dataset.k; if(peeks>0){ if(seen.has(k)) return; seen.add(k); peeks--; pmMgBeep(600,80); draw(); return; }
       if(picks.includes(k)) return; picks.push(k); pmMgBeep(760,90); if(picks.length<2){ draw(); return; } fin(); }); };
-  const fin=()=>{ const sc=picks.reduce((s,k)=>s+PTS[rank(k)],0)/2; draw(true); const fb=el.querySelector('.pm-fb');
-    fb.textContent= sc>=0.95 ? '🔥 ¡Le encontraste los dos puntos débiles!' : sc>=0.6 ? '👍 Buen ataque, aunque se podía afinar' : sc>=0.3 ? '😐 Atacaste donde no le duele tanto' : '❌ Le atacaste donde es más fuerte'; pmMgBeep(sc>=0.95?880:sc>=0.3?520:200,160); pmMgTo(()=>done(sc), 2000); };
+  const fin=()=>{ const top3=picks.every(k=>rank(k)<3); const sc=top3 ? (picks.every(k=>rank(k)<2) ? 1 : 0.85) : picks.reduce((s,k)=>s+PTS[rank(k)],0)/2; draw(true); const fb=el.querySelector('.pm-fb');   /* WEB: 2 de los 3 más débiles = acierto */
+    fb.textContent= sc>=0.95 ? '🔥 ¡Le encontraste los dos puntos débiles!' : top3 ? '✅ ¡Le diste! Atacaste dos de sus tres puntos más débiles' : sc>=0.6 ? '👍 Buen ataque, aunque se podía afinar' : sc>=0.3 ? '😐 Atacaste donde no le duele tanto' : '❌ Le atacaste donde es más fuerte'; pmMgBeep(sc>=0.95?880:sc>=0.3?520:200,160); pmMgTo(()=>done(sc), 2000); };
   draw(); }
 function gctMgArma(el, ctx, done){ const bs=shuffle(GCT_BARRAS).slice(0,3); let i=0, tot=0; const LIM=Math.max(7000, 10000-(ctx.lv-91)*400);
   const round=()=>{ if(i>=bs.length){ done(tot/bs.length); return; } const B=bs[i++]; const ops=shuffle(B.map((t,k)=>({t,k}))); let got=0, over=false; const t0=Date.now();
@@ -16202,7 +16456,7 @@ function gctBeatOn(id, ready){ const ac=(typeof mxaCtx==='function') ? mxaCtx() 
   const need=S.D.inst && S.D.inst.length && typeof mxaSmpLoad==='function' && !S.D.inst.every(k=>typeof MXA_SB!=='undefined' && MXA_SB[k] && MXA_SB[k].done);
   if(need){ mxaSmpLoad(S.D.inst).then(go, go); pmMgTo(go, 2500); } else go();
   P.iv=pmMgEv(()=>{ if(P.dead || !P.on) return; const sd=60/S.bpm/4; if(S.next<ac.currentTime-0.2) S.next=ac.currentTime+0.05;
-    while(S.next<ac.currentTime+0.16){ mxaBeatStep(S, S.step, S.next+((S.step%2) ? S.swing*sd : 0), sd); S.next+=sd; S.step=(S.step+1)%16; if(S.step===0){ S.bar++; if(S.bar%8===0) mxaBeatVary(S); } } }, 40);
+    while(S.next<ac.currentTime+0.16){ mxaBeatStep(S, S.step, S.next+((S.step%2) ? S.swing*sd : 0), sd); S.next+=sd; S.step=(S.step+1)%16; if(S.step===0){ if(typeof mxaNextBar==='function') mxaNextBar(S); else S.bar++; } } }, 40);
   gctMgOff(()=>gctBeatOff(P)); return P; }
 function gctBeatOff(P){ if(!P || P.dead) return; P.dead=true; if(P.iv) clearInterval(P.iv); const S=P.S, ac=MXA.ac; if(!ac || !S.out) return; const t=ac.currentTime;
   try{ S.out.gain.cancelScheduledValues(t); S.out.gain.setValueAtTime(Math.max(0.0001, S.out.gain.value), t); S.out.gain.exponentialRampToValueAtTime(0.0001, t+0.45); }catch(e){}
@@ -16346,7 +16600,7 @@ const GCT_RIMAS={"ego": {"a": "eo", "w": ["fuego", "juego", "luego", "ciego", "r
 const GCT_MEM=[["Tu flow está oxidado", "Oxidado no: curtido de tanto ganar"], ["Vienes de prestado", "Prestado, y te lo cobro con intereses"], ["Hoy te quedas sin voz", "Sin voz te gano: me basta la mirada"], ["Eres un MC de plaza", "De plaza, y la plaza me hizo campeón"], ["Tus rimas son de libreta", "Libreta la tuya: la mía va en la cabeza"], ["Te tiembla el pulso", "Me tiembla de tanto que me aplauden"], ["Tu público es de cartón", "De cartón… y grita más que el tuyo"], ["Llevas doscientas y estás roto", "Roto el récord, que es distinto"], ["Te falta nivel", "Nivel me sobra: mira el marcador"], ["Esta noche te apago", "Apágame si puedes: soy fuego de verdad"], ["Hablas mucho y no dices nada", "Nada dices tú: yo hablo con hechos"], ["Tu reto es un circo", "Si es un circo, tú eres el payaso invitado"]];
 const GCT_MG=[
   {k:'cr', ic:'🔁', n:'Contrarréplica', h:'El rival te lanza una barra: elige la mejor respuesta antes de que se acabe el tiempo. La mejor rima y además le da la vuelta.', fn:gctMgCr},
-  {k:'lee', ic:'🧠', n:'Lee al rival', h:'Espía 3 de sus atributos y elige los 2 puntos débiles por donde atacarlo. Su estilo te da pistas.', fn:gctMgLee},
+  {k:'lee', ic:'🧠', n:'Lee al rival', h:'Espía 3 de sus atributos y elige 2 puntos débiles por donde atacarlo: si los dos están entre sus 3 atributos más bajos, aciertas (y si son los 2 más bajos, mejor todavía). Su estilo te da pistas.', fn:gctMgLee},
   {k:'arma', ic:'🧩', n:'Arma la barra', h:'Los trozos de la barra salen desordenados: tócalos en orden antes de que se acabe el tiempo. Si te equivocas, se le traba.', fn:gctMgArma},
   {k:'pub', ic:'📣', n:'Gana al público', h:'Votación del público: toca lo más rápido que puedas durante 6 segundos para que el porcentaje se incline hacia Gazir.', fn:gctMgPub},
   /* MOD v12.31: seis más (diez en total) */
@@ -16369,9 +16623,9 @@ function gctMgBoss(t, cb){ const X=GCT_RUN; const x=X.sched[t]; const f=x.o[0]; 
     ov.innerHTML=`${head('Resumen')}<div class="pm-mg-ttl">${adj>0.04?'🔥':adj>=-0.04?'🎤':'😓'} ${adj>0?'+':''}${Math.round(adj*100)} de opciones contra ${gctEsc(f.name)}</div><div class="pm-mg-sum">${games.map((gm,j)=>`<div><span>${gm.ic} ${gctEsc(gm.n)}</span><b>${Math.round((sc[j]||0)*100)}%</b></div>`).join('')}</div>
       <div class="pm-mg-stage"><button class="btn primary pm-mg-go">🎤 ¡A la batalla!</button></div>`; ov.querySelector('.pm-mg-go').onclick=()=>close(adj); };
   const next=()=>{ pmMgClear(); if(i>=games.length){ fin(); return; } const g=games[i++];
-    ov.innerHTML=`${head(games.length>1?`Minijuego ${i} de ${games.length}`:'Minijuego')}<div class="pm-mg-ttl">${g.ic} ${gctEsc(g.n)}</div><div class="pm-mg-help">${gctEsc(g.h)}</div><div class="pm-mg-stage"><button class="btn primary pm-mg-go">¡Vamos!</button><button class="btn ghost small gct-mgsk">Simular (sin ventaja)</button></div>`;
+    ov.innerHTML=`${head(games.length>1?`Minijuego ${i} de ${games.length}`:'Minijuego')}<div class="pm-mg-ttl">${g.ic} ${gctEsc(g.n)}</div><div class="pm-mg-help">${gctEsc(g.h)}</div>${webStyBtn(g)}<div class="pm-mg-stage"><button class="btn primary pm-mg-go">¡Vamos!</button><button class="btn ghost small gct-mgsk">Simular (sin ventaja)</button></div>`;
     ov.querySelector('.gct-mgsk').onclick=()=>close(null);
-    ov.querySelector('.pm-mg-go').onclick=()=>{ const st=ov.querySelector('.pm-mg-stage'); st.innerHTML=''; let fired=false;
+    ov.querySelector('.pm-mg-go').onclick=()=>{ const _wb=ov.querySelector('.wsg-mgbtn'); if(_wb) _wb.remove(); const st=ov.querySelector('.pm-mg-stage'); st.innerHTML=''; let fired=false;
       try{ g.fn(st, ctx, v=>{ if(fired) return; fired=true; v=clamp(+v||0,0,1); sc.push(v); pmMgClear(); st.innerHTML=`<div class="pm-mg-sc"><b>${v>=0.85?'🔥 ¡Brutal!':v>=0.6?'👏 ¡Bien!':v>=0.35?'😐 Regular':'😓 Flojo'}</b><span>${Math.round(v*100)}%</span></div>`; pmMgTo(next, 1000); }); }
       catch(e){ console.error(e); sc.push(0.5); next(); } }; };
   next(); }
@@ -16389,13 +16643,13 @@ function gctStart(){ const S=gctLoad(); if(!S || S.left>0) return; const sched=g
     <div class="gct-board"><div class="gct-cnt"><div><b id="gctW">0</b><small>victorias</small></div><div class="n"><b id="gctN">0</b><small>de ${GCT_N}</small></div><div><b id="gctL">0</b><small>derrotas</small></div></div>
       <div class="gct-lives" id="gctLives">${[...Array(GCT_LIVES)].map(()=>'<i></i>').join('')}</div><div class="gct-prog"><i id="gctP"></i>${[1,2,3,4].map(b=>`<em style="left:${b*20}%"></em>`).join('')}</div>
       <div class="gct-now" id="gctNow"></div><div class="gct-feed" id="gctFeed"></div>
-      <div class="gct-ctl"><button class="btn small" id="gctPause" onclick="GCT_RUN.pause=!GCT_RUN.pause; this.textContent=GCT_RUN.pause?'▶ Seguir':'⏸ Pausa'">⏸ Pausa</button><button class="btn small" id="gctSp" onclick="GCT_RUN.sp=GCT_RUN.sp===1?4:1; this.textContent=GCT_RUN.sp===1?'x4':'x1'">x4</button><button class="btn small" onclick="gctSkip()">⏭ Al final</button><button class="btn small" id="gctMgT" onclick="gctMgToggle()">${GCT_RUN.mg?'🎮 Minijuegos: sí':'🎮 Minijuegos: no'}</button></div></div>`;
+      <div class="gct-ctl"><button class="btn small" id="gctPause" onclick="GCT_RUN.pause=!GCT_RUN.pause; this.textContent=GCT_RUN.pause?'▶ Seguir':'⏸ Pausa'">⏸ Pausa</button><button class="btn small" id="gctSp" onclick="GCT_RUN.sp=GCT_RUN.sp===1?4:1; this.textContent=GCT_RUN.sp===1?'x4':'x1'">x4</button><button class="btn small" onclick="gctSkip()">⏭ Al final</button>${typeof mxaShBtn==="function"?mxaShBtn().replace("btn small ghost","btn small"):""}<button class="btn small" id="gctMgT" onclick="gctMgToggle()">${GCT_RUN.mg?'🎮 Minijuegos: sí':'🎮 Minijuegos: no'}</button></div></div>`;
   const tok=GCT_RUN.tok; const step=()=>{ const X=GCT_RUN; if(!X || X.tok!==tok) return; if(X.pause || X.wait){ setTimeout(step, 200); return; } if(X.R.done){ gctEnd(); return; }
-    const x=X.sched[X.t]; if(x.boss && !X.intro){ X.intro=true; gctMusic(false); gctBossIntro(X.t); setTimeout(()=>{ if(GCT_RUN!==X || X.tok!==tok) return; if(X.mg){ X.wait=true; gctMgBoss(X.t, adj=>{ X.adj=adj; X.wait=false; }); } step(); }, X.sp===1 ? 1800 : 650); return; }   // MOD v12.18: el rival de élite se presenta antes (y se juega su minijuego)
+    const x=X.sched[X.t]; if(x.boss && !X.intro){ X.intro=true; gctMusic(false); gctBossIntro(X.t); setTimeout(()=>{ if(GCT_RUN!==X || X.tok!==tok) return; if(X.mg){ X.wait=true; gctMgBoss(X.t, adj=>{ X.adj=adj; X.wait=false; }); } step(); }, Math.round((X.sp===1 ? 1800 : 650)*GCT_SLOW)); return; }   // MOD v12.18: el rival de élite se presenta antes (y se juega su minijuego)
     if(X.t>=X.R.out.length && webGctPre(X)){ setTimeout(step, 150); return; }   /* WEB: animación de la Special edition */
     if(X.t>=X.R.out.length) gctSimStep(X.R, x.boss ? X.adj : null); X.adj=null;
     if(!x.boss && typeof MXA!=='undefined' && MXA.quiet) gctMusic(true);   // vuelve la música (con otro beat) después del rival de élite
-    X.intro=false; gctShow(X.t); X.t++; setTimeout(step, x.boss ? (X.sp===1 ? 2300 : 700) : (X.sp===1 ? 420 : 110)); };
+    X.intro=false; gctShow(X.t); X.t++; setTimeout(step, Math.max(Math.round((x.boss ? (X.sp===1 ? 2300 : 700) : (X.sp===1 ? 420 : 110))*GCT_SLOW), (x.o.some(f=>f.ed) || X.R.tfAt===X.t-1) ? 2000 : 0)); };   /* WEB: la batalla con una Special edition se queda al menos 2 s */
   setTimeout(step, 600); }
 function gctMgToggle(){ const X=GCT_RUN; if(!X) return; X.mg=!X.mg; const S=gctLoad(); if(S){ S.mg=X.mg; gctSave(S); } const b=document.getElementById('gctMgT'); if(b) b.textContent=X.mg?'🎮 Minijuegos: sí':'🎮 Minijuegos: no'; }
 function gctBossIntro(t){ const X=GCT_RUN; const x=X.sched[t]; const $=id=>document.getElementById(id); if(!$('gctNow')) return; $('gctN').textContent=t+1;
